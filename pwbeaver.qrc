@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons/scalable/edit-copy.svg</file>
+        <file>icons/scalable/application-exit.svg</file>
+        <file>icons/scalable/beaver.svg</file>
+    </qresource>
+</RCC>
