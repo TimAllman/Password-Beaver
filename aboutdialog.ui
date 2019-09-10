@@ -14,7 +14,7 @@
    <string>About</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="genpw.qrc">
+   <iconset resource="pwbeaver.qrc">
     <normaloff>:/icons/scalable/beaver.svg</normaloff>:/icons/scalable/beaver.svg</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -32,7 +32,7 @@
         <item>
          <widget class="QPushButton" name="beaverPushButton">
           <property name="enabled">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -58,6 +58,9 @@
             <width>64</width>
             <height>64</height>
            </size>
+          </property>
+          <property name="autoDefault">
+           <bool>false</bool>
           </property>
          </widget>
         </item>
@@ -148,15 +151,12 @@
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open Password Beaver's Web site.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </action>
-  <zorder>frame_2</zorder>
-  <zorder>frame</zorder>
-  <zorder>frame_3</zorder>
  </widget>
  <tabstops>
   <tabstop>beaverPushButton</tabstop>
  </tabstops>
  <resources>
-  <include location="genpw.qrc"/>
+  <include location="pwbeaver.qrc"/>
  </resources>
  <connections>
   <connection>

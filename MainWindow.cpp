@@ -73,8 +73,15 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->lowerCaseCheckBox->setChecked(static_cast<Qt::CheckState>(settings.useLowerAlpha()));
     ui->copyToClipboardCheckBox->setChecked(settings.copyToClipboard());
     ui->extendedAsciiCheckBox->setChecked(settings.useExtendedAscii());
-    ui->passwordLengthSpinBox->setRange(1, 100);
-    ui->passwordLengthSpinBox->setValue(static_cast<int>(settings.passwordLength()));
+    ui->passwordLengthSpinBox->setRange(8, 20);
+    int pwlen = static_cast<int>(settings.passwordLength());
+    if (pwlen > 7 && pwlen < 21)
+        ui->passwordLengthSpinBox->setValue(pwlen);
+    else
+    {
+        ui->passwordLengthSpinBox->setValue(16);
+        settings.setPasswordLength(16);
+    }
     ui->excludeCheckBox->setChecked(settings.excludeCharacters());
     ui->excludeCharsLineEdit->setText(settings.charactersToExclude());
     ui->excludeCharsLineEdit->setEnabled(settings.excludeCharacters());
@@ -129,6 +136,8 @@ void MainWindow::onGeneratePushButtonClicked()
         clip->setText(password);
 
     ui->passwordLineEdit->setText(password);
+    QString entrStr = QString::number(gen.entropy(), 'f', 1) + " bits";
+    ui->entropyLabel->setText(entrStr);
 }
 
 void MainWindow::onExitActionTriggered()
@@ -137,6 +146,11 @@ void MainWindow::onExitActionTriggered()
     settings.setWindowGeometry(saveGeometry());
 
     close();
+}
+
+void MainWindow::onHelpActionTriggered()
+{
+
 }
 
 void MainWindow::onPunctuationCheckboxStateChanged(int state)

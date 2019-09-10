@@ -16,6 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <QUrl>
+#include <QDesktopServices>
 
 #include "AboutDialog.h"
 #include "ui_aboutdialog.h"
@@ -34,5 +36,6 @@ AboutDialog::~AboutDialog()
 
 void AboutDialog::onBeaverPushButtonClicked()
 {
-
+    QUrl url("https://github.com/TimAllman/Password-Beaver");
+    QDesktopServices::openUrl(url);
 }

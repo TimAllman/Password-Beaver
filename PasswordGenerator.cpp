@@ -44,13 +44,14 @@ unsigned PasswordGenerator::randomIndex(unsigned maxIdx) const
     return retval;
 }
 
-QString PasswordGenerator::password() const
+QString PasswordGenerator::password()
 {
     Settings& settings = Settings::instance();
 
-    Charset charSet(settings.useExtendedAscii(), settings.charactersToExclude(),
-                    settings.usePunctuation(), settings.useDigits(),
-                    settings.useUpperAlpha(), settings.useLowerAlpha());
+    Charset charSet(settings.useExtendedAscii(), settings.excludeCharacters(),
+                    settings.charactersToExclude(), settings.usePunctuation(),
+                    settings.useDigits(), settings.useUpperAlpha(),
+                    settings.useLowerAlpha());
 
     QString allChars = charSet.allChars();
 
@@ -72,7 +73,19 @@ QString PasswordGenerator::password() const
     }
     while (!validPassword(charSet, password));
 
+    mEntropy = calcEntropy(password.length(), allChars.length());
+
     return password;
+}
+
+double PasswordGenerator::entropy() const
+{
+    return mEntropy;
+}
+
+double PasswordGenerator::calcEntropy(int passwordLength, int charSetLength)
+{
+    return passwordLength * log2(charSetLength);
 }
 
 bool PasswordGenerator::validPassword(const Charset& charSet, const QString& password) const

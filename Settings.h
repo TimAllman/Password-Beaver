@@ -51,9 +51,6 @@ public:
     void setExcludeCharacters(bool exclude);
     bool excludeCharacters() const;
 
-//    void setStringsToExclude(const QStringList& strings);
-//    QStringList stringsToExclude() const;
-
     void setCharactersToExclude(const QString& chars);
     QString charactersToExclude() const;
 

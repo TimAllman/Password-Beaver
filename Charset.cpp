@@ -1,11 +1,14 @@
 #include <stdexcept>
+#include <string>
+#include <random>
+#include <chrono>
 
 #include "Charset.h"
 
-Charset::Charset(bool useExtendedAscii, const QString& excludedChars,
+Charset::Charset(bool useExtendedAscii, bool excludeChars, const QString& excludedChars,
                  int usePunctuation, int useDigits, int useUpperAlpha,
                  int useLowerAlpha)
-    : mUseExtendedAscii(useExtendedAscii), mExcludedChars(excludedChars),
+    : mUseExtendedAscii(useExtendedAscii), mExcludeChars(excludeChars), mExcludedChars(excludedChars),
       mUsePunctuation(usePunctuation), mUseDigits(useDigits), mUseUpperAlpha(useUpperAlpha),
       mUseLowerAlpha(useLowerAlpha)
 {
@@ -18,14 +21,12 @@ void Charset::makeCharString()
     if (mUseExtendedAscii)
         lastChar = 255;
 
-    for(int c = 0; c < lastChar; ++c)
+    for(int c = 0; c <= lastChar; ++c)
     {
         QChar ch(c);
-        if (ch.isPrint() && !ch.isSpace())
+        if ((ch.isPrint() && !ch.isSpace()) &&
+                (!(mExcludeChars && mExcludedChars.contains(ch, Qt::CaseSensitive))))
         {
-            if (mExcludedChars.contains(ch, Qt::CaseSensitive))
-                continue;
-
             if (ch.isPunct())
                 mPunctChars += ch;
             else if (ch.isDigit())
@@ -37,16 +38,16 @@ void Charset::makeCharString()
         }
     }
 
-    if ((mUsePunctuation == REQUIRE) && (mPunctChars.length() == 0))
+    if ((mExcludeChars && mUsePunctuation == REQUIRE) && (mPunctChars.length() == 0))
         throw std::runtime_error("Punctuation characters are required but have been excluded.");
 
-    if ((mUseDigits == REQUIRE) && (mDigitChars.length() == 0))
+    if ((mExcludeChars && mUseDigits == REQUIRE) && (mDigitChars.length() == 0))
         throw std::runtime_error("Digit characters are required but have been excluded.");
 
-    if ((mUseLowerAlpha == REQUIRE) && (mLowerAlphaChars.length() == 0))
+    if ((mExcludeChars && mUseLowerAlpha == REQUIRE) && (mLowerAlphaChars.length() == 0))
         throw std::runtime_error("Lower case characters are required but have been excluded.");
 
-    if ((mUseUpperAlpha == REQUIRE) && (mUpperAlphaChars.length() == 0))
+    if ((mExcludeChars && mUseUpperAlpha == REQUIRE) && (mUpperAlphaChars.length() == 0))
         throw std::runtime_error("Upper case characters are required but have been excluded.");
 
     if (mUsePunctuation)

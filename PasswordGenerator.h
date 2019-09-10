@@ -36,7 +36,10 @@ public:
      * function call method.
      * @return The generated password string.
      */
-    QString password() const;
+    QString password();
+
+    double entropy() const;
+
 
 private:
     /**
@@ -57,6 +60,10 @@ private:
      * interest here so it is marked @c mutable.
      */
     mutable std::mt19937_64 mGenerator;
+
+    double calcEntropy(int passwordLength, int charSetLength);
+
+    double mEntropy;
 };
 
 #endif // STRINGGENERATOR_H

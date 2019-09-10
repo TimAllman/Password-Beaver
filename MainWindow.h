@@ -44,6 +44,7 @@ public:
 private slots:
     void onAboutActionTriggered();
     void onExitActionTriggered();
+    void onHelpActionTriggered();
     void onGeneratePushButtonClicked();
     void onPunctuationCheckboxStateChanged(int state);
     void onDigitsCheckboxStateChanged(int state);

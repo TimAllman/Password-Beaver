@@ -37,7 +37,7 @@ public:
 //        Require = Qt::Checked
 //    };
 
-    explicit Charset(bool useExtendedAscii, const QString& excludedChars,
+    explicit Charset(bool useExtendedAscii, bool excludeChars, const QString& excludedChars,
                      int usePunctuation, int useDigits, int useUpperAlpha,
                      int useLowerAlpha);
 
@@ -61,6 +61,7 @@ private:
     void makeCharString();
 
     bool mUseExtendedAscii;
+    bool mExcludeChars;
     QString mExcludedChars;
     int mUsePunctuation;
     int mUseDigits;
