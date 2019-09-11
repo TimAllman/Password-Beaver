@@ -21,6 +21,7 @@
 
 #include "AboutDialog.h"
 #include "ui_aboutdialog.h"
+#include "Global.h"
 
 AboutDialog::AboutDialog(QWidget *parent) :
     QDialog(parent),
@@ -36,6 +37,5 @@ AboutDialog::~AboutDialog()
 
 void AboutDialog::onBeaverPushButtonClicked()
 {
-    QUrl url("https://github.com/TimAllman/Password-Beaver");
-    QDesktopServices::openUrl(url);
+    QDesktopServices::openUrl(QUrl(APPLICATION_URL));
 }

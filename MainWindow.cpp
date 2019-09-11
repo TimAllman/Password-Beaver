@@ -20,6 +20,7 @@
 #include <QIcon>
 #include <QMessageBox>
 
+#include "Global.h"
 #include "MainWindow.h"
 #include "ui_mainwindow.h"
 #include "PasswordGenerator.h"
@@ -27,10 +28,16 @@
 #include "AboutDialog.h"
 
 MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    // This should happen first so that the proper path to the configuration
+    // is set properly.
+    QCoreApplication::setOrganizationName(ORGANIZATION_NAME);
+    QCoreApplication::setOrganizationDomain(ORGANIZATION_DOMAIN);
+    QCoreApplication::setApplicationName(APPLICATION_NAME);
+    Settings& settings = Settings::instance();
 
     connect(ui->actionAbout_Qt, &QAction::triggered, qApp, &QApplication::aboutQt);
     connect(ui->aboutAction, &QAction::triggered, this, &MainWindow::onAboutActionTriggered);
@@ -46,31 +53,21 @@ MainWindow::MainWindow(QWidget *parent) :
             this, SLOT(onUpperCaseCheckboxStateChanged(int)));
     connect(ui->lowerCaseCheckBox, SIGNAL(stateChanged(int)),
             this, SLOT(onLowerCaseCheckboxStateChanged(int)));
-    connect(ui->copyToClipboardCheckBox, SIGNAL(stateChanged(int)),
-            this, SLOT(onCopyToClipboardCheckboxStateChanged(int)));
+    connect(ui->copyToClipboardCheckBox, SIGNAL(clicked()),
+            this, SLOT(onCopyToClipboardCheckboxClicked(bool)));
     connect(ui->passwordLengthSpinBox, SIGNAL(valueChanged(int)),
             this, SLOT(onPasswordLengthSpinBoxValueChanged(int)));
-    connect(ui->extendedAsciiCheckBox, SIGNAL(stateChanged(int)),
-            this, SLOT(onExtendedAsciiCheckboxStateChanged(int)));
-    connect(ui->excludeCheckBox, SIGNAL(stateChanged(int)),
-            this, SLOT(onExcludeCharactersCheckBoxStateChanged(int)));
+    connect(ui->extendedAsciiCheckBox, SIGNAL(clicked()),
+            this, SLOT(onExtendedAsciiCheckboxStateClicked(bool)));
+    connect(ui->excludeCheckBox, SIGNAL(clicked()),
+            this, SLOT(onExcludeCharactersCheckBoxClicked(bool)));
     connect(ui->excludeCharsLineEdit, SIGNAL(editingFinished()),
             this, SLOT(onExcludeCharsLineEditEditingFinished()));
 
-    //    connect(ui->excludeComboBox, SIGNAL(editTextChanged(const QString&)),
-    //            this, SLOT(onCharactersToExcludeComboBoxEditTextChanged(const QString&)));
-    //    connect(ui->excludeComboBox, SIGNAL(currentIndexChanged(int)),
-    //            this, SLOT(onCharactersToExcludeComboBoxCurrentIndexChanged(int)));
-
-    QCoreApplication::setOrganizationName("Brasscats");
-    QCoreApplication::setOrganizationDomain("brasscats.ca");
-    QCoreApplication::setApplicationName("Password Beaver");
-
-    Settings& settings = Settings::instance();
-    ui->punctuationCheckBox->setChecked(static_cast<Qt::CheckState>(settings.usePunctuation()));
+    ui->punctuationCheckBox->setCheckState(static_cast<Qt::CheckState>(settings.usePunctuation()));
     ui->digitsCheckBox->setCheckState(static_cast<Qt::CheckState>(settings.useDigits()));
-    ui->upperCaseCheckBox->setChecked(static_cast<Qt::CheckState>(settings.useUpperAlpha()));
-    ui->lowerCaseCheckBox->setChecked(static_cast<Qt::CheckState>(settings.useLowerAlpha()));
+    ui->upperCaseCheckBox->setCheckState(static_cast<Qt::CheckState>(settings.useUpperAlpha()));
+    ui->lowerCaseCheckBox->setCheckState(static_cast<Qt::CheckState>(settings.useLowerAlpha()));
     ui->copyToClipboardCheckBox->setChecked(settings.copyToClipboard());
     ui->extendedAsciiCheckBox->setChecked(settings.useExtendedAscii());
     ui->passwordLengthSpinBox->setRange(8, 20);
@@ -107,7 +104,6 @@ void MainWindow::onAboutActionTriggered()
 
 void MainWindow::onGeneratePushButtonClicked()
 {
-    Settings& settings = Settings::instance();
     PasswordGenerator gen;
     QString password;
 
@@ -132,7 +128,7 @@ void MainWindow::onGeneratePushButtonClicked()
     }
 
     QClipboard* clip = QGuiApplication::clipboard();
-    if (settings.copyToClipboard())
+    if (Settings::instance().copyToClipboard())
         clip->setText(password);
 
     ui->passwordLineEdit->setText(password);
@@ -142,9 +138,7 @@ void MainWindow::onGeneratePushButtonClicked()
 
 void MainWindow::onExitActionTriggered()
 {
-    Settings& settings = Settings::instance();
-    settings.setWindowGeometry(saveGeometry());
-
+    Settings::instance().setWindowGeometry(saveGeometry());
     close();
 }
 
@@ -173,14 +167,14 @@ void MainWindow::onLowerCaseCheckboxStateChanged(int state)
     Settings::instance().setUseLowerAlpha(state);
 }
 
-void MainWindow::onCopyToClipboardCheckboxStateChanged(int state)
+void MainWindow::onCopyToClipboardCheckboxClicked(bool checked)
 {
-    Settings::instance().setCopyToClipboard(state);
+    Settings::instance().setCopyToClipboard(checked);
 }
 
-void MainWindow::onExtendedAsciiCheckboxStateChanged(int state)
+void MainWindow::onExtendedAsciiCheckboxStateClicked(bool checked)
 {
-    Settings::instance().setUseExtendedAscii(state);
+    Settings::instance().setUseExtendedAscii(checked);
 }
 
 void MainWindow::onPasswordLengthSpinBoxValueChanged(int length)
@@ -188,10 +182,10 @@ void MainWindow::onPasswordLengthSpinBoxValueChanged(int length)
     Settings::instance().setPasswordLength(length);
 }
 
-void MainWindow::onExcludeCharactersCheckBoxStateChanged(int state)
+void MainWindow::onExcludeCharactersCheckBoxClicked(bool checked)
 {
-    Settings::instance().setExcludeCharacters(state);
-    ui->excludeCharsLineEdit->setEnabled(static_cast<bool>(state));
+    Settings::instance().setExcludeCharacters(checked);
+    ui->excludeCharsLineEdit->setEnabled(checked);
 }
 
 void MainWindow::onExcludeCharsLineEditEditingFinished()

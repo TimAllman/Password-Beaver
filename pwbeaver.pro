@@ -35,6 +35,7 @@ SOURCES += \
 HEADERS += \
         AboutDialog.h \
         Charset.h \
+        Global.h \
         MainWindow.h \
         PasswordGenerator.h \
         Settings.h
@@ -49,6 +50,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
+    Doxyfile \
     README.md \
     license.txt
 

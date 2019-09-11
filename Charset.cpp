@@ -12,10 +12,10 @@ Charset::Charset(bool useExtendedAscii, bool excludeChars, const QString& exclud
       mUsePunctuation(usePunctuation), mUseDigits(useDigits), mUseUpperAlpha(useUpperAlpha),
       mUseLowerAlpha(useLowerAlpha)
 {
-    makeCharString();
+    makeCharacterSet();
 }
 
-void Charset::makeCharString()
+void Charset::makeCharacterSet()
 {
     int lastChar = 127;
     if (mUseExtendedAscii)

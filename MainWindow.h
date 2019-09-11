@@ -31,6 +31,9 @@ namespace Ui {
 class MainWindow;
 }
 
+/**
+ * The application's main window.
+ */
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -42,18 +45,78 @@ public:
     void testGenerator();
 
 private slots:
+    /**
+     * Slot to show the About dialog.
+     */
     void onAboutActionTriggered();
+
+    /**
+     * Slot to exit the program.
+     */
     void onExitActionTriggered();
+
+    /**
+     * Slot to show help.
+     */
     void onHelpActionTriggered();
+
+    /**
+     * Slot to generate a password.
+     */
     void onGeneratePushButtonClicked();
+
+    /**
+     * Slot to respond to the punctuation checkbox.
+     * @param state Can be EXCLUDE, REQUEST or REQUIRE.
+     */
     void onPunctuationCheckboxStateChanged(int state);
+
+    /**
+     * Slot to respond to the digits checkbox.
+     * @param state Can be EXCLUDE, REQUEST or REQUIRE.
+     */
     void onDigitsCheckboxStateChanged(int state);
+
+    /**
+     * Slot to respond to the upper case checkbox.
+     * @param state Can be EXCLUDE, REQUEST or REQUIRE.
+     */
     void onUpperCaseCheckboxStateChanged(int state);
+
+    /**
+     * Slot to respond to the lower case checkbox.
+     * @param state Can be EXCLUDE, REQUEST or REQUIRE.
+     */
     void onLowerCaseCheckboxStateChanged(int state);
-    void onCopyToClipboardCheckboxStateChanged(int state);
-    void onExtendedAsciiCheckboxStateChanged(int state);
+
+    /**
+     * Slot to respond to the copy to clipboard checkbox.
+     * @param checked The new state of the checkbox
+     */
+    void onCopyToClipboardCheckboxClicked(bool checked);
+
+    /**
+     * Slot to respond to the extended ASCII checkbox.
+     * @param checked The new state of the checkbox
+     */
+    void onExtendedAsciiCheckboxStateClicked(bool checked);
+
+    /**
+     * Slot to respond to changes in the password length spin box.
+     * @param checked The new state of the checkbox
+     */
     void onPasswordLengthSpinBoxValueChanged(int length);
-    void onExcludeCharactersCheckBoxStateChanged(int state);
+
+    /**
+     * Slot to respond to the exclude characters checkbox.
+     * @param checked The new state of the checkbox
+     */
+    void onExcludeCharactersCheckBoxClicked(bool checked);
+
+    /**
+     * Slot to respond to changes in the characters to exclude editor.
+     * @param checked The new state of the checkbox
+     */
     void onExcludeCharsLineEditEditingFinished();
 
 private:

@@ -22,6 +22,7 @@
 #include <string>
 #include <random>
 #include <chrono>
+#include <cstddef>
 
 #include <QRegularExpression>
 #include <QRegularExpressionMatch>
@@ -33,7 +34,8 @@
 PasswordGenerator::PasswordGenerator()
 {
     // construct the default random generator engine from a time-based seed:
-    size_t seed = static_cast<size_t>(std::chrono::system_clock::now().time_since_epoch().count());
+    std::size_t seed = static_cast<std::size_t>(std::chrono::system_clock::now().
+                                                time_since_epoch().count());
     mGenerator.seed(seed);
 }
 

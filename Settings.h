@@ -23,13 +23,16 @@
 
 #include "Charset.h"
 
+/**
+ *
+ */
 class Settings
 {
 public:
     static Settings& instance()
     {
-        static Settings instance_; // Guaranteed to be instantiated on first use
-        return instance_;          // and destroyed when out of scope.
+        Settings* instance = new Settings;
+        return *instance;
     }
 
 public:
@@ -85,7 +88,9 @@ public:
 
 private:
     Settings() = default;
+    ~Settings() = default;
 
+    //static Settings* mInstance;
     QSettings mSettings;
 };
 
