@@ -18,9 +18,24 @@
 
 #include  <QString>
 
+/**
+ * @file Global.h
+ * Contains compile time information needed throughout the program.
+ */
+
+namespace Global
+{
+
+///@{
+/** Used by `QSettings` to create the configuration file and its path. */
 const QString ORGANIZATION_NAME("Brasscats");
 const QString ORGANIZATION_DOMAIN("brasscats.ca");
 const QString APPLICATION_NAME("Password Beaver");
+///@}
+
+/// The home page for this application.
 const QString APPLICATION_URL("https://github.com/TimAllman/Password-Beaver");
+
+} // namespace
 
 #endif // GLOBAL_H

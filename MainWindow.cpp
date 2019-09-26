@@ -34,9 +34,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // This should happen first so that the proper path to the configuration
     // is set properly.
-    QCoreApplication::setOrganizationName(ORGANIZATION_NAME);
-    QCoreApplication::setOrganizationDomain(ORGANIZATION_DOMAIN);
-    QCoreApplication::setApplicationName(APPLICATION_NAME);
+    QCoreApplication::setOrganizationName(Global::ORGANIZATION_NAME);
+    QCoreApplication::setOrganizationDomain(Global::ORGANIZATION_DOMAIN);
+    QCoreApplication::setApplicationName(Global::APPLICATION_NAME);
     Settings& settings = Settings::instance();
 
     connect(ui->actionAbout_Qt, &QAction::triggered, qApp, &QApplication::aboutQt);
@@ -53,14 +53,16 @@ MainWindow::MainWindow(QWidget *parent) :
             this, SLOT(onUpperCaseCheckboxStateChanged(int)));
     connect(ui->lowerCaseCheckBox, SIGNAL(stateChanged(int)),
             this, SLOT(onLowerCaseCheckboxStateChanged(int)));
-    connect(ui->copyToClipboardCheckBox, SIGNAL(clicked()),
-            this, SLOT(onCopyToClipboardCheckboxClicked(bool)));
+
+    connect(ui->copyToClipboardCheckBox, SIGNAL(stateChanged(int)),
+            this, SLOT(onCopyToClipboardCheckboxStateChanged(int)));
     connect(ui->passwordLengthSpinBox, SIGNAL(valueChanged(int)),
             this, SLOT(onPasswordLengthSpinBoxValueChanged(int)));
-    connect(ui->extendedAsciiCheckBox, SIGNAL(clicked()),
-            this, SLOT(onExtendedAsciiCheckboxStateClicked(bool)));
-    connect(ui->excludeCheckBox, SIGNAL(clicked()),
-            this, SLOT(onExcludeCharactersCheckBoxClicked(bool)));
+    connect(ui->extendedAsciiCheckBox, SIGNAL(stateChanged(int)),
+            this, SLOT(onExtendedAsciiCheckboxStateChanged(int)));
+    connect(ui->excludeCheckBox, SIGNAL(stateChanged(int)),
+            this, SLOT(onExcludeCharactersCheckBoxStateChanged(int)));
+
     connect(ui->excludeCharsLineEdit, SIGNAL(editingFinished()),
             this, SLOT(onExcludeCharsLineEditEditingFinished()));
 
@@ -70,7 +72,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->lowerCaseCheckBox->setCheckState(static_cast<Qt::CheckState>(settings.useLowerAlpha()));
     ui->copyToClipboardCheckBox->setChecked(settings.copyToClipboard());
     ui->extendedAsciiCheckBox->setChecked(settings.useExtendedAscii());
-    ui->passwordLengthSpinBox->setRange(8, 20);
+    ui->passwordLengthSpinBox->setRange(8, 30);
     int pwlen = static_cast<int>(settings.passwordLength());
     if (pwlen > 7 && pwlen < 21)
         ui->passwordLengthSpinBox->setValue(pwlen);
@@ -114,13 +116,13 @@ void MainWindow::onGeneratePushButtonClicked()
 
     catch(std::runtime_error ex)
     {
-        QMessageBox msgBox(QMessageBox::Warning, tr("Password Beaver Warning"), ex.what(),
+        QMessageBox msgBox(QMessageBox::Critical, tr("Password Beaver Error"), ex.what(),
                            nullptr, this);
 
         msgBox.setDetailedText(tr("Some required characters are not available because "
                                   "they have been manually excluded. Remove at least one of these "
-                                  "characters from the exclusion characters editor or use the "
-                                  "check box to turn off this feature"));
+                                  "characters from the \"Exclude these characters\" editor or use "
+                                  "the check box to turn off this feature"));
         msgBox.addButton(QMessageBox::Ok);
         msgBox.exec();
 
@@ -133,7 +135,7 @@ void MainWindow::onGeneratePushButtonClicked()
 
     ui->passwordLineEdit->setText(password);
     QString entrStr = QString::number(gen.entropy(), 'f', 1) + " bits";
-    ui->entropyLabel->setText(entrStr);
+    ui->entropyLineEdit->setText(entrStr);
 }
 
 void MainWindow::onExitActionTriggered()
@@ -167,14 +169,14 @@ void MainWindow::onLowerCaseCheckboxStateChanged(int state)
     Settings::instance().setUseLowerAlpha(state);
 }
 
-void MainWindow::onCopyToClipboardCheckboxClicked(bool checked)
+void MainWindow::onCopyToClipboardCheckboxStateChanged(int state)
 {
-    Settings::instance().setCopyToClipboard(checked);
+    Settings::instance().setCopyToClipboard(state);
 }
 
-void MainWindow::onExtendedAsciiCheckboxStateClicked(bool checked)
+void MainWindow::onExtendedAsciiCheckboxStateChanged(int state)
 {
-    Settings::instance().setUseExtendedAscii(checked);
+    Settings::instance().setUseExtendedAscii(state);
 }
 
 void MainWindow::onPasswordLengthSpinBoxValueChanged(int length)
@@ -182,10 +184,10 @@ void MainWindow::onPasswordLengthSpinBoxValueChanged(int length)
     Settings::instance().setPasswordLength(length);
 }
 
-void MainWindow::onExcludeCharactersCheckBoxClicked(bool checked)
+void MainWindow::onExcludeCharactersCheckBoxStateChanged(int state)
 {
-    Settings::instance().setExcludeCharacters(checked);
-    ui->excludeCharsLineEdit->setEnabled(checked);
+    Settings::instance().setExcludeCharacters(state);
+    ui->excludeCharsLineEdit->setEnabled(state);
 }
 
 void MainWindow::onExcludeCharsLineEditEditingFinished()

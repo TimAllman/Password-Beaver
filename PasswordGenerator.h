@@ -21,7 +21,7 @@
 
 #include <QString>
 
-#include "Charset.h"
+#include "CharacterPool.h"
 
 class PasswordGenerator
 {
@@ -65,7 +65,7 @@ private:
      * @param password The candidate password to check.
      * @return @c true on success, false otherwise.
      */
-    bool validPassword(const Charset& charSet, const QString& password) const;
+    bool validPassword(const CharacterPool& charSet, const QString& password) const;
 
     /**
      * Calculate the entropy of the password.

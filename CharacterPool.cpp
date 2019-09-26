@@ -3,9 +3,9 @@
 #include <random>
 #include <chrono>
 
-#include "Charset.h"
+#include "CharacterPool.h"
 
-Charset::Charset(bool useExtendedAscii, bool excludeChars, const QString& excludedChars,
+CharacterPool::CharacterPool(bool useExtendedAscii, bool excludeChars, const QString& excludedChars,
                  int usePunctuation, int useDigits, int useUpperAlpha,
                  int useLowerAlpha)
     : mUseExtendedAscii(useExtendedAscii), mExcludeChars(excludeChars), mExcludedChars(excludedChars),
@@ -15,7 +15,7 @@ Charset::Charset(bool useExtendedAscii, bool excludeChars, const QString& exclud
     makeCharacterSet();
 }
 
-void Charset::makeCharacterSet()
+void CharacterPool::makeCharacterSet()
 {
     int lastChar = 127;
     if (mUseExtendedAscii)
@@ -60,27 +60,27 @@ void Charset::makeCharacterSet()
         mAllChars += mUpperAlphaChars;
 }
 
-QString Charset::allChars() const
+QString CharacterPool::allChars() const
 {
     return mAllChars;
 }
 
-QString Charset::punctChars() const
+QString CharacterPool::punctChars() const
 {
     return mPunctChars;
 }
 
-QString Charset::digitChars() const
+QString CharacterPool::digitChars() const
 {
     return mDigitChars;
 }
 
-QString Charset::upperAlphaChars() const
+QString CharacterPool::upperAlphaChars() const
 {
     return mUpperAlphaChars;
 }
 
-QString Charset::lowerAlphaChars() const
+QString CharacterPool::lowerAlphaChars() const
 {
     return mLowerAlphaChars;
 }

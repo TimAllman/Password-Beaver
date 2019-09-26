@@ -30,6 +30,9 @@ AboutDialog::AboutDialog(QWidget *parent) :
     ui->setupUi(this);
 }
 
+/**
+ * Unremarkable destructor.
+ */
 AboutDialog::~AboutDialog()
 {
     delete ui;
@@ -37,5 +40,5 @@ AboutDialog::~AboutDialog()
 
 void AboutDialog::onBeaverPushButtonClicked()
 {
-    QDesktopServices::openUrl(QUrl(APPLICATION_URL));
+    QDesktopServices::openUrl(QUrl(Global::APPLICATION_URL));
 }

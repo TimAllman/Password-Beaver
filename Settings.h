@@ -21,21 +21,34 @@
 
 #include <QSettings>
 
-#include "Charset.h"
+#include "CharacterPool.h"
 
 /**
- *
+ * This class provides a restricted and convenient front end to QSettings.
+ * It is implemented as a singleton although this probably isn't necessary
+ * because all instances of @c QSettings are portals to the same instance.
  */
 class Settings
 {
 public:
+    /**
+     * The only way of getting an instance.
+     * @return Reference to the instance.
+     */
     static Settings& instance()
     {
-        Settings* instance = new Settings;
+        /** Pointer to the one instance of this class. */
+        static Settings* instance;
+
+        /** Create an instance if necessary */
+        if (instance == nullptr)
+            instance = new Settings;
         return *instance;
     }
 
 public:
+    ///@{
+    /** Getter or setter for a variable. Name is self explanatory. */
     void setUseExtendedAscii(bool extendedAscii);
     bool useExtendedAscii() const;
 
@@ -65,6 +78,7 @@ public:
 
     void setWindowGeometry(const QByteArray& geometry);
     QByteArray windowGeometry() const;
+    ///@}
 
     /**
      * Do not allow copy construction
@@ -87,10 +101,13 @@ public:
     void operator=(const Settings&&) = delete;
 
 private:
+    /** Default private constructor. */
     Settings() = default;
+
+    /** Destructor. */
     ~Settings() = default;
 
-    //static Settings* mInstance;
+    /** The QSettings instance that does all the work. */
     QSettings mSettings;
 };
 

@@ -91,31 +91,30 @@ private slots:
 
     /**
      * Slot to respond to the copy to clipboard checkbox.
-     * @param checked The new state of the checkbox
+     * @param state The new state of the checkbox.
      */
-    void onCopyToClipboardCheckboxClicked(bool checked);
+    void onCopyToClipboardCheckboxStateChanged(int state);
 
     /**
      * Slot to respond to the extended ASCII checkbox.
-     * @param checked The new state of the checkbox
+     * @param state The new state of the checkbox.
      */
-    void onExtendedAsciiCheckboxStateClicked(bool checked);
+    void onExtendedAsciiCheckboxStateChanged(int state);
 
     /**
      * Slot to respond to changes in the password length spin box.
-     * @param checked The new state of the checkbox
+     * @param length The new value for the password length.
      */
     void onPasswordLengthSpinBoxValueChanged(int length);
 
     /**
      * Slot to respond to the exclude characters checkbox.
-     * @param checked The new state of the checkbox
+     * @param state The new state of the checkbox
      */
-    void onExcludeCharactersCheckBoxClicked(bool checked);
+    void onExcludeCharactersCheckBoxStateChanged(int state);
 
     /**
      * Slot to respond to changes in the characters to exclude editor.
-     * @param checked The new state of the checkbox
      */
     void onExcludeCharsLineEditEditingFinished();
 

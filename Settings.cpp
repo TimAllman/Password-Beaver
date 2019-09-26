@@ -1,3 +1,19 @@
+/*
+ * Copyright © 2019 Tim Allman
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include "Settings.h"
 
 void Settings::setUseExtendedAscii(bool extendedAscii)
@@ -17,7 +33,7 @@ void Settings::setUsePunctuation(int usePunct)
 
 int Settings::usePunctuation() const
 {
-    return static_cast<int>(mSettings.value("UsePunctuation", Charset::REQUIRE).toInt());
+    return static_cast<int>(mSettings.value("UsePunctuation", CharacterPool::REQUEST).toInt());
 }
 
 void Settings::setUseDigits(int useDigits)
@@ -27,7 +43,7 @@ void Settings::setUseDigits(int useDigits)
 
 int Settings::useDigits() const
 {
-    return static_cast<int>(mSettings.value("UseDigits", Charset::REQUIRE).toInt());
+    return static_cast<int>(mSettings.value("UseDigits", CharacterPool::REQUEST).toInt());
 }
 
 void Settings::setUseUpperAlpha(int useUpper)
@@ -37,7 +53,7 @@ void Settings::setUseUpperAlpha(int useUpper)
 
 int Settings::useUpperAlpha() const
 {
-    return static_cast<int>(mSettings.value("UseUpperAlpha", Charset::REQUIRE).toInt());
+    return static_cast<int>(mSettings.value("UseUpperAlpha", CharacterPool::REQUEST).toInt());
 }
 
 void Settings::setUseLowerAlpha(int useLower)
@@ -47,7 +63,7 @@ void Settings::setUseLowerAlpha(int useLower)
 
 int Settings::useLowerAlpha() const
 {
-    return static_cast<int>(mSettings.value("UseLowerAlpha", Charset::REQUIRE).toInt());
+    return static_cast<int>(mSettings.value("UseLowerAlpha", CharacterPool::REQUEST).toInt());
 }
 
 void Settings::setExcludeCharacters(bool exclude)
@@ -65,26 +81,9 @@ void Settings::setCharactersToExclude(const QString& chars)
     mSettings.setValue("CharactersToExclude", chars);
 }
 
-//void Settings::setStringsToExclude(const QStringList& strings)
-//{
-//    mSettings.setValue("StringsToExclude", strings);
-//}
-
-//QStringList Settings::stringsToExclude() const
-//{
-//    return mSettings.value("StringsToExclude").toStringList();
-//}
-
 QString Settings::charactersToExclude() const
 {
     return mSettings.value("CharactersToExclude", "").toString();
-
-//    QStringList strings = stringsToExclude();
-
-//    if (!strings.isEmpty())
-//        return strings.first();
-//    else
-//        return QString();
 }
 
 void Settings::setPasswordLength(int length)
@@ -116,3 +115,4 @@ QByteArray Settings::windowGeometry() const
 {
     return mSettings.value("WindowGeometry").toByteArray();
 }
+

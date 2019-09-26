@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT += core gui
+QT += core gui help
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -26,7 +26,7 @@ CONFIG += c++1z
 
 SOURCES += \
         AboutDialog.cpp \
-        Charset.cpp \
+        CharacterPool.cpp \
         MainWindow.cpp \
         PasswordGenerator.cpp \
         Settings.cpp \
@@ -34,7 +34,7 @@ SOURCES += \
 
 HEADERS += \
         AboutDialog.h \
-        Charset.h \
+        CharacterPool.h \
         Global.h \
         MainWindow.h \
         PasswordGenerator.h \
@@ -52,7 +52,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 DISTFILES += \
     Doxyfile \
     README.md \
-    license.txt
+    license.txt \
+    manual/Manual.html
 
 RESOURCES += \
     pwbeaver.qrc
