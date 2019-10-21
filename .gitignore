@@ -1,0 +1,13 @@
+# OS X
+.DS_Store
+
+build*
+dox
+*.app
+*.o
+*.pro.user
+moc_*
+ui_*
+Makefile
+#*
+
