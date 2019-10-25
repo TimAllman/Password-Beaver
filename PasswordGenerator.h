@@ -78,11 +78,12 @@ private:
     /**
      * An implementation of the Mersenne Twister random number generator.
      * https://en.wikipedia.org/wiki/Mersenne_Twister
-     * It is seeded from the system clock.
+     * It is seeded in a way suitable for the system. Under Linux
+     * we use `std::random_device`.
      * This object changes state when seeded and when used but this is of no
-     * interest here so it is marked @c mutable.
+     * interest here so it is marked `mutable`.
      */
-    mutable std::mt19937_64 mGenerator;
+    mutable std::mt19937 mGenerator;
 
     double mEntropy; ///< Stores the last calculated entropy.
 };

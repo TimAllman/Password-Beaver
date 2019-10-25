@@ -55,6 +55,9 @@ public:
     void setUsePunctuation(int usePunct);
     int usePunctuation() const;
 
+    void setUseSymbols(int useSymbols);
+    int useSymbols() const;
+
     void setUseDigits(int useDigits);
     int useDigits() const;
 

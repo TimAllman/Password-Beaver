@@ -65,10 +65,11 @@ public:
      * @param useDigits        ///< Use digits. Can be @c EXCLUDE, @c REQUEST or @c REQUIRE.
      * @param useUpperAlpha    ///< Use upper case letters. Can be @c EXCLUDE, @c REQUEST or @c REQUIRE.
      * @param useLowerAlpha    ///< Use lower case letters. Can be @c EXCLUDE, @c REQUEST or @c REQUIRE.
+     * @param useSymbols       ///< Use symbols. Can be @c EXCLUDE, @c REQUEST or @c REQUIRE.
      */
     explicit CharacterPool(bool useExtendedAscii, bool excludeChars, const QString& excludedChars,
                      int usePunctuation, int useDigits, int useUpperAlpha,
-                     int useLowerAlpha);
+                     int useLowerAlpha, int useSymbols);
 
     /**
      * Deleted copy constructor.
@@ -90,8 +91,18 @@ public:
      */
     CharacterPool& operator=(const CharacterPool&&) = delete;
 
+    //    bool isSymbol(const QChar& c);
+
+    //    bool isPunctuation(const QChar& c);
+
     /**
-     * Get the list of punctuation and symbol characters.
+     * Get the list of symbol characters.
+     * @return The list of punctuation and symbol characters.
+     */
+    QString symbolChars() const;
+
+    /**
+     * Get the list of punctuation characters.
      * @return The list of punctuation and symbol characters.
      */
     QString punctChars() const;
@@ -120,6 +131,13 @@ public:
      */
     QString allChars() const;
 
+    /**
+     * Get the length of the character pool string of all characters to be
+     * used in password generation.
+     * @return The length of the character pool.
+     */
+    int poolSize() const;
+
 private:
     /**
      * Creates the character set returned by allChars().
@@ -133,12 +151,14 @@ private:
     int mUseDigits;          ///< Use digits. Can be @c EXCLUDE, @c REQUEST or @c REQUIRE.
     int mUseUpperAlpha;      ///< Use upper case letters. Can be @c EXCLUDE, @c REQUEST or @c REQUIRE.
     int mUseLowerAlpha;      ///< Use lower case letters. Can be @c EXCLUDE, @c REQUEST or @c REQUIRE.
+    int mUseSymbols;         ///< Use symbols. Can be @c EXCLUDE, @c REQUEST or @c REQUIRE.
 
-    QString mAllChars;          ///< The full character set to be used.
-    QString mPunctChars;        ///< The punctuation character set to be used.
-    QString mDigitChars;        ///< The digit character set to be used.
-    QString mUpperAlphaChars;   ///< The upper case character set to be used.
-    QString mLowerAlphaChars;   ///< The lower case character set to be used.
+    QString mAllChars;          ///< The full character set. The sum of all the type strings below.
+    QString mPunctChars;        ///< The punctuation characters in the pool to be used.
+    QString mDigitChars;        ///< The digit characters in the pool to be used.
+    QString mUpperAlphaChars;   ///< The upper case characters in the pool to be used.
+    QString mLowerAlphaChars;   ///< The lower case characters in the pool to be used.
+    QString mSymbolChars;       ///< The symbols in the pool to use.
 };
 
 #endif // CHARSET_H

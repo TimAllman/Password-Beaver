@@ -36,6 +36,12 @@ const QString APPLICATION_NAME("Password Beaver");
 /// The home page for this application.
 const QString APPLICATION_URL("https://github.com/TimAllman/Password-Beaver");
 
+const int MIN_POOL_LENGTH = 8;
+const int MIN_PW_LENGTH = 8;
+const int MAX_PW_LENGTH = 30;
+const int DEFAULT_PW_LENGTH = 16;
+
+
 } // namespace
 
 #endif // GLOBAL_H

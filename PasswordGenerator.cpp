@@ -30,6 +30,8 @@
 #include "PasswordGenerator.h"
 #include "CharacterPool.h"
 #include "Settings.h"
+#include "Global.h"
+#include "Exceptions.h"
 
 PasswordGenerator::PasswordGenerator()
 {
@@ -37,8 +39,20 @@ PasswordGenerator::PasswordGenerator()
     // Each time this code is ported the quality of the supplied
     // std::random_device should be checked as some may not have
     // access to hardware or may just be poorly implemented.
+    // Note that std::random_device throws on construction or on calling
+    // ::operator() if the system has no means to access a stochastic
+    // process to use to provide a good random number.
+#if defined(linux)
     std::random_device rd;
     mGenerator.seed(rd());
+#elif defined(_WIN32)
+    std::random_device rd;
+    mGenerator.seed(rd());
+#elif defined(__APPLE__)
+    std::random_device rd;
+    mGenerator.seed(rd());
+#endif
+
 }
 
 unsigned PasswordGenerator::randomIndex(unsigned maxIdx) const
@@ -55,17 +69,19 @@ QString PasswordGenerator::password()
     CharacterPool charSet(settings.useExtendedAscii(), settings.excludeCharacters(),
                     settings.charactersToExclude(), settings.usePunctuation(),
                     settings.useDigits(), settings.useUpperAlpha(),
-                    settings.useLowerAlpha());
-
-    QString allChars = charSet.allChars();
+                    settings.useLowerAlpha(), settings.useSymbols());
 
     int pwLength = settings.passwordLength();
     QString password;
 
+    QString allChars = charSet.allChars();
     auto charSetLength = static_cast<unsigned>(allChars.size());
-    //TODO fix this
-    if (charSetLength == 0)
-        return password;
+
+    if (charSetLength < Global::MIN_POOL_LENGTH)
+    {
+        std::string len = std::to_string(charSetLength);
+        throw SmallCharacterPoolException("The character pool has too few (" + len + ") characters.");
+    }
 
     do
     {
@@ -90,10 +106,7 @@ double PasswordGenerator::entropy() const
 
 double PasswordGenerator::calcEntropy(int passwordLength, int charSetLength)
 {
-    // We are using a 64 bit random number generator so the entropy is
-    // limited to 64 bits so we return at most 64.0.
-    double entr = passwordLength * log2(charSetLength);
-    return entr;// > 64.0 ? 64.0 : entr;
+    return passwordLength * log2(charSetLength);
 }
 
 bool PasswordGenerator::validPassword(const CharacterPool& charSet, const QString& password) const

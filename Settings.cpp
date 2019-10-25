@@ -36,6 +36,16 @@ int Settings::usePunctuation() const
     return static_cast<int>(mSettings.value("UsePunctuation", CharacterPool::REQUEST).toInt());
 }
 
+void Settings::setUseSymbols(int useSymbols)
+{
+    mSettings.setValue("UseSymbols", useSymbols);
+}
+
+int Settings::useSymbols() const
+{
+    return static_cast<int>(mSettings.value("UseSymbols", CharacterPool::REQUEST).toInt());
+}
+
 void Settings::setUseDigits(int useDigits)
 {
     mSettings.setValue("UseDigits", useDigits);

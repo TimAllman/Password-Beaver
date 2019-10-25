@@ -16,4 +16,30 @@
 #ifndef EXCEPTIONS_H
 #define EXCEPTIONS_H
 
+#include <stdexcept>
+
+class ExclusionException : public std::runtime_error
+{
+public:
+    explicit ExclusionException(const std::string& what_arg)
+        : std::runtime_error(what_arg)
+    {}
+
+    virtual ~ExclusionException()
+    {}
+};
+
+class SmallCharacterPoolException : public std::runtime_error
+{
+public:
+    explicit SmallCharacterPoolException(const std::string& what_arg)
+        : std::runtime_error(what_arg)
+    {}
+
+    virtual ~SmallCharacterPoolException()
+    {}
+};
+
+
+
 #endif // EXCEPTIONS_H

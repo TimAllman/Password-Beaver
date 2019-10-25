@@ -35,6 +35,7 @@ SOURCES += \
 HEADERS += \
         AboutDialog.h \
         CharacterPool.h \
+        Exceptions.h \
         Global.h \
         MainWindow.h \
         PasswordGenerator.h \

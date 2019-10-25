@@ -19,6 +19,7 @@
 #include <QClipboard>
 #include <QIcon>
 #include <QMessageBox>
+#include <QCloseEvent>
 
 #include "Global.h"
 #include "MainWindow.h"
@@ -26,6 +27,7 @@
 #include "PasswordGenerator.h"
 #include "Settings.h"
 #include "AboutDialog.h"
+#include "Exceptions.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent), ui(new Ui::MainWindow)
@@ -47,6 +49,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->punctuationCheckBox, SIGNAL(stateChanged(int)),
             this, SLOT(onPunctuationCheckboxStateChanged(int)));
+    connect(ui->symbolsCheckBox, SIGNAL(stateChanged(int)),
+            this, SLOT(onSymbolsCheckboxStateChanged(int)));
     connect(ui->digitsCheckBox, SIGNAL(stateChanged(int)),
             this, SLOT(onDigitsCheckboxStateChanged(int)));
     connect(ui->upperCaseCheckBox, SIGNAL(stateChanged(int)),
@@ -56,8 +60,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->copyToClipboardCheckBox, SIGNAL(stateChanged(int)),
             this, SLOT(onCopyToClipboardCheckboxStateChanged(int)));
-    connect(ui->passwordLengthSpinBox, SIGNAL(valueChanged(int)),
-            this, SLOT(onPasswordLengthSpinBoxValueChanged(int)));
     connect(ui->extendedAsciiCheckBox, SIGNAL(stateChanged(int)),
             this, SLOT(onExtendedAsciiCheckboxStateChanged(int)));
     connect(ui->excludeCheckBox, SIGNAL(stateChanged(int)),
@@ -65,25 +67,35 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->excludeCharsLineEdit, SIGNAL(editingFinished()),
             this, SLOT(onExcludeCharsLineEditEditingFinished()));
+    connect(ui->excludeCharsLineEdit, SIGNAL(textChanged(const QString&)),
+            this, SLOT(onExcludeCharsLineEditTextChanged()));
 
     ui->punctuationCheckBox->setCheckState(static_cast<Qt::CheckState>(settings.usePunctuation()));
+    ui->symbolsCheckBox->setCheckState(static_cast<Qt::CheckState>(settings.useSymbols()));
     ui->digitsCheckBox->setCheckState(static_cast<Qt::CheckState>(settings.useDigits()));
     ui->upperCaseCheckBox->setCheckState(static_cast<Qt::CheckState>(settings.useUpperAlpha()));
     ui->lowerCaseCheckBox->setCheckState(static_cast<Qt::CheckState>(settings.useLowerAlpha()));
     ui->copyToClipboardCheckBox->setChecked(settings.copyToClipboard());
     ui->extendedAsciiCheckBox->setChecked(settings.useExtendedAscii());
-    ui->passwordLengthSpinBox->setRange(8, 30);
+
+    ui->passwordLengthSpinBox->setRange(Global::MIN_PW_LENGTH, Global::MAX_PW_LENGTH);
     int pwlen = static_cast<int>(settings.passwordLength());
-    if (pwlen > 7 && pwlen < 21)
+    if (pwlen >= Global::MIN_PW_LENGTH && pwlen <= Global::MAX_PW_LENGTH)
         ui->passwordLengthSpinBox->setValue(pwlen);
     else
     {
-        ui->passwordLengthSpinBox->setValue(16);
-        settings.setPasswordLength(16);
+        ui->passwordLengthSpinBox->setValue(Global::DEFAULT_PW_LENGTH);
+        settings.setPasswordLength(Global::DEFAULT_PW_LENGTH);
     }
+
+    connect(ui->passwordLengthSpinBox, SIGNAL(valueChanged(int)),
+            this, SLOT(onPasswordLengthSpinBoxValueChanged(int)));
+
     ui->excludeCheckBox->setChecked(settings.excludeCharacters());
     ui->excludeCharsLineEdit->setText(settings.charactersToExclude());
     ui->excludeCharsLineEdit->setEnabled(settings.excludeCharacters());
+
+    setPoolSizeLineEditText();
 
     restoreGeometry(settings.windowGeometry());
 }
@@ -98,10 +110,49 @@ void MainWindow::testGenerator()
 
 }
 
+void MainWindow::setPoolSizeLineEditText()
+{
+    Settings& settings = Settings::instance();
+
+    CharacterPool pool(settings.useExtendedAscii(), settings.excludeCharacters(),
+                       settings.charactersToExclude(), settings.usePunctuation(),
+                       settings.useDigits(), settings.useUpperAlpha(),
+                       settings.useLowerAlpha(), settings.useSymbols());
+
+    QString strSize = QString::number(pool.poolSize());
+    QPalette palette;
+
+    if (pool.poolSize() < Global::MIN_POOL_LENGTH)
+    {
+        palette.setColor(QPalette::Text,Qt::red);
+    }
+    else
+    {
+        palette.setColor(QPalette::Text,Qt::black);
+    }
+
+    ui->poolSizeLineEdit->setPalette(palette);
+    ui->poolSizeLineEdit->setText(strSize);
+
+}
+
+void MainWindow::closeEvent(QCloseEvent* event)
+{
+    // We'll just call @c onExitActionTriggered().
+    event->accept();
+    onExitActionTriggered();
+}
+
 void MainWindow::onAboutActionTriggered()
 {
     AboutDialog dlg;
     dlg.exec();
+}
+
+void MainWindow::onExitActionTriggered()
+{
+    Settings::instance().setWindowGeometry(saveGeometry());
+    close();
 }
 
 void MainWindow::onGeneratePushButtonClicked()
@@ -114,7 +165,7 @@ void MainWindow::onGeneratePushButtonClicked()
         password = gen.password();
     }
 
-    catch(std::runtime_error ex)
+    catch(ExclusionException ex)
     {
         QMessageBox msgBox(QMessageBox::Critical, tr("Password Beaver Error"), ex.what(),
                            nullptr, this);
@@ -123,6 +174,20 @@ void MainWindow::onGeneratePushButtonClicked()
                                   "they have been manually excluded. Remove at least one of these "
                                   "characters from the \"Exclude these characters\" editor or use "
                                   "the check box to turn off this feature"));
+        msgBox.addButton(QMessageBox::Ok);
+        msgBox.exec();
+
+        return;
+    }
+
+    catch(SmallCharacterPoolException ex)
+    {
+        QMessageBox msgBox(QMessageBox::Critical, tr("Password Beaver Error"), ex.what(),
+                           nullptr, this);
+
+        msgBox.setDetailedText(tr("The character pool from which the password is derived "
+                                  "is too small. Add more character classes or remove some "
+                                  "from the exclusion list."));
         msgBox.addButton(QMessageBox::Ok);
         msgBox.exec();
 
@@ -138,12 +203,6 @@ void MainWindow::onGeneratePushButtonClicked()
     ui->entropyLineEdit->setText(entrStr);
 }
 
-void MainWindow::onExitActionTriggered()
-{
-    Settings::instance().setWindowGeometry(saveGeometry());
-    close();
-}
-
 void MainWindow::onHelpActionTriggered()
 {
 
@@ -152,21 +211,31 @@ void MainWindow::onHelpActionTriggered()
 void MainWindow::onPunctuationCheckboxStateChanged(int state)
 {
     Settings::instance().setUsePunctuation(state);
+    setPoolSizeLineEditText();
+}
+
+void MainWindow::onSymbolsCheckboxStateChanged(int state)
+{
+    Settings::instance().setUseSymbols(state);
+    setPoolSizeLineEditText();
 }
 
 void MainWindow::onDigitsCheckboxStateChanged(int state)
 {
     Settings::instance().setUseDigits(state);
+    setPoolSizeLineEditText();
 }
 
 void MainWindow::onUpperCaseCheckboxStateChanged(int state)
 {
     Settings::instance().setUseUpperAlpha(state);
+    setPoolSizeLineEditText();
 }
 
 void MainWindow::onLowerCaseCheckboxStateChanged(int state)
 {
     Settings::instance().setUseLowerAlpha(state);
+    setPoolSizeLineEditText();
 }
 
 void MainWindow::onCopyToClipboardCheckboxStateChanged(int state)
@@ -177,6 +246,7 @@ void MainWindow::onCopyToClipboardCheckboxStateChanged(int state)
 void MainWindow::onExtendedAsciiCheckboxStateChanged(int state)
 {
     Settings::instance().setUseExtendedAscii(state);
+    setPoolSizeLineEditText();
 }
 
 void MainWindow::onPasswordLengthSpinBoxValueChanged(int length)
@@ -188,10 +258,18 @@ void MainWindow::onExcludeCharactersCheckBoxStateChanged(int state)
 {
     Settings::instance().setExcludeCharacters(state);
     ui->excludeCharsLineEdit->setEnabled(state);
+    setPoolSizeLineEditText();
+}
+
+void MainWindow::onExcludeCharsLineEditTextChanged()
+{
+    Settings::instance().setCharactersToExclude(ui->excludeCharsLineEdit->text());
+    setPoolSizeLineEditText();
 }
 
 void MainWindow::onExcludeCharsLineEditEditingFinished()
 {
     Settings::instance().setCharactersToExclude(ui->excludeCharsLineEdit->text());
+    setPoolSizeLineEditText();
 }
 
