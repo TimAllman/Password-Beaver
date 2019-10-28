@@ -1,8 +1,3 @@
-//
-//  PasswordGenerator.cpp
-//  Password Maker
-//
-
 /*
  * Copyright © 2019 Tim Allman
  *

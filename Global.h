@@ -13,6 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #ifndef GLOBAL_H
 #define GLOBAL_H
 
@@ -36,11 +37,17 @@ const QString APPLICATION_NAME("Password Beaver");
 /// The home page for this application.
 const QString APPLICATION_URL("https://github.com/TimAllman/Password-Beaver");
 
+/// Minimum character pool length.
 const int MIN_POOL_LENGTH = 8;
+
+///@{
+/// Minimum and maximum password lengths.
 const int MIN_PW_LENGTH = 8;
 const int MAX_PW_LENGTH = 30;
-const int DEFAULT_PW_LENGTH = 16;
+///@}
 
+/// Default password length.
+const int DEFAULT_PW_LENGTH = 16;
 
 } // namespace
 

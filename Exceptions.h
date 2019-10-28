@@ -13,29 +13,50 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #ifndef EXCEPTIONS_H
 #define EXCEPTIONS_H
 
 #include <stdexcept>
 
+/**
+ * Exception class to be used with character exclusion issues.
+ */
 class ExclusionException : public std::runtime_error
 {
 public:
+    /**
+     * Public constructor.
+     * @param what_arg Message to describe the problem.
+     */
     explicit ExclusionException(const std::string& what_arg)
         : std::runtime_error(what_arg)
     {}
 
+    /**
+     * Destructor.
+     */
     virtual ~ExclusionException()
     {}
 };
 
+/**
+ * Exception class to be used with @c CharacterPool exceptions.
+ */
 class SmallCharacterPoolException : public std::runtime_error
 {
 public:
+    /**
+     * Public constructor.
+     * @param what_arg Message to describe the problem.
+     */
     explicit SmallCharacterPoolException(const std::string& what_arg)
         : std::runtime_error(what_arg)
     {}
 
+    /**
+     * Destructor.
+     */
     virtual ~SmallCharacterPoolException()
     {}
 };

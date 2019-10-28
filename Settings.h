@@ -1,6 +1,4 @@
 /*
- * Settings.h
- *
  * Copyright © 2019 Tim Allman
  *
  * This program is free software: you can redistribute it and/or modify
@@ -26,7 +24,8 @@
 /**
  * This class provides a restricted and convenient front end to QSettings.
  * It is implemented as a singleton although this probably isn't necessary
- * because all instances of @c QSettings are portals to the same instance.
+ * because all instances of @c QSettings are portals to the same underlying
+ * instance.
  */
 class Settings
 {
@@ -48,7 +47,7 @@ public:
 
 public:
     ///@{
-    /** Getter or setter for a variable. Name is self explanatory. */
+    /** Getter or setter for a settings value. Name is self explanatory. */
     void setUseExtendedAscii(bool extendedAscii);
     bool useExtendedAscii() const;
 
