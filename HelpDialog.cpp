@@ -20,6 +20,7 @@ HelpDialog::HelpDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::HelpDialog)
 {
+    ui->helpTextEdit->setHtml("");
     ui->setupUi(this);
 }
 

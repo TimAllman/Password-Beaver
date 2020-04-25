@@ -24,9 +24,13 @@ DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs depr
 
 CONFIG += c++1z
 
+#LIBS +=
+## QMAKE_LFLAGS += -static
+
 SOURCES += \
         AboutDialog.cpp \
         CharacterPool.cpp \
+        HelpDialog.cpp \
         MainWindow.cpp \
         PasswordGenerator.cpp \
         Settings.cpp \
@@ -37,11 +41,13 @@ HEADERS += \
         CharacterPool.h \
         Exceptions.h \
         Global.h \
+        HelpDialog.h \
         MainWindow.h \
         PasswordGenerator.h \
         Settings.h
 
 FORMS += \
+        HelpDialog.ui \
         aboutdialog.ui \
         mainwindow.ui
 

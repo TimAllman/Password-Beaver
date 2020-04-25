@@ -29,22 +29,19 @@ namespace Global
 
 ///@{
 /** Used by `QSettings` to create the configuration file and its path. */
-const QString ORGANIZATION_NAME("Brasscats");
-const QString ORGANIZATION_DOMAIN("brasscats.ca");
-const QString APPLICATION_NAME("Password Beaver");
+const QString ORGANIZATION_NAME = "Brasscats";
+const QString ORGANIZATION_DOMAIN = "brasscats.ca";
+const QString APPLICATION_NAME = "Password Beaver";
 ///@}
 
 /// The home page for this application.
-const QString APPLICATION_URL("https://github.com/TimAllman/Password-Beaver");
+const QString APPLICATION_URL = "https://github.com/TimAllman/Password-Beaver";
 
 /// Minimum character pool length.
 const int MIN_POOL_LENGTH = 8;
 
-///@{
-/// Minimum and maximum password lengths.
-const int MIN_PW_LENGTH = 8;
-const int MAX_PW_LENGTH = 30;
-///@}
+const int MIN_PW_LENGTH = 8;    ///< Minimum password length.
+const int MAX_PW_LENGTH = 50;   ///< Maximum password length.
 
 /// Default password length.
 const int DEFAULT_PW_LENGTH = 16;

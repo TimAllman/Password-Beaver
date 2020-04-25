@@ -13,6 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #ifndef HELPDIALOG_H
 #define HELPDIALOG_H
 
@@ -29,6 +30,8 @@ class HelpDialog : public QDialog
 public:
     explicit HelpDialog(QWidget *parent = nullptr);
     ~HelpDialog();
+
+    void setHtmlText(const QString& helpText);
 
 private:
     Ui::HelpDialog *ui;

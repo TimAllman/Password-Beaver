@@ -21,6 +21,7 @@
 
 #include <QRegularExpression>
 #include <QRegularExpressionMatch>
+#include <QtDebug>
 
 #include "PasswordGenerator.h"
 #include "CharacterPool.h"
@@ -57,6 +58,24 @@ unsigned PasswordGenerator::randomIndex(unsigned maxIdx) const
     return retval;
 }
 
+unsigned PasswordGenerator::contains(const QString& string, const QString& chars) const
+{
+    unsigned count = 0;
+
+    // loop through 'chars' and count the number of times a character in 'chars'
+    // is found in 'string'. Multiple occurrences of a character are counted as one
+    // match.
+    for (auto iter = chars.cbegin(); iter != chars.cend(); ++iter)
+    {
+        if (string.contains(*iter))
+        {
+            ++count;
+        }
+    }
+
+    return count;
+}
+
 QString PasswordGenerator::password()
 {
     Settings& settings = Settings::instance();
@@ -74,12 +93,16 @@ QString PasswordGenerator::password()
 
     if (charSetLength < Global::MIN_POOL_LENGTH)
     {
-        std::string len = std::to_string(charSetLength);
-        throw SmallCharacterPoolException("The character pool has too few (" + len + ") characters.");
+        QString len;
+        len.setNum(charSetLength);
+        SmallCharacterPoolException ex("The character pool has too few (" + len + ") characters.");
+        ex.raise();
     }
 
+    int nLoops = 0;   // for debugging only
     do
     {
+        ++nLoops;
         password = "";
         for (int i = 0; i < pwLength; ++i)
         {
@@ -88,6 +111,9 @@ QString PasswordGenerator::password()
         }
     }
     while (!validPassword(charSet, password));
+
+    if (nLoops > 1)
+        qDebug() << "Valid password found after " << nLoops << " tries.";
 
     mEntropy = calcEntropy(password.length(), allChars.length());
 
@@ -110,40 +136,101 @@ bool PasswordGenerator::validPassword(const CharacterPool& charSet, const QStrin
     QRegularExpression re;
     QRegularExpressionMatch match;
 
+    if (settings.useSymbols() == CharacterPool::REQUIRE)
+    {
+        unsigned count = contains(password, charSet.symbolChars());
+        if (count == 0)
+            return false;
+    }
+
     if (settings.usePunctuation() == CharacterPool::REQUIRE)
     {
-        re.setPattern("[" + charSet.punctChars() + "]+");
-        match = re.match(password);
-        if (!match.hasMatch())
+        unsigned count = contains(password, charSet.punctChars());
+        if (count == 0)
             return false;
     }
 
     if (settings.useDigits() == CharacterPool::REQUIRE)
     {
-        re.setPattern("[" + charSet.digitChars() + "]+");
-        match = re.match(password);
-        if (!match.hasMatch())
+        unsigned count = contains(password, charSet.digitChars());
+        if (count == 0)
             return false;
     }
 
     if (settings.useLowerAlpha() == CharacterPool::REQUIRE)
     {
-        re.setPattern("[" + charSet.lowerAlphaChars() + "]+");
-        match = re.match(password);
-        if (!match.hasMatch())
+        unsigned count = contains(password, charSet.lowerAlphaChars());
+        if (count == 0)
             return false;
     }
 
     if (settings.useUpperAlpha() == CharacterPool::REQUIRE)
     {
-        re.setPattern("[" + charSet.upperAlphaChars() + "]+");
-        QRegularExpressionMatch match = re.match(password);
-        if (!match.hasMatch())
+        unsigned count = contains(password, charSet.upperAlphaChars());
+        if (count == 0)
             return false;
     }
 
     return true;
 }
+
+//bool PasswordGenerator::validPassword(const CharacterPool& charSet, const QString& password) const
+//{
+//    Settings& settings = Settings::instance();
+//    QRegularExpression re;
+//    QRegularExpressionMatch match;
+
+//    if (settings.useSymbols() == CharacterPool::REQUIRE)
+//    {
+//        QString pattern = "[" + charSet.symbolChars() + "]+";
+//        re.setPattern(pattern);
+//        pattern = re.pattern();
+//        match = re.match(password);
+//        if (!match.hasMatch())
+//            return false;
+//    }
+
+//    if (settings.usePunctuation() == CharacterPool::REQUIRE)
+//    {
+//        QString pattern = "[" + charSet.punctChars() + "]+";
+//        re.setPattern(pattern);
+//        pattern = re.pattern();
+//        match = re.match(password);
+//        if (!match.hasMatch())
+//            return false;
+//    }
+
+//    if (settings.useDigits() == CharacterPool::REQUIRE)
+//    {
+//        QString pattern = "[" + charSet.digitChars() + "]+";
+//        re.setPattern(pattern);
+//        pattern = re.pattern();
+//        match = re.match(password);
+//        if (!match.hasMatch())
+//            return false;
+//    }
+
+//    if (settings.useLowerAlpha() == CharacterPool::REQUIRE)
+//    {
+//        QString pattern = "[" + charSet.lowerAlphaChars() + "]+";
+//        re.setPattern(pattern);
+//        match = re.match(password);
+//        if (!match.hasMatch())
+//            return false;
+//    }
+
+//    if (settings.useUpperAlpha() == CharacterPool::REQUIRE)
+//    {
+//        QString pattern = "[" + charSet.upperAlphaChars() + "]+";
+//        re.setPattern(pattern);
+//        pattern = re.pattern();
+//        QRegularExpressionMatch match = re.match(password);
+//        if (!match.hasMatch())
+//            return false;
+//    }
+
+//    return true;
+//}
 
 
 

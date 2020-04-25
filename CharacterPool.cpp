@@ -24,7 +24,7 @@ CharacterPool::CharacterPool(bool useExtendedAscii, bool excludeChars, const QSt
                  int usePunctuation, int useDigits, int useUpperAlpha,
                  int useLowerAlpha, int useSymbols)
     : mUseExtendedAscii(useExtendedAscii), mExcludeChars(excludeChars), mExcludedChars(excludedChars),
-      mUsePunctuation(usePunctuation), mUseDigits(useDigits), mUseUpperAlpha(useUpperAlpha),
+    mUsePunctuation(usePunctuation), mUseDigits(useDigits), mUseUpperAlpha(useUpperAlpha),
     mUseLowerAlpha(useLowerAlpha), mUseSymbols(useSymbols)
 {
     makeCharacterSet();
@@ -43,11 +43,6 @@ void CharacterPool::makeCharacterSet()
         if ((ch.isPrint() && !ch.isSpace()) &&
             (!(mExcludeChars && mExcludedChars.contains(ch, Qt::CaseSensitive))))
         {
-            //            if (isPunctuation(ch))
-            //                mPunctChars += ch;
-            //            else if (isSymbol(ch))
-            //                mSymbolChars += ch;
-
             if (ch.isPunct())
                 mPunctChars += ch;
             else if (ch.isSymbol())
@@ -96,6 +91,11 @@ QString CharacterPool::allChars() const
 int CharacterPool::poolSize() const
 {
     return mAllChars.size();
+}
+
+QString CharacterPool::symbolChars() const
+{
+    return mSymbolChars;
 }
 
 QString CharacterPool::punctChars() const

@@ -32,13 +32,38 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    // This should happen first so that the proper path to the configuration
-    // is set properly.
+    // This should happen first so that the proper path to the
+    // configuration file is set properly.
     QCoreApplication::setOrganizationName(Global::ORGANIZATION_NAME);
     QCoreApplication::setOrganizationDomain(Global::ORGANIZATION_DOMAIN);
     QCoreApplication::setApplicationName(Global::APPLICATION_NAME);
     Settings& settings = Settings::instance();
 
+    // Make the initial settings to the UI controls before connecting the
+    // signals and slots. Otherwise the values may change because of
+    // slots being called before we want them
+    ui->punctuationCheckBox->setCheckState(static_cast<Qt::CheckState>(settings.usePunctuation()));
+    ui->symbolsCheckBox->setCheckState(static_cast<Qt::CheckState>(settings.useSymbols()));
+    ui->digitsCheckBox->setCheckState(static_cast<Qt::CheckState>(settings.useDigits()));
+    ui->upperCaseCheckBox->setCheckState(static_cast<Qt::CheckState>(settings.useUpperAlpha()));
+    ui->lowerCaseCheckBox->setCheckState(static_cast<Qt::CheckState>(settings.useLowerAlpha()));
+    ui->copyToClipboardCheckBox->setChecked(settings.copyToClipboard());
+    ui->extendedAsciiCheckBox->setChecked(settings.useExtendedAscii());
+
+    ui->passwordLengthSpinBox->setRange(Global::MIN_PW_LENGTH, Global::MAX_PW_LENGTH);
+    int pwlen = static_cast<int>(settings.passwordLength());
+    if (pwlen >= Global::MIN_PW_LENGTH && pwlen <= Global::MAX_PW_LENGTH)
+        ui->passwordLengthSpinBox->setValue(pwlen);
+    else
+    {
+        ui->passwordLengthSpinBox->setValue(Global::DEFAULT_PW_LENGTH);
+        settings.setPasswordLength(Global::DEFAULT_PW_LENGTH);
+    }
+    ui->excludeCheckBox->setChecked(settings.excludeCharacters());
+    ui->excludeCharsLineEdit->setText(settings.charactersToExclude());
+    ui->excludeCharsLineEdit->setEnabled(settings.excludeCharacters());
+
+    // Now do the connections.
     connect(ui->actionAbout_Qt, &QAction::triggered, qApp, &QApplication::aboutQt);
     connect(ui->aboutAction, &QAction::triggered, this, &MainWindow::onAboutActionTriggered);
     connect(ui->exitAction, &QAction::triggered, this, &MainWindow::onExitActionTriggered);
@@ -68,33 +93,10 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->excludeCharsLineEdit, SIGNAL(textChanged(const QString&)),
             this, SLOT(onExcludeCharsLineEditTextChanged()));
 
-    ui->punctuationCheckBox->setCheckState(static_cast<Qt::CheckState>(settings.usePunctuation()));
-    ui->symbolsCheckBox->setCheckState(static_cast<Qt::CheckState>(settings.useSymbols()));
-    ui->digitsCheckBox->setCheckState(static_cast<Qt::CheckState>(settings.useDigits()));
-    ui->upperCaseCheckBox->setCheckState(static_cast<Qt::CheckState>(settings.useUpperAlpha()));
-    ui->lowerCaseCheckBox->setCheckState(static_cast<Qt::CheckState>(settings.useLowerAlpha()));
-    ui->copyToClipboardCheckBox->setChecked(settings.copyToClipboard());
-    ui->extendedAsciiCheckBox->setChecked(settings.useExtendedAscii());
-
-    ui->passwordLengthSpinBox->setRange(Global::MIN_PW_LENGTH, Global::MAX_PW_LENGTH);
-    int pwlen = static_cast<int>(settings.passwordLength());
-    if (pwlen >= Global::MIN_PW_LENGTH && pwlen <= Global::MAX_PW_LENGTH)
-        ui->passwordLengthSpinBox->setValue(pwlen);
-    else
-    {
-        ui->passwordLengthSpinBox->setValue(Global::DEFAULT_PW_LENGTH);
-        settings.setPasswordLength(Global::DEFAULT_PW_LENGTH);
-    }
-
     connect(ui->passwordLengthSpinBox, SIGNAL(valueChanged(int)),
             this, SLOT(onPasswordLengthSpinBoxValueChanged(int)));
 
-    ui->excludeCheckBox->setChecked(settings.excludeCharacters());
-    ui->excludeCharsLineEdit->setText(settings.charactersToExclude());
-    ui->excludeCharsLineEdit->setEnabled(settings.excludeCharacters());
-
     setPoolSizeLineEditText();
-
     restoreGeometry(settings.windowGeometry());
 }
 
@@ -117,26 +119,28 @@ void MainWindow::setPoolSizeLineEditText()
                        settings.useDigits(), settings.useUpperAlpha(),
                        settings.useLowerAlpha(), settings.useSymbols());
 
+    // Here we inform the user of the pool size and show it
+    // in @c Qt::red if it is too small.
     QString strSize = QString::number(pool.poolSize());
     QPalette palette;
 
     if (pool.poolSize() < Global::MIN_POOL_LENGTH)
     {
-        palette.setColor(QPalette::Text,Qt::red);
+        palette.setColor(QPalette::Text, Qt::red);
     }
     else
     {
-        palette.setColor(QPalette::Text,Qt::black);
+        palette.setColor(QPalette::Text, Qt::black);
     }
 
     ui->poolSizeLineEdit->setPalette(palette);
     ui->poolSizeLineEdit->setText(strSize);
-
 }
 
 void MainWindow::closeEvent(QCloseEvent* event)
 {
-    // We'll just call @c onExitActionTriggered().
+    // We'll just call @c onExitActionTriggered()
+    // and leave without complaint.
     event->accept();
     onExitActionTriggered();
 }
@@ -165,7 +169,7 @@ void MainWindow::onGeneratePushButtonClicked()
 
     catch(ExclusionException ex)
     {
-        QMessageBox msgBox(QMessageBox::Critical, tr("Password Beaver Error"), ex.what(),
+        QMessageBox msgBox(QMessageBox::Critical, tr("Password Beaver Error"), ex.message(),
                            nullptr, this);
 
         msgBox.setDetailedText(tr("Some required characters are not available because "
@@ -180,7 +184,7 @@ void MainWindow::onGeneratePushButtonClicked()
 
     catch(SmallCharacterPoolException ex)
     {
-        QMessageBox msgBox(QMessageBox::Critical, tr("Password Beaver Error"), ex.what(),
+        QMessageBox msgBox(QMessageBox::Critical, tr("Password Beaver Error"), ex.message(),
                            nullptr, this);
 
         msgBox.setDetailedText(tr("The character pool from which the password is derived "

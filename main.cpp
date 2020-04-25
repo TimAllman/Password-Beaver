@@ -17,14 +17,19 @@
 #include "MainWindow.h"
 #include <QApplication>
 #include <QStyleFactory>
+#include <QDebug>
 
 int main(int argc, char *argv[])
 {
-    //    QStringList keys = QStyleFactory::keys();
+/* Generally, keeping commented code is a bad idea but we
+ * keep this here to help with porting.
+*/
 
-    QStyle* style = QStyleFactory::create("fusion");
-    if (style)
-        QApplication::setStyle(style);
+//    QStringList keys = QStyleFactory::keys();
+//    qDebug() << keys;
+//    QStyle* style = QStyleFactory::create("fusion");
+//    if (style)
+//        QApplication::setStyle(style);
 
     QApplication a(argc, argv);
     MainWindow w;
