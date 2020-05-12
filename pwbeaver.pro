@@ -22,12 +22,27 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-CONFIG += c++1z
+CONFIG += c++1z strict_c++
+
+# The default is gcc, g++, clang, clang++ depending upon kit.
+# All of these are needed in order for qmake to run properly and for the
+# build to complete. These show up as the corresponding Makefile variables.
+QMAKE_CC = clang-9
+QMAKE_CXX = clang++-9
+QMAKE_LINK = clang++-9
+
+
+#QMAKE_CXXFLAGS += -Wno-deprecated-copy
+
+## QMAKE_LFLAGS += -static
 
 SOURCES += \
         AboutDialog.cpp \
         CharacterPool.cpp \
+        Global.cpp \
+        HelpDialog.cpp \
         MainWindow.cpp \
+        OptionManager.cpp \
         PasswordGenerator.cpp \
         Settings.cpp \
         main.cpp
@@ -37,11 +52,14 @@ HEADERS += \
         CharacterPool.h \
         Exceptions.h \
         Global.h \
+        HelpDialog.h \
         MainWindow.h \
+        OptionManager.h \
         PasswordGenerator.h \
         Settings.h
 
 FORMS += \
+        HelpDialog.ui \
         aboutdialog.ui \
         mainwindow.ui
 
@@ -51,6 +69,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
+    .gitignore \
     Doxyfile \
     README.md \
     license.txt \

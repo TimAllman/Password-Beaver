@@ -13,27 +13,18 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include "HelpDialog.h"
+#include "ui_HelpDialog.h"
 
-#include "MainWindow.h"
-#include <QApplication>
-#include <QStyleFactory>
-#include <QDebug>
-
-int main(int argc, char *argv[])
+HelpDialog::HelpDialog(QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::HelpDialog)
 {
-/* Generally, keeping commented code is a bad idea but we
- * keep this here to help with porting.
-*/
+    ui->helpTextEdit->setHtml("");
+    ui->setupUi(this);
+}
 
-//    QStringList keys = QStyleFactory::keys();
-//    qDebug() << keys;
-//    QStyle* style = QStyleFactory::create("fusion");
-//    if (style)
-//        QApplication::setStyle(style);
-
-    QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
-
-    return a.exec();
+HelpDialog::~HelpDialog()
+{
+    delete ui;
 }

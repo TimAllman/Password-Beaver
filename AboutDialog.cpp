@@ -14,12 +14,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "AboutDialog.h"
+#include "Global.h"
+#include "Exceptions.h"
+#include "ui_aboutdialog.h"
+
 #include <QUrl>
 #include <QDesktopServices>
-
-#include "AboutDialog.h"
-#include "ui_aboutdialog.h"
-#include "Global.h"
+#include <QMessageBox>
 
 AboutDialog::AboutDialog(QWidget *parent) :
     QDialog(parent),
@@ -38,5 +40,17 @@ AboutDialog::~AboutDialog()
 
 void AboutDialog::onBeaverPushButtonClicked()
 {
-    QDesktopServices::openUrl(QUrl(Global::APPLICATION_URL));
+    QUrl url(Global::APPLICATION_URL, QUrl::StrictMode);
+    bool success = QDesktopServices::openUrl(url);
+
+    if (!success)
+    {
+        QString msg("Unable to open URL: ");
+        msg += url.toString() + ".";
+
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.setText(msg);
+        msgBox.exec();
+    }
 }

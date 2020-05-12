@@ -17,50 +17,99 @@
 #ifndef EXCEPTIONS_H
 #define EXCEPTIONS_H
 
-#include <stdexcept>
+#include <QException>
 
 /**
  * Exception class to be used with character exclusion issues.
  */
-class ExclusionException : public std::runtime_error
+class ExclusionException : public QException
 {
 public:
     /**
      * Public constructor.
-     * @param what_arg Message to describe the problem.
+     * @param msg Message to describe the problem.
      */
-    explicit ExclusionException(const std::string& what_arg)
-        : std::runtime_error(what_arg)
+    explicit ExclusionException(const QString& msg)
+        : mMessage(msg)
     {}
+
+    ExclusionException(const ExclusionException& other)
+    {
+        mMessage = other.mMessage;
+    }
+
+    ExclusionException operator=(const ExclusionException& other) = delete;
+
+    ExclusionException* clone() const override
+    {
+        return new ExclusionException(*this);
+    }
+
+    void raise() const override
+    {
+        throw *this;
+    }
+
+    QString message() const
+    {
+        return mMessage;
+    }
 
     /**
      * Destructor.
      */
-    virtual ~ExclusionException()
+    ~ExclusionException() override
     {}
+
+private:
+    QString mMessage;
 };
 
 /**
- * Exception class to be used with @c CharacterPool exceptions.
+ * Exception class to be used with @c CharacterPool exceptions that
+ * notify about a character pool which is too small.
  */
-class SmallCharacterPoolException : public std::runtime_error
+class SmallCharacterPoolException : public QException
 {
 public:
     /**
      * Public constructor.
-     * @param what_arg Message to describe the problem.
+     * @param msg Message to describe the problem.
      */
-    explicit SmallCharacterPoolException(const std::string& what_arg)
-        : std::runtime_error(what_arg)
+    explicit SmallCharacterPoolException(const QString& msg)
+        : mMessage(msg)
     {}
+
+    SmallCharacterPoolException(const SmallCharacterPoolException& other)
+    {
+        mMessage = other.mMessage;
+    }
+
+    SmallCharacterPoolException operator=(const SmallCharacterPoolException& other) = delete;
+
+    SmallCharacterPoolException* clone() const override
+    {
+        return new SmallCharacterPoolException(*this);
+    }
+
+    void raise() const override
+    {
+        throw *this;
+    }
+
+    QString message() const
+    {
+        return mMessage;
+    }
 
     /**
      * Destructor.
      */
-    virtual ~SmallCharacterPoolException()
+    ~SmallCharacterPoolException() override
     {}
+
+private:
+    QString mMessage;
 };
-
-
 
 #endif // EXCEPTIONS_H

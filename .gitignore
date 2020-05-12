@@ -5,9 +5,12 @@ build*
 dox
 *.app
 *.o
-*.pro.user
+*.pro.user*
 moc_*
 ui_*
 Makefile
+.*
+*~
+
 #*
 

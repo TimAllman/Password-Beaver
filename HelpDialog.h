@@ -14,26 +14,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "MainWindow.h"
-#include <QApplication>
-#include <QStyleFactory>
-#include <QDebug>
+#ifndef HELPDIALOG_H
+#define HELPDIALOG_H
 
-int main(int argc, char *argv[])
-{
-/* Generally, keeping commented code is a bad idea but we
- * keep this here to help with porting.
-*/
+#include <QDialog>
 
-//    QStringList keys = QStyleFactory::keys();
-//    qDebug() << keys;
-//    QStyle* style = QStyleFactory::create("fusion");
-//    if (style)
-//        QApplication::setStyle(style);
-
-    QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
-
-    return a.exec();
+namespace Ui {
+class HelpDialog;
 }
+
+class HelpDialog : public QDialog
+{
+    Q_OBJECT
+
+public:
+    explicit HelpDialog(QWidget *parent = nullptr);
+    ~HelpDialog();
+
+    void setHtmlText(const QString& helpText);
+
+private:
+    Ui::HelpDialog *ui;
+};
+
+#endif // HELPDIALOG_H

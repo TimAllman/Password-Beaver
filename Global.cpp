@@ -14,36 +14,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef GLOBAL_H
-#define GLOBAL_H
+#include "Global.h"
 
-#include  <QString>
-
-/**
- * @file Global.h
- * Contains compile time information needed throughout the program.
- */
-
-struct Global
-{
 ///@{
 /** Used by `QSettings` to create the configuration file and its path. */
-    static QString const ORGANIZATION_NAME;
-    static QString const ORGANIZATION_DOMAIN;
-    static QString const APPLICATION_NAME;
+QString const Global::ORGANIZATION_NAME = "Brasscats";
+QString const Global::ORGANIZATION_DOMAIN = "brasscats.ca";
+QString const Global::APPLICATION_NAME = "Password Beaver";
 ///@}
 
 /// The home page for this application.
-    static QString const APPLICATION_URL;
+QString const Global::APPLICATION_URL = "https://github.com/TimAllman/Password-Beaver";
 
 /// Minimum character pool length.
-    static int const MIN_POOL_LENGTH;
-    static int const MIN_PW_LENGTH;    ///< Minimum password length.
-    static int const MAX_PW_LENGTH;   ///< Maximum password length.
+int const Global::MIN_POOL_LENGTH = 8;
+
+int const Global::MIN_PW_LENGTH = 8;    ///< Minimum password length.
+int const Global::MAX_PW_LENGTH = 50;   ///< Maximum password length.
 
 /// Default password length.
-    static int const DEFAULT_PW_LENGTH;
-
-};
-
-#endif // GLOBAL_H
+int const Global::DEFAULT_PW_LENGTH = 16;

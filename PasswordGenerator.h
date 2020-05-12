@@ -33,8 +33,7 @@ public:
     explicit PasswordGenerator();
 
     /**
-     * Create a password string of length @c length based upon the
-     * characters passed in @c charSet.
+     * Create a password string based upon parameters in the @c Settings instance.
      * @return The generated password string.
      * @exception std::runtime-error Will throw if the user's request cannot be
      * satisfied. This can happen if a class of characters is REQUIREd but has been
@@ -50,8 +49,8 @@ public:
 
 private:
     /**
-     * Generates and returns a random index in the range [0..maxIdx]. All indices
-     * in the range are equally likely.
+     * Generates and returns a random index in the range [0..maxIdx].
+     * All indices in the range are equally likely.
      * @param maxIdx The highest index to return.
      * @return Random index in the range [0..maxIdx].
      */

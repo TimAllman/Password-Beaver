@@ -1,169 +1,195 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Password Beaver Manual</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title>Password Beaver Manual</title>
+	<meta name="generator" content="LibreOffice 6.0.7.3 (Linux)"/>
+	<meta name="created" content="00:00:00"/>
+	<meta name="changed" content="2019-10-30T19:28:55.590776540"/>
+	<style type="text/css">
+		h2.cjk { font-family: "Noto Sans CJK SC" }
+		h2.ctl { font-family: "Lohit Devanagari" }
+		h3.cjk { font-family: "Noto Sans CJK SC" }
+		h3.ctl { font-family: "Lohit Devanagari" }
+		code.cjk { font-family: "DejaVu Sans Mono", monospace }
+	</style>
 </head>
-
 <body lang="en-CA" dir="ltr">
-
 <h1 align="center">Password Beaver</h1>
-<div align="center"><img src="../icons/scalable/beaver.svg" width="200" 
-                         height="" title="" alt=""></div>
+<p align="center"><img src="../icons/scalable/beaver.svg" name="Image1" align="bottom" width="200" height="200" border="0"/>
 
-<h2><a name="contents">Contents</a></h2>
+</p>
+<h2 class="western"><a name="contents"></a>Contents</h2>
 <ul>
-    <li><a href="#about">About Password Beaver</a></li>
-    <li><a href="#customising">Customising the Beaver</a></li>
-    <li><a href="#upper">Upper case letters</a></li>
-    <li><a href="#lower">Lower case letters</a></li>
-    <li><a href="#digits">Digits</a></li>
-    <li><a href="#punctuation">Punctuation</a></li>
-    <li><a href="#length">Password length</a></li>
-    <li><a href="#extended">Extended ASCII</a></li>
-    <li><a href="#exclude">Exclude characters</a></li>
-    <li><a href="#passwordlen">Password length</a></li>
-    <li><a href="#clipboard">Copy to clipboard</a></li>
-    <li><a href="#password">Password</a></li>
-    <li><a href="#entropy">Entropy</a></li>
+	<li/>
+<p style="margin-bottom: 0cm"><a href="#about">About Password
+	Beaver</a> 
+	</p>
+	<li/>
+<p style="margin-bottom: 0cm"><a href="#customising">Customising
+	the Beaver</a> 
+	</p>
+	<li/>
+<p style="margin-bottom: 0cm"><a href="#upper">Upper case
+	letters</a> 
+	</p>
+	<li/>
+<p style="margin-bottom: 0cm"><a href="#lower">Lower case
+	letters</a> 
+	</p>
+	<li/>
+<p style="margin-bottom: 0cm"><a href="#digits">Digits</a> 
+	</p>
+	<li/>
+<p style="margin-bottom: 0cm"><a href="#punctuation">Punctuation</a>
+		</p>
+	<li/>
+<p style="margin-bottom: 0cm"><a href="#length">Password
+	length</a> 
+	</p>
+	<li/>
+<p style="margin-bottom: 0cm"><a href="#extended">Extended
+	ASCII</a> 
+	</p>
+	<li/>
+<p style="margin-bottom: 0cm"><a href="#exclude">Exclude
+	characters</a> 
+	</p>
+	<li/>
+<p style="margin-bottom: 0cm"><a href="#passwordlen">Password
+	length</a> 
+	</p>
+	<li/>
+<p style="margin-bottom: 0cm"><a href="#clipboard">Copy to
+	clipboard</a> 
+	</p>
+	<li/>
+<p style="margin-bottom: 0cm"><a href="#password">Password</a>
+		</p>
+	<li/>
+<p><a href="#entropy">Entropy</a> 
+	</p>
 </ul>
-
-
-<h2><a name="about">About the Beaver</a></h2>
-<p>
-    Password Beaver is a lightweight, easy to use and secure password
-    generator. It creates passwords based upon random
-    selection from the printable characters of the ASCII character set or
-    optionally from an extended ASCII character set. Unwanted characters
-    can be arbitrarily excluded from the the source pool of characters
-    as well. Optionally, the password is copied to the system clipboard so that
-    it can be pasted where it is needed.
+<h2 class="western"><a name="about"></a>About the Beaver</h2>
+<p>Password Beaver is a lightweight, easy to use and secure password
+generator. It creates passwords based upon random selection from the
+printable characters of the ASCII character set or optionally from an
+extended ASCII character set. Unwanted characters can be arbitrarily
+excluded if needed. Optionally, the password is copied to the system
+clipboard so that it can be pasted where it is needed. 
 </p>
-<p>
-    The program works by first creating a character pool based upon the user's selection
-    of options. The pool of characters starts as the printable characters from either the
-    <a href="https://en.wikipedia.org/wiki/US-ASCII">ASCII</a> or the
-    <a href="https://en.wikipedia.org/wiki/ISO/IEC_8859-1">ISO-8859-1</a>
-    (the most common ASCII extension) character sets.
-    It can be modified by the user to <b>omit</b>,
-    <b>request</b> or <b>require</b> characters from several groups. Currently
-    these are
-    <a href="#upper">upper case letters</a>,
-    <a href="#lower">lower caseletters</a>,
-    <a href="#digits">digits</a>,
-    <a href="#symbols">symbols</a>,
-    and everything else which we refer to somewhat inaccurately as
-    <a href="#punctuation">punctuation</a>.
-    Further, an arbitrary user defined set of
-    characters can be excluded. You may want to do this to improve readability in
-    case the password needs to be manually copied or perhaps to satisfy a Web site
-    which doesn't accept some characters in its passwords.
-    The <a href="#length">length of the password</a> can be set as necessary.
+<p><em>Password Beaver</em> creates a character pool based upon the
+user's selection of options. The pool of characters starts as the
+printable characters from either the <a href="https://en.wikipedia.org/wiki/US-ASCII">ASCII</a>
+or the <a href="https://en.wikipedia.org/wiki/ISO/IEC_8859-1">ISO-8859-1</a>
+(the most common extended ASCII) character sets, modified by the
+user’s selections. It can be modified to <b>omit</b>, <b>request</b>
+or <b>require</b> characters from several groups. Currently these
+groups are <a href="#upper">upper case letters</a>, <a href="#lower">lower
+case letters</a>, <a href="#digits">digits</a>, <a href="#symbols">symbols</a>,
+and everything else which we refer to somewhat inaccurately as
+<a href="#punctuation">punctuation</a>. Further, an arbitrary set of
+characters specified by the user can be excluded. You may want to do
+this to improve readability in case the password needs to be manually
+copied or perhaps to satisfy a Web site which doesn't accept some
+characters in its passwords. The <a href="#length">length of the
+password</a> can be set with the minimum length of 8 characters and a
+maximun of 50. 
 </p>
-
-<p>
-    The passwords are intended to be used with a password manager as they
-    are not easy for most people to remember. This makes them harder to crack
-    because a dictionary attack is very unlikely to succeed and a brute force
-    attack will likely take a very long time.
-    Generally the best choice is to pick a long password from a large pool
-    of characters.
+<p>The generated passwords are intended to be used with a password
+manager as they are not easy for most people to remember. This makes
+them harder to crack because a dictionary attack is very unlikely to
+succeed and a brute force attack will likely take a very long time.
+Generally the best choice is to pick a long password from a large
+pool of characters. 
 </p>
+<h2 class="western"><a name="customising"></a>Customising the
+password</h2>
+<p><img src="Manual-Libre_html_520e79550b6d3e3.png" name="Image2" alt="Beaver screenshot." align="bottom" width="365" height="509" border="0"/>
 
-<h2><a name="customising">Customising the password</a></h2>
-
-<figure>
-    <img src="../icons/png/Screenshot.png" width="365" height="509"
-         title="Screenshot of Password Beaver" alt="Beaver screenshot.">
-    <figcaption>
-        A screenshot of Password Beaver.
-        <small>
-            Note that <em>Upper case letters</em> are required, <em>Lowercase letters</em> are
-            requested, <em>Digits</em> are required and <em>Punctuation</em> characters are
-            requested and <em>Symbols</em> are required.
-            The potentially confusing characters O (upper O), 0 (zero),
-            I (upper I), l (lower L) and 1 (digit) are excluded.
-        </small>
-    </figcaption>
-</figure>
-
-<p>
-    Generally the best choice is to pick a long password from a large pool
-    of characters. If the ASCII character set is chosen there will be 85
-    printable characters to select from while selecting
-    <a href="#extended">Extended ASCII</a> (usually referred to as ISO-8859-1 or Latin 1)
-    will give 155 possible characters.
 </p>
-
-    However, a program or Web site that requires a password may not
-    accept all possible characters or it may set some requirements such as
-    requiring at least one upper case letter, one digit and one
-    punctuation character.
-    
-    Using the top check boxes, it is possible to exclude, allow or require
-    the following groups of characters:
-    <a href="#upper"> upper case letters</a>,
-    <a href="#lower">lower case letters</a>,
-    <a href="#digits"> digits</a>
-    and <a href="#punctuation">punctuation</a>.
-    These check boxes have three states.
-    
-    <ul>
-        <li>If the checkbox is <i>unchecked</i>, that group of characters will be
-            excluded from the character pool. </li>
-        <li>If it is <i>fully checked</i> at least one character from the group will be in the password.</li>
-        <li>If it is <i>partly checked</i>, characters from that group may appear in the password
-            or they may not.</li>
-    </ul>
-
-
-<h3><a name="exclude"></a>Excluding specific characters</h3>
-<p>You may exclude certain characters arbitrarily from the character pool. It may be that
-    a Web site does not accept some characters, usually those in the punctuation group. Or,
-    you may wish to avoid characters that are easily confused such as I (upper I) and l (lower L).
-    Check the <b>Exclude these characters</b> to turn on this feature and enter the characters
-    in the editor. Unchecking the check box will turn this off even if there are characters in
-    the editor.
+<p><strong><font size="2" style="font-size: 11pt">A screenshot of
+Password Beaver.<br/>
+</font></strong><strong><font size="2" style="font-size: 11pt"><span style="font-weight: normal">In
+this instance </span></font></strong><em><font size="2" style="font-size: 11pt">Upper
+case letters</font></em> <font size="2" style="font-size: 11pt">are
+required, </font><em><font size="2" style="font-size: 11pt">Lowercase
+letters</font></em> <font size="2" style="font-size: 11pt">are
+requested, </font><em><font size="2" style="font-size: 11pt">Digits</font></em>
+<font size="2" style="font-size: 11pt">are required and </font><em><font size="2" style="font-size: 11pt">Punctuation</font></em>
+<font size="2" style="font-size: 11pt">characters are requested and
+</font><em><font size="2" style="font-size: 11pt">Symbols</font></em>
+<font size="2" style="font-size: 11pt">are required. The potentially
+confusing characters O (upper O), 0 (zero), I (upper I), l (lower L)
+and 1 (digit) are excluded. </font>
 </p>
-
-
-<h3><a name="passwordlen"></a>Password length</h3>
-<p>The length of the password can be changed here. The allowed range is 8 to 30 characters.
-    The default length of 16 is a good choice for most uses.
+<h3 class="western">Selecting characters</h3>
+<p>Generally the best choice is to pick a long password from a large
+pool of characters. If the ASCII character set is chosen (i.e.
+Extended ASCII is <i>is </i><span style="font-variant: normal"><span style="font-style: normal">not
+chosen) there</span></span> will be 85 printable characters to select
+from while selecting <a href="#extended">Extended ASCII</a> (usually
+referred to as ISO-8859-1 or Latin 1) will give 155 possible
+characters.</p>
+<p>However, a program or Web site that requires a password may not
+accept all possible characters or it may set some requirements such
+as requiring at least one upper case letter, one digit and one
+punctuation character. Using the top check boxes, it is possible to
+exclude, allow or require the following groups of characters: <a href="#upper">upper
+case letters</a>, <a href="#lower">lower case letters</a>, <a href="#digits">digits</a>,
+<a href="#symbols">symbols</a> and <a href="#punctuation">punctuation</a>.
+These check boxes have three states. 
 </p>
-
-<h2><a name="clipboard">Copy to clipboard</a></h2>
-<p>The default behaviour is to copy the password to the system clipboard as soon as it is
-    generated. Turn this off if you do not want to do this.
+<ul>
+	<li/>
+<p style="margin-bottom: 0cm">If the checkbox is <i>unchecked</i>,
+	that group of characters will be <strong>excluded</strong> from the
+	character pool. 
+	</p>
+	<li/>
+<p style="margin-bottom: 0cm">If it is <i>fully checked</i> at
+	least one character from the group will be <b>required</b>.</p>
+	<li/>
+<p>If it is <i>partly checked</i>, characters from that group
+	are <b>requested</b><span style="font-weight: normal">. They may</span>
+	appear in the password or they may not.</p>
+</ul>
+<h3 class="western"><a name="exclude"></a>Excluding specific
+characters</h3>
+<p>You may exclude certain characters arbitrarily from the character
+pool. It may be that a Web site does not accept some characters,
+usually those in the punctuation group. Or, you may wish to avoid
+characters that are easily confused such as I (upper I) and l (lower
+L). Check <b>Exclude these characters</b> to turn on this feature and
+enter the characters in the editor. Unchecking the check box will
+turn this off even if there are characters in the editor.</p>
+<h3 class="western">Character pool size</h3>
+<p>This is the current size of the character pool from which
+passwords are taken and changes as character groups are selected and
+as some are excluded. This field is read only.</p>
+<h3 class="western"><a name="passwordlen"></a>Password length</h3>
+<p>The length of the password can be changed here. The allowed range
+is 8 to 50 characters. The default length of 16 is a good choice for
+most uses. 
 </p>
-
-<h2><a name="password">Password</a></h2>
-<p>This field is read only and contains the last password that was generated. If you don't
-    like it for some reason generate another. The text can be selected with
-    the mouse and copied if desired.
+<h2 class="western"><a name="clipboard"></a>Copy to clipboard</h2>
+<p>The default behaviour is to copy the password to the system
+clipboard as soon as it is generated. Turn this off if you do not
+want to do this. The text can be selected with the mouse and copied
+if desired. 
 </p>
-
-<h2><a name="entropy">Entropy</a></h2>
-<p>
-    The entropy of the password is a measure of how many guesses would be necessary to guess it.
-    Specifically, it is
-    <code>log
-        <sub>2
-            </sub>n
-        </code> where
-    <code>n
-        </code> is the number
-    of possible passwords given the password length and the character pool size. This is described
-    in a
-    <a href=
-       "https://en.wikipedia.org/wiki/Random_password_generator#Type_and_strength_of_password_generated"
-       target="_blank">
-        Wikipedia article. </a>
-    
-    Password Beaver uses a 64 bit random number generator so the maximum entropy available is 64 bits.
-    
+<h2 class="western"><a name="password"></a>Password</h2>
+<p>This field is read only and contains the last password that was
+generated. If you don't like it for some reason generate another.</p>
+<h2 class="western"><a name="entropy"></a>Entropy</h2>
+<p>The entropy of the password is a measure of how many guesses would
+be necessary to guess it. Specifically, it is <code class="western">log</code><code class="western"><sub>2</sub></code><code class="western">(n)
+</code>where <code class="western">n </code>is the number of possible
+passwords given the password length and the character pool size. This
+is described in a <a href="https://en.wikipedia.org/wiki/Random_password_generator#Type_and_strength_of_password_generated" target="_blank">Wikipedia
+article</a>.</p>
+<h2 class="western">Password strength</h2>
+<p>A good password is hard to guess. 
 </p>
-
 </body>
 </html>

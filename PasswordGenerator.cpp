@@ -21,6 +21,7 @@
 
 #include <QRegularExpression>
 #include <QRegularExpressionMatch>
+#include <QtDebug>
 
 #include "PasswordGenerator.h"
 #include "CharacterPool.h"
@@ -70,16 +71,20 @@ QString PasswordGenerator::password()
     QString password;
 
     QString allChars = charSet.allChars();
-    auto charSetLength = static_cast<unsigned>(allChars.size());
+    int charSetLength = allChars.size();
 
     if (charSetLength < Global::MIN_POOL_LENGTH)
     {
-        std::string len = std::to_string(charSetLength);
-        throw SmallCharacterPoolException("The character pool has too few (" + len + ") characters.");
+        QString len;
+        len.setNum(charSetLength);
+        SmallCharacterPoolException ex("The character pool has too few (" + len + ") characters.");
+        ex.raise();
     }
 
+    int nLoops = 0;   // for debugging only
     do
     {
+        ++nLoops;
         password = "";
         for (int i = 0; i < pwLength; ++i)
         {
@@ -88,6 +93,9 @@ QString PasswordGenerator::password()
         }
     }
     while (!validPassword(charSet, password));
+
+    if (nLoops > 1)
+        qDebug() << "Valid password found after " << nLoops << " tries.";
 
     mEntropy = calcEntropy(password.length(), allChars.length());
 
@@ -109,6 +117,14 @@ bool PasswordGenerator::validPassword(const CharacterPool& charSet, const QStrin
     Settings& settings = Settings::instance();
     QRegularExpression re;
     QRegularExpressionMatch match;
+
+    if (settings.useSymbols() == CharacterPool::REQUIRE)
+    {
+        re.setPattern("[" + charSet.symbolChars() + "]+");
+        match = re.match(password);
+        if (!match.hasMatch())
+            return false;
+    }
 
     if (settings.usePunctuation() == CharacterPool::REQUIRE)
     {
