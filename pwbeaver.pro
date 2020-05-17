@@ -43,6 +43,7 @@ SOURCES += \
         HelpDialog.cpp \
         MainWindow.cpp \
         OptionManager.cpp \
+        OptionsDialog.cpp \
         PasswordGenerator.cpp \
         Settings.cpp \
         main.cpp
@@ -55,13 +56,15 @@ HEADERS += \
         HelpDialog.h \
         MainWindow.h \
         OptionManager.h \
+        OptionsDialog.h \
         PasswordGenerator.h \
         Settings.h
 
 FORMS += \
-        HelpDialog.ui \
         aboutdialog.ui \
-        mainwindow.ui
+        helpdialog.ui \
+        mainwindow.ui \
+        optionsdialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

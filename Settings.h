@@ -80,7 +80,7 @@ public:
 
     void setWindowGeometry(const QByteArray& geometry);
     QByteArray windowGeometry() const;
-    ///@}
+    ///@}s
 
     /**
      * Do not allow copy construction
