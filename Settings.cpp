@@ -14,115 +14,118 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "Settings.h"
+//#include "Settings.h"
+//#include "OptionsManager.h"
 
-void Settings::setUseExtendedAscii(bool extendedAscii)
-{
-    mSettings.setValue("ExtendedAscii", extendedAscii);
-}
 
-bool Settings::useExtendedAscii() const
-{
-    return mSettings.value("ExtendedAscii", true).toBool();
-}
 
-void Settings::setUsePunctuation(int usePunct)
-{
-    mSettings.setValue("UsePunctuation", usePunct);
-}
+//void Settings::setUseExtendedAscii(bool extendedAscii)
+//{
+//    mSettings.setValue("ExtendedAscii", extendedAscii);
+//}
 
-int Settings::usePunctuation() const
-{
-    return static_cast<int>(mSettings.value("UsePunctuation", CharacterPool::REQUEST).toInt());
-}
+//bool Settings::useExtendedAscii() const
+//{
+//    return mSettings.value("ExtendedAscii", true).toBool();
+//}
 
-void Settings::setUseSymbols(int useSymbols)
-{
-    mSettings.setValue("UseSymbols", useSymbols);
-}
+//void Settings::setUsePunctuation(int usePunct)
+//{
+//    mSettings.setValue("UsePunctuation", usePunct);
+//}
 
-int Settings::useSymbols() const
-{
-    return static_cast<int>(mSettings.value("UseSymbols", CharacterPool::REQUEST).toInt());
-}
+//int Settings::usePunctuation() const
+//{
+//    return static_cast<int>(mSettings.value("UsePunctuation", CharacterPool::REQUEST).toInt());
+//}
 
-void Settings::setUseDigits(int useDigits)
-{
-    mSettings.setValue("UseDigits", useDigits);
-}
+//void Settings::setUseSymbols(int useSymbols)
+//{
+//    mSettings.setValue("UseSymbols", useSymbols);
+//}
 
-int Settings::useDigits() const
-{
-    return static_cast<int>(mSettings.value("UseDigits", CharacterPool::REQUEST).toInt());
-}
+//int Settings::useSymbols() const
+//{
+//    return static_cast<int>(mSettings.value("UseSymbols", CharacterPool::REQUEST).toInt());
+//}
 
-void Settings::setUseUpperAlpha(int useUpper)
-{
-    mSettings.setValue("UseUpperAlpha", useUpper);
-}
+//void Settings::setUseDigits(int useDigits)
+//{
+//    mSettings.setValue("UseDigits", useDigits);
+//}
 
-int Settings::useUpperAlpha() const
-{
-    return static_cast<int>(mSettings.value("UseUpperAlpha", CharacterPool::REQUEST).toInt());
-}
+//int Settings::useDigits() const
+//{
+//    return static_cast<int>(mSettings.value("UseDigits", CharacterPool::REQUEST).toInt());
+//}
 
-void Settings::setUseLowerAlpha(int useLower)
-{
-    mSettings.setValue("UseLowerAlpha", useLower);
-}
+//void Settings::setUseUpperAlpha(int useUpper)
+//{
+//    mSettings.setValue("UseUpperAlpha", useUpper);
+//}
 
-int Settings::useLowerAlpha() const
-{
-    return static_cast<int>(mSettings.value("UseLowerAlpha", CharacterPool::REQUEST).toInt());
-}
+//int Settings::useUpperAlpha() const
+//{
+//    return static_cast<int>(mSettings.value("UseUpperAlpha", CharacterPool::REQUEST).toInt());
+//}
 
-void Settings::setExcludeCharacters(bool exclude)
-{
-    mSettings.setValue("ExcludeCharacters", exclude);
-}
+//void Settings::setUseLowerAlpha(int useLower)
+//{
+//    mSettings.setValue("UseLowerAlpha", useLower);
+//}
 
-bool Settings::excludeCharacters() const
-{
-    return mSettings.value("ExcludeCharacters", false).toBool();
-}
+//int Settings::useLowerAlpha() const
+//{
+//    return static_cast<int>(mSettings.value("UseLowerAlpha", CharacterPool::REQUEST).toInt());
+//}
 
-void Settings::setCharactersToExclude(const QString& chars)
-{
-    mSettings.setValue("CharactersToExclude", chars);
-}
+//void Settings::setExcludeCharacters(bool exclude)
+//{
+//    mSettings.setValue("ExcludeCharacters", exclude);
+//}
 
-QString Settings::charactersToExclude() const
-{
-    return mSettings.value("CharactersToExclude", "").toString();
-}
+//bool Settings::excludeCharacters() const
+//{
+//    return mSettings.value("ExcludeCharacters", false).toBool();
+//}
 
-void Settings::setPasswordLength(int length)
-{
-    mSettings.setValue("PasswordLength", length);
-}
+//void Settings::setCharactersToExclude(const QString& chars)
+//{
+//    mSettings.setValue("CharactersToExclude", chars);
+//}
 
-int Settings::passwordLength() const
-{
-    return mSettings.value("PasswordLength", 16).toInt();
-}
+//QString Settings::charactersToExclude() const
+//{
+//    return mSettings.value("CharactersToExclude", "").toString();
+//}
 
-void Settings::setCopyToClipboard(bool copy)
-{
-    mSettings.setValue("CopyToClipboard", copy);
-}
+//void Settings::setPasswordLength(int length)
+//{
+//    mSettings.setValue("PasswordLength", length);
+//}
 
-bool Settings::copyToClipboard() const
-{
-    return mSettings.value("CopyToClipboard", true).toBool();
-}
+//int Settings::passwordLength() const
+//{
+//    return mSettings.value("PasswordLength", 16).toInt();
+//}
 
-void Settings::setWindowGeometry(const QByteArray& geometry)
-{
-    mSettings.setValue("WindowGeometry", geometry);
-}
+//void Settings::setCopyToClipboard(bool copy)
+//{
+//    mSettings.setValue("CopyToClipboard", copy);
+//}
 
-QByteArray Settings::windowGeometry() const
-{
-    return mSettings.value("WindowGeometry").toByteArray();
-}
+//bool Settings::copyToClipboard() const
+//{
+//    return mSettings.value("CopyToClipboard", true).toBool();
+//}
+
+//void Settings::setWindowGeometry(const QByteArray& geometry)
+//{
+//    mSettings.setValue("WindowGeometry", geometry);
+//}
+
+//QByteArray Settings::windowGeometry() const
+//{
+//    return mSettings.value("WindowGeometry").toByteArray();
+//}
 

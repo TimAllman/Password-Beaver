@@ -42,8 +42,8 @@ SOURCES += \
         Global.cpp \
         HelpDialog.cpp \
         MainWindow.cpp \
-        OptionManager.cpp \
         OptionsDialog.cpp \
+        OptionsManager.cpp \
         PasswordGenerator.cpp \
         Settings.cpp \
         main.cpp
@@ -55,8 +55,8 @@ HEADERS += \
         Global.h \
         HelpDialog.h \
         MainWindow.h \
-        OptionManager.h \
         OptionsDialog.h \
+        OptionsManager.h \
         PasswordGenerator.h \
         Settings.h
 

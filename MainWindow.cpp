@@ -14,18 +14,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <QSettings>
 #include <QClipboard>
 #include <QIcon>
 #include <QMessageBox>
 #include <QCloseEvent>
+#include <QJsonDocument>
 
 #include "Global.h"
 #include "MainWindow.h"
 #include "ui_mainwindow.h"
 #include "PasswordGenerator.h"
-#include "Settings.h"
+#include "OptionsManager.h"
 #include "AboutDialog.h"
 #include "Exceptions.h"
+#include "OptionsManager.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent), ui(new Ui::MainWindow)
@@ -37,31 +40,34 @@ MainWindow::MainWindow(QWidget *parent) :
     QCoreApplication::setOrganizationName(QString(Global::ORGANIZATION_NAME));
     QCoreApplication::setOrganizationDomain(QString(Global::ORGANIZATION_DOMAIN));
     QCoreApplication::setApplicationName(QString(Global::APPLICATION_NAME));
-    Settings& settings = Settings::instance();
+
+    // Get the OptionsManager instance.
+    OptionsManager& optsManager = OptionsManager::instance();
 
     // Make the initial settings to the UI controls before connecting the
     // signals and slots. Otherwise the values may change because of
     // slots being called before we want them
-    ui->punctuationCheckBox->setCheckState(static_cast<Qt::CheckState>(settings.usePunctuation()));
-    ui->symbolsCheckBox->setCheckState(static_cast<Qt::CheckState>(settings.useSymbols()));
-    ui->digitsCheckBox->setCheckState(static_cast<Qt::CheckState>(settings.useDigits()));
-    ui->upperCaseCheckBox->setCheckState(static_cast<Qt::CheckState>(settings.useUpperAlpha()));
-    ui->lowerCaseCheckBox->setCheckState(static_cast<Qt::CheckState>(settings.useLowerAlpha()));
-    ui->copyToClipboardCheckBox->setChecked(settings.copyToClipboard());
-    ui->extendedAsciiCheckBox->setChecked(settings.useExtendedAscii());
+    ui->punctuationCheckBox->setCheckState(static_cast<Qt::CheckState>(optsManager.usePunctuation()));
+    ui->symbolsCheckBox->setCheckState(static_cast<Qt::CheckState>(optsManager.useSymbols()));
+    ui->digitsCheckBox->setCheckState(static_cast<Qt::CheckState>(optsManager.useDigits()));
+    ui->upperCaseCheckBox->setCheckState(static_cast<Qt::CheckState>(optsManager.useUpperAlpha()));
+    ui->lowerCaseCheckBox->setCheckState(static_cast<Qt::CheckState>(optsManager.useLowerAlpha()));
+    ui->copyToClipboardCheckBox->setChecked(optsManager.copyToClipboard());
+    ui->extendedAsciiCheckBox->setChecked(optsManager.useExtendedAscii());
 
     ui->passwordLengthSpinBox->setRange(Global::MIN_PW_LENGTH, Global::MAX_PW_LENGTH);
-    int pwlen = static_cast<int>(settings.passwordLength());
+    int pwlen = static_cast<int>(optsManager.passwordLength());
     if (pwlen >= Global::MIN_PW_LENGTH && pwlen <= Global::MAX_PW_LENGTH)
         ui->passwordLengthSpinBox->setValue(pwlen);
     else
     {
         ui->passwordLengthSpinBox->setValue(Global::DEFAULT_PW_LENGTH);
-        settings.setPasswordLength(Global::DEFAULT_PW_LENGTH);
+        optsManager.setPasswordLength(Global::DEFAULT_PW_LENGTH);
     }
-    ui->excludeCheckBox->setChecked(settings.excludeCharacters());
-    ui->excludeCharsLineEdit->setText(settings.charactersToExclude());
-    ui->excludeCharsLineEdit->setEnabled(settings.excludeCharacters());
+
+    ui->excludeCheckBox->setChecked(optsManager.excludeCharacters());
+    ui->excludeCharsLineEdit->setText(optsManager.charsToExclude());
+    ui->excludeCharsLineEdit->setEnabled(optsManager.excludeCharacters());
 
     // Now do the connections.
     connect(ui->actionAbout_Qt, &QAction::triggered, qApp, &QApplication::aboutQt);
@@ -97,7 +103,9 @@ MainWindow::MainWindow(QWidget *parent) :
             this, SLOT(onPasswordLengthSpinBoxValueChanged(int)));
 
     setPoolSizeLineEditText();
-    restoreGeometry(settings.windowGeometry());
+
+    QSettings settings;
+    restoreGeometry(settings.value("WindowGeometry").toByteArray());
 }
 
 MainWindow::~MainWindow()
@@ -112,12 +120,12 @@ void MainWindow::testGenerator()
 
 void MainWindow::setPoolSizeLineEditText()
 {
-    Settings& settings = Settings::instance();
+    OptionsManager& optsManager = OptionsManager::instance();
 
-    CharacterPool pool(settings.useExtendedAscii(), settings.excludeCharacters(),
-                       settings.charactersToExclude(), settings.usePunctuation(),
-                       settings.useDigits(), settings.useUpperAlpha(),
-                       settings.useLowerAlpha(), settings.useSymbols());
+    CharacterPool pool(optsManager.useExtendedAscii(), optsManager.excludeCharacters(),
+                       optsManager.charsToExclude(), optsManager.usePunctuation(),
+                       optsManager.useDigits(), optsManager.useUpperAlpha(),
+                       optsManager.useLowerAlpha(), optsManager.useSymbols());
 
     // Here we inform the user of the pool size and show it
     // in @c Qt::red if it is too small.
@@ -153,7 +161,16 @@ void MainWindow::onAboutActionTriggered()
 
 void MainWindow::onExitActionTriggered()
 {
-    Settings::instance().setWindowGeometry(saveGeometry());
+    QJsonObject jsonObj;
+
+    OptionsManager& optsManager = OptionsManager::instance();
+    optsManager.writeToJSON(jsonObj);
+    QJsonDocument jsonDoc(jsonObj);
+    QByteArray json = jsonDoc.toJson(QJsonDocument::Compact);
+
+    QSettings settings;
+    settings.setValue("Options", json);
+    settings.setValue("WindowGeometry", saveGeometry());
     close();
 }
 
@@ -196,8 +213,9 @@ void MainWindow::onGeneratePushButtonClicked()
         return;
     }
 
+    OptionsManager& optsMan = OptionsManager::instance();
     QClipboard* clip = QGuiApplication::clipboard();
-    if (Settings::instance().copyToClipboard())
+    if (optsMan.copyToClipboard(optsMan.currentIndex()))
         clip->setText(password);
 
     ui->passwordLineEdit->setText(password);
@@ -212,66 +230,66 @@ void MainWindow::onHelpActionTriggered()
 
 void MainWindow::onPunctuationCheckboxStateChanged(int state)
 {
-    Settings::instance().setUsePunctuation(state);
+    OptionsManager::instance().setUsePunctuation(state);
     setPoolSizeLineEditText();
 }
 
 void MainWindow::onSymbolsCheckboxStateChanged(int state)
 {
-    Settings::instance().setUseSymbols(state);
+    OptionsManager::instance().setUseSymbols(state);
     setPoolSizeLineEditText();
 }
 
 void MainWindow::onDigitsCheckboxStateChanged(int state)
 {
-    Settings::instance().setUseDigits(state);
+    OptionsManager::instance().setUseDigits(state);
     setPoolSizeLineEditText();
 }
 
 void MainWindow::onUpperCaseCheckboxStateChanged(int state)
 {
-    Settings::instance().setUseUpperAlpha(state);
+    OptionsManager::instance().setUseUpperAlpha(state);
     setPoolSizeLineEditText();
 }
 
 void MainWindow::onLowerCaseCheckboxStateChanged(int state)
 {
-    Settings::instance().setUseLowerAlpha(state);
+    OptionsManager::instance().setUseLowerAlpha(state);
     setPoolSizeLineEditText();
 }
 
 void MainWindow::onCopyToClipboardCheckboxStateChanged(int state)
 {
-    Settings::instance().setCopyToClipboard(state);
+    OptionsManager::instance().setCopyToClipboard(state);
 }
 
 void MainWindow::onExtendedAsciiCheckboxStateChanged(int state)
 {
-    Settings::instance().setUseExtendedAscii(state);
+    OptionsManager::instance().setUseExtendedAscii(state);
     setPoolSizeLineEditText();
 }
 
 void MainWindow::onPasswordLengthSpinBoxValueChanged(int length)
 {
-    Settings::instance().setPasswordLength(length);
+    OptionsManager::instance().setPasswordLength(length);
 }
 
 void MainWindow::onExcludeCharactersCheckBoxStateChanged(int state)
 {
-    Settings::instance().setExcludeCharacters(state);
+    OptionsManager::instance().setExcludeCharacters(state);
     ui->excludeCharsLineEdit->setEnabled(state);
     setPoolSizeLineEditText();
 }
 
 void MainWindow::onExcludeCharsLineEditTextChanged()
 {
-    Settings::instance().setCharactersToExclude(ui->excludeCharsLineEdit->text());
+    OptionsManager::instance().setCharsToExclude(ui->excludeCharsLineEdit->text());
     setPoolSizeLineEditText();
 }
 
 void MainWindow::onExcludeCharsLineEditEditingFinished()
 {
-    Settings::instance().setCharactersToExclude(ui->excludeCharsLineEdit->text());
+    OptionsManager::instance().setCharsToExclude(ui->excludeCharsLineEdit->text());
     setPoolSizeLineEditText();
 }
 

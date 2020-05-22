@@ -23,8 +23,6 @@
 
 #include <QMainWindow>
 
-#include "Settings.h"
-
 namespace Ui {
 class MainWindow;
 }

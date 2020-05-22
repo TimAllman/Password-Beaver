@@ -14,20 +14,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <string>
-#include <random>
-#include <chrono>
-#include <cstddef>
+#include "PasswordGenerator.h"
+#include "CharacterPool.h"
+#include "Global.h"
+#include "Exceptions.h"
+#include "OptionsManager.h"
 
 #include <QRegularExpression>
 #include <QRegularExpressionMatch>
 #include <QtDebug>
 
-#include "PasswordGenerator.h"
-#include "CharacterPool.h"
-#include "Settings.h"
-#include "Global.h"
-#include "Exceptions.h"
+#include <string>
+#include <random>
+#include <chrono>
+#include <cstddef>
 
 PasswordGenerator::PasswordGenerator()
 {
@@ -38,7 +38,7 @@ PasswordGenerator::PasswordGenerator()
     // Note that std::random_device throws on construction or on calling
     // ::operator() if the system has no means to access a stochastic
     // process to use to provide a good random number.
-#if defined(linux)
+#if defined(__linux__)
     std::random_device rd;
     mGenerator.seed(rd());
 #elif defined(_WIN32)
@@ -60,14 +60,14 @@ unsigned PasswordGenerator::randomIndex(unsigned maxIdx) const
 
 QString PasswordGenerator::password()
 {
-    Settings& settings = Settings::instance();
+    OptionsManager& optsMan = OptionsManager::instance();
 
-    CharacterPool charSet(settings.useExtendedAscii(), settings.excludeCharacters(),
-                    settings.charactersToExclude(), settings.usePunctuation(),
-                    settings.useDigits(), settings.useUpperAlpha(),
-                    settings.useLowerAlpha(), settings.useSymbols());
+    CharacterPool charSet(optsMan.useExtendedAscii(), optsMan.excludeCharacters(),
+                    optsMan.charsToExclude(), optsMan.usePunctuation(),
+                    optsMan.useDigits(), optsMan.useUpperAlpha(),
+                    optsMan.useLowerAlpha(), optsMan.useSymbols());
 
-    int pwLength = settings.passwordLength();
+    int pwLength = optsMan.passwordLength();
     QString password;
 
     QString allChars = charSet.allChars();
@@ -114,11 +114,11 @@ double PasswordGenerator::calcEntropy(int passwordLength, int charSetLength)
 
 bool PasswordGenerator::validPassword(const CharacterPool& charSet, const QString& password) const
 {
-    Settings& settings = Settings::instance();
+    OptionsManager& optsMan = OptionsManager::instance();
     QRegularExpression re;
     QRegularExpressionMatch match;
 
-    if (settings.useSymbols() == CharacterPool::REQUIRE)
+    if (optsMan.useSymbols() == CharacterPool::REQUIRE)
     {
         re.setPattern("[" + charSet.symbolChars() + "]+");
         match = re.match(password);
@@ -126,7 +126,7 @@ bool PasswordGenerator::validPassword(const CharacterPool& charSet, const QStrin
             return false;
     }
 
-    if (settings.usePunctuation() == CharacterPool::REQUIRE)
+    if (optsMan.usePunctuation() == CharacterPool::REQUIRE)
     {
         re.setPattern("[" + charSet.punctChars() + "]+");
         match = re.match(password);
@@ -134,7 +134,7 @@ bool PasswordGenerator::validPassword(const CharacterPool& charSet, const QStrin
             return false;
     }
 
-    if (settings.useDigits() == CharacterPool::REQUIRE)
+    if (optsMan.useDigits() == CharacterPool::REQUIRE)
     {
         re.setPattern("[" + charSet.digitChars() + "]+");
         match = re.match(password);
@@ -142,7 +142,7 @@ bool PasswordGenerator::validPassword(const CharacterPool& charSet, const QStrin
             return false;
     }
 
-    if (settings.useLowerAlpha() == CharacterPool::REQUIRE)
+    if (optsMan.useLowerAlpha() == CharacterPool::REQUIRE)
     {
         re.setPattern("[" + charSet.lowerAlphaChars() + "]+");
         match = re.match(password);
@@ -150,7 +150,7 @@ bool PasswordGenerator::validPassword(const CharacterPool& charSet, const QStrin
             return false;
     }
 
-    if (settings.useUpperAlpha() == CharacterPool::REQUIRE)
+    if (optsMan.useUpperAlpha() == CharacterPool::REQUIRE)
     {
         re.setPattern("[" + charSet.upperAlphaChars() + "]+");
         QRegularExpressionMatch match = re.match(password);
@@ -160,9 +160,3 @@ bool PasswordGenerator::validPassword(const CharacterPool& charSet, const QStrin
 
     return true;
 }
-
-
-
-
-
-
