@@ -45,7 +45,6 @@ SOURCES += \
         OptionsDialog.cpp \
         OptionsManager.cpp \
         PasswordGenerator.cpp \
-        Settings.cpp \
         main.cpp
 
 HEADERS += \
@@ -57,8 +56,7 @@ HEADERS += \
         MainWindow.h \
         OptionsDialog.h \
         OptionsManager.h \
-        PasswordGenerator.h \
-        Settings.h
+        PasswordGenerator.h
 
 FORMS += \
         aboutdialog.ui \
