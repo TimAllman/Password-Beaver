@@ -14,12 +14,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QSettings>
 #include <QClipboard>
 #include <QIcon>
 #include <QMessageBox>
 #include <QCloseEvent>
 #include <QJsonDocument>
+#include <QSettings>
 
 #include "Global.h"
 #include "MainWindow.h"
@@ -65,9 +65,7 @@ MainWindow::MainWindow(QWidget *parent) :
         optsManager.setPasswordLength(Global::DEFAULT_PW_LENGTH);
     }
 
-    ui->excludeCheckBox->setChecked(optsManager.excludeCharacters());
     ui->excludeCharsLineEdit->setText(optsManager.charsToExclude());
-    ui->excludeCharsLineEdit->setEnabled(optsManager.excludeCharacters());
 
     // Now do the connections.
     connect(ui->actionAbout_Qt, &QAction::triggered, qApp, &QApplication::aboutQt);
@@ -91,8 +89,6 @@ MainWindow::MainWindow(QWidget *parent) :
             this, SLOT(onCopyToClipboardCheckboxStateChanged(int)));
     connect(ui->extendedAsciiCheckBox, SIGNAL(stateChanged(int)),
             this, SLOT(onExtendedAsciiCheckboxStateChanged(int)));
-    connect(ui->excludeCheckBox, SIGNAL(stateChanged(int)),
-            this, SLOT(onExcludeCharactersCheckBoxStateChanged(int)));
 
     connect(ui->excludeCharsLineEdit, SIGNAL(editingFinished()),
             this, SLOT(onExcludeCharsLineEditEditingFinished()));
@@ -122,9 +118,8 @@ void MainWindow::setPoolSizeLineEditText()
 {
     OptionsManager& optsManager = OptionsManager::instance();
 
-    CharacterPool pool(optsManager.useExtendedAscii(), optsManager.excludeCharacters(),
-                       optsManager.charsToExclude(), optsManager.usePunctuation(),
-                       optsManager.useDigits(), optsManager.useUpperAlpha(),
+    CharacterPool pool(optsManager.useExtendedAscii(), optsManager.charsToExclude(),
+                       optsManager.usePunctuation(), optsManager.useDigits(), optsManager.useUpperAlpha(),
                        optsManager.useLowerAlpha(), optsManager.useSymbols());
 
     // Here we inform the user of the pool size and show it
@@ -199,7 +194,7 @@ void MainWindow::onGeneratePushButtonClicked()
         return;
     }
 
-    catch(SmallCharacterPoolException ex)
+    catch(SmallCharacterPoolException& ex)
     {
         QMessageBox msgBox(QMessageBox::Critical, tr("Password Beaver Error"), ex.message(),
                            nullptr, this);
@@ -272,13 +267,6 @@ void MainWindow::onExtendedAsciiCheckboxStateChanged(int state)
 void MainWindow::onPasswordLengthSpinBoxValueChanged(int length)
 {
     OptionsManager::instance().setPasswordLength(length);
-}
-
-void MainWindow::onExcludeCharactersCheckBoxStateChanged(int state)
-{
-    OptionsManager::instance().setExcludeCharacters(state);
-    ui->excludeCharsLineEdit->setEnabled(state);
-    setPoolSizeLineEditText();
 }
 
 void MainWindow::onExcludeCharsLineEditTextChanged()

@@ -54,9 +54,6 @@ public:
     void setUseLowerAlpha(int useLower, int index = -1);
     int useLowerAlpha(int index = -1) const;
 
-    void setExcludeCharacters(bool exclude, int index = -1);
-    bool excludeCharacters(int index = -1) const;
-
     void setCharsToExclude(const QString& chars, int index = -1);
     QString charsToExclude(int index = -1) const;
 
@@ -83,7 +80,6 @@ private:
         int mUseDigits;
         int mUseUpperAlpha;
         int mUseLowerAlpha;
-        bool mExcludeChars;
         QString mCharsToExclude;
         int mPasswordLength;
         bool mCopyToClipboard;

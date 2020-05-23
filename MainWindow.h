@@ -122,12 +122,6 @@ private slots:
     void onPasswordLengthSpinBoxValueChanged(int length);
 
     /**
-     * Slot to respond to the exclude characters checkbox.
-     * @param state The new state of the checkbox
-     */
-    void onExcludeCharactersCheckBoxStateChanged(int state);
-
-    /**
      * Slot to respond to changes in the characters to exclude editor.
      */
     void onExcludeCharsLineEditEditingFinished();

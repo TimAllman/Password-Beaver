@@ -26,7 +26,8 @@ CONFIG += c++1z strict_c++
 
 # The default is gcc, g++, clang, clang++ depending upon kit.
 # All of these are needed in order for qmake to run properly and for the
-# build to complete. These show up as the corresponding Makefile variables.
+# build to complete. These show up as corresponding Makefile variables.
+# This is done because clang++-10 leads to compile errors in the Qt headers.
 QMAKE_CC = clang-9
 QMAKE_CXX = clang++-9
 QMAKE_LINK = clang++-9
@@ -61,8 +62,7 @@ HEADERS += \
 FORMS += \
         aboutdialog.ui \
         helpdialog.ui \
-        mainwindow.ui \
-        optionsdialog.ui
+        mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

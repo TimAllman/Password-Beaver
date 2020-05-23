@@ -62,10 +62,9 @@ QString PasswordGenerator::password()
 {
     OptionsManager& optsMan = OptionsManager::instance();
 
-    CharacterPool charSet(optsMan.useExtendedAscii(), optsMan.excludeCharacters(),
-                    optsMan.charsToExclude(), optsMan.usePunctuation(),
-                    optsMan.useDigits(), optsMan.useUpperAlpha(),
-                    optsMan.useLowerAlpha(), optsMan.useSymbols());
+    CharacterPool charSet(optsMan.useExtendedAscii(), optsMan.charsToExclude(), optsMan.usePunctuation(),
+                          optsMan.useDigits(), optsMan.useUpperAlpha(), optsMan.useLowerAlpha(),
+                          optsMan.useSymbols());
 
     int pwLength = optsMan.passwordLength();
     QString password;

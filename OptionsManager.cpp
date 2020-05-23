@@ -136,20 +136,6 @@ int OptionsManager::useLowerAlpha(int index) const
     return mOptionsList[index].mUseLowerAlpha;
 }
 
-void OptionsManager::setExcludeCharacters(bool exclude, int index)
-{
-    if (index == -1)
-        index = mCurrentOptionsIndex;
-    mOptionsList[index].mExcludeChars = exclude;
-}
-
-bool OptionsManager::excludeCharacters(int index) const
-{
-    if (index == -1)
-        index = mCurrentOptionsIndex;
-    return mOptionsList[index].mExcludeChars;
-}
-
 void OptionsManager::setCharsToExclude(const QString& chars, int index)
 {
     if (index == -1)
@@ -253,7 +239,6 @@ void OptionsManager::OptionsRec::setToDefault()
     mUseDigits = 2;
     mUseUpperAlpha = 2;
     mUseLowerAlpha = 2;
-    mExcludeChars = false;
     mCharsToExclude = "";
     mPasswordLength = 16;
     mCopyToClipboard = true;
@@ -262,7 +247,6 @@ void OptionsManager::OptionsRec::setToDefault()
 void OptionsManager::OptionsRec::writeToJSON(QJsonObject &jsonObj) const
 {
     jsonObj["label"] = mLabel;
-    jsonObj.insert("excludeChars", mExcludeChars);
     jsonObj["charsToExclude"] = mCharsToExclude;
     jsonObj["useExtendedAscii"] = mUseExtendedAscii;
     jsonObj["usePunctuation"] = mUsePunctuation;
@@ -283,7 +267,6 @@ void OptionsManager::OptionsRec::readFromJSON(const QJsonObject &jsonObj)
     mUseDigits = jsonObj["useDigits"].toInt();
     mUseUpperAlpha = jsonObj["useUpperAlpha"].toInt();
     mUseLowerAlpha = jsonObj["useLowerAlpha"].toInt();
-    mExcludeChars = jsonObj["excludeChars"].toBool();
     mCharsToExclude = jsonObj["charsToExclude"].toString();
     mPasswordLength = jsonObj["passwordLength"].toInt();
     mCopyToClipboard = jsonObj["copyToClipboard"].toBool();
