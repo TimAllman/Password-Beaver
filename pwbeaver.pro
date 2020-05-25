@@ -62,7 +62,8 @@ HEADERS += \
 FORMS += \
         aboutdialog.ui \
         helpdialog.ui \
-        mainwindow.ui
+        mainwindow.ui \
+        optionsdialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

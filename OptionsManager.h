@@ -19,61 +19,15 @@
 
 
 #include <QString>
-#include <QVector>
+#include <QMap>
 #include <QJsonObject>
 
 class OptionsManager
 {
 public:
-    /**
-     * The only way of getting an instance.
-     * @return Reference to the instance.
-     */
-    static OptionsManager& instance();
-
-    void setDefaults();
-
-    void setCurrentIndex(int index);
-    int currentIndex();
-
-    void setUseExtendedAscii(bool extendedAscii, int index = -1);
-    bool useExtendedAscii(int index = -1) const;
-
-    void setUsePunctuation(int usePunct, int index = -1);
-    int usePunctuation(int index = -1) const;
-
-    void setUseSymbols(int useSymbols, int index = -1);
-    int useSymbols(int index = -1) const;
-
-    void setUseDigits(int useDigits, int index = -1);
-    int useDigits(int index = -1) const;
-
-    void setUseUpperAlpha(int useUpper, int index = -1);
-    int useUpperAlpha(int index = -1) const;
-
-    void setUseLowerAlpha(int useLower, int index = -1);
-    int useLowerAlpha(int index = -1) const;
-
-    void setCharsToExclude(const QString& chars, int index = -1);
-    QString charsToExclude(int index = -1) const;
-
-    void setPasswordLength(int length, int index = -1);
-    int passwordLength(int index = -1) const;
-
-    void setCopyToClipboard(bool copy, int index = -1);
-    bool copyToClipboard(int index = -1) const;
-
-    void writeToJSON(QJsonObject& jsonObject) const;
-    void readFromJSON(const QJsonObject& jsonObject);
-
-private:
-    OptionsManager();
-    ~OptionsManager() = default;
-    OptionsManager(const OptionsManager&) = delete;
-
-    struct OptionsRec
+    struct OptionsSet
     {
-        QString mLabel;
+        QString mName;
         bool mUseExtendedAscii;
         int mUsePunctuation;
         int mUseSymbols;
@@ -84,16 +38,67 @@ private:
         int mPasswordLength;
         bool mCopyToClipboard;
 
-        OptionsRec();
+        OptionsSet();
         void setToDefault();
         void writeToJSON(QJsonObject& jsonObj) const;
         void readFromJSON(const QJsonObject& jsonObj);
     };
 
-    typedef QVector<OptionsRec> ListType;
+    typedef QMap<QString, OptionsSet> ListType;
 
-    int mCurrentOptionsIndex;
-    ListType mOptionsList;
+    /**
+     * The only way of getting an instance.
+     * @return Reference to the instance.
+     */
+    static OptionsManager& instance();
+
+    void setDefaults();
+
+    bool contains(const QString& name);
+
+    void setCurrentKey(const QString& key);
+    QString currentKey();
+
+    void setUseExtendedAscii(bool extendedAscii, QString key = "");
+    bool useExtendedAscii(QString key = "") const;
+
+    void setUsePunctuation(int usePunct, QString key = "");
+    int usePunctuation(QString key = "") const;
+
+    void setUseSymbols(int useSymbols, QString key = "");
+    int useSymbols(QString key = "") const;
+
+    void setUseDigits(int useDigits, QString key = "");
+    int useDigits(QString key = "") const;
+
+    void setUseUpperAlpha(int useUpper, QString key = "");
+    int useUpperAlpha(QString key = "") const;
+
+    void setUseLowerAlpha(int useLower, QString key = "");
+    int useLowerAlpha(QString key = "") const;
+
+    void setCharsToExclude(const QString& chars, QString key = "");
+    QString charsToExclude(QString key = "") const;
+
+    void setPasswordLength(int length, QString key = "");
+    int passwordLength(QString key = "") const;
+
+    void setCopyToClipboard(bool copy, QString key = "");
+    bool copyToClipboard(QString key = "") const;
+
+    void writeToJSON(QJsonObject& jsonObject) const;
+    void readFromJSON(const QJsonObject& jsonObject);
+
+    void setName(const QString& name, QString key = "");
+    QString name(QString key = "") const;
+
+private:
+    OptionsManager();
+    ~OptionsManager() = default;
+    OptionsManager(const OptionsManager&) = delete;
+
+    QString mCurrentOptionsKey;
+    ListType mOptionsMap;
 };
 
 #endif // OPTIONS_H

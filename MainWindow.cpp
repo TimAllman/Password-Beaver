@@ -98,6 +98,19 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->passwordLengthSpinBox, SIGNAL(valueChanged(int)),
             this, SLOT(onPasswordLengthSpinBoxValueChanged(int)));
 
+    connect(ui->optionsNameComboBox, SIGNAL(editTextChanged(const QString&)),
+            this, SLOT(onOptionsNameComboBoxEditTextChanged(const QString&)));
+
+    connect(ui->saveOptionsPushButton, SIGNAL(clicked(bool)),
+            this, SLOT(onSaveOptionsPushButtonClicked(int)));
+
+    connect(ui->deleteOptionsPushButton, SIGNAL(clicked(bool)),
+            this, SLOT(onDeleteOptionsPushButtonClicked(int)));
+
+    // TODO continue with setting up push buttons
+    ui->saveOptionsPushButton->setEnabled(false);
+    ui->deleteOptionsPushButton->setEnabled(true);
+
     setPoolSizeLineEditText();
 
     QSettings settings;
@@ -210,7 +223,7 @@ void MainWindow::onGeneratePushButtonClicked()
 
     OptionsManager& optsMan = OptionsManager::instance();
     QClipboard* clip = QGuiApplication::clipboard();
-    if (optsMan.copyToClipboard(optsMan.currentIndex()))
+    if (optsMan.copyToClipboard(optsMan.currentKey()))
         clip->setText(password);
 
     ui->passwordLineEdit->setText(password);
@@ -273,6 +286,49 @@ void MainWindow::onExcludeCharsLineEditTextChanged()
 {
     OptionsManager::instance().setCharsToExclude(ui->excludeCharsLineEdit->text());
     setPoolSizeLineEditText();
+}
+
+void MainWindow::onOptionsNameComboBoxEditTextChanged(const QString &text)
+{
+    // This just responds to text edits. If the current text:
+    //  - is empty, both buttons are disabled.
+    //  - is not a key/name or is "Default", Delete button is disabled but Save is active.
+    //  - is a key/name other than "Default", Delete and Save buttons are enabled.
+
+
+    if (text.isEmpty())
+    {
+        ui->saveOptionsPushButton->setEnabled(false);
+        ui->deleteOptionsPushButton->setEnabled(false);
+    }
+    else if (text == "Default")
+    {
+        ui->saveOptionsPushButton->setEnabled(false);
+        ui->deleteOptionsPushButton->setEnabled(true);
+    }
+    else if (OptionsManager::instance().contains(text))
+    {
+        ui->saveOptionsPushButton->setEnabled(true);
+        ui->deleteOptionsPushButton->setEnabled(true);
+    }
+    else
+    {
+        ui->saveOptionsPushButton->setEnabled(true);
+        ui->deleteOptionsPushButton->setEnabled(false);
+    }
+}
+
+void MainWindow::onSaveOptionsPushButtonClicked(int state)
+{
+
+}
+
+void MainWindow::onDeleteOptionsPushButtonClicked(int)
+{
+    // Check to see that this is not the default options set.
+//    OptionsManager& optMan = OptionsManager::instance();
+//    if (optMan.)
+
 }
 
 void MainWindow::onExcludeCharsLineEditEditingFinished()

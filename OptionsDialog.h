@@ -1,5 +1,5 @@
 /*
- * Copyright © 2019 Tim Allman
+ * Copyright © 2020 Tim Allman
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,16 +18,20 @@
 
 #include <QDialog>
 
-#include "ui_optionsdialog.h"
+namespace Ui {
+class OptionsDialog;
+}
 
 class OptionsDialog : public QDialog
 {
+    Q_OBJECT
+
 public:
-    OptionsDialog(QWidget* parent = nullptr);
+    explicit OptionsDialog(QWidget *parent = nullptr);
+    ~OptionsDialog();
 
 private:
-    Ui::OptionsDialog ui;
-
+    Ui::OptionsDialog *ui;
 };
 
 #endif // OPTIONSDIALOG_H

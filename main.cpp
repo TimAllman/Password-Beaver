@@ -25,11 +25,11 @@ int main(int argc, char *argv[])
  * keep this here to help with porting.
 */
 
-//    QStringList keys = QStyleFactory::keys();
-//    qDebug() << keys;
-//    QStyle* style = QStyleFactory::create("fusion");
-//    if (style)
-//        QApplication::setStyle(style);
+    QStringList keys = QStyleFactory::keys();
+    qDebug() << keys;
+    QStyle* style = QStyleFactory::create("fusion");
+    if (style)
+        QApplication::setStyle(style);
 
     QApplication a(argc, argv);
     MainWindow w;

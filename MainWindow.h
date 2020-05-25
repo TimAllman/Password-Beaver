@@ -128,6 +128,12 @@ private slots:
 
     void onExcludeCharsLineEditTextChanged();
 
+    void onOptionsNameComboBoxEditTextChanged(const QString& text);
+
+    void onSaveOptionsPushButtonClicked(int state);
+
+    void onDeleteOptionsPushButtonClicked(int state);
+
 private:
     Ui::MainWindow *ui;
 };
