@@ -42,8 +42,8 @@ SOURCES += \
         CharacterPool.cpp \
         Global.cpp \
         HelpDialog.cpp \
+        IndicatorWidget.cpp \
         MainWindow.cpp \
-        OptionsDialog.cpp \
         OptionsManager.cpp \
         PasswordGenerator.cpp \
         main.cpp
@@ -54,16 +54,15 @@ HEADERS += \
         Exceptions.h \
         Global.h \
         HelpDialog.h \
+        IndicatorWidget.h \
         MainWindow.h \
-        OptionsDialog.h \
         OptionsManager.h \
         PasswordGenerator.h
 
 FORMS += \
         aboutdialog.ui \
         helpdialog.ui \
-        mainwindow.ui \
-        optionsdialog.ui
+        mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

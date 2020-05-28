@@ -61,9 +61,9 @@ unsigned PasswordGenerator::randomIndex(unsigned maxIdx) const
 QString PasswordGenerator::password()
 {
     OptionsManager& optsMan = OptionsManager::instance();
-
-    CharacterPool charSet(optsMan.useExtendedAscii(), optsMan.charsToExclude(), optsMan.usePunctuation(),
-                          optsMan.useDigits(), optsMan.useUpperAlpha(), optsMan.useLowerAlpha(),
+    CharacterPool charSet(optsMan.useExtendedAscii(), optsMan.charsToExclude(),
+                          optsMan.usePunctuation(), optsMan.useDigits(),
+                          optsMan.useUpperAlpha(), optsMan.useLowerAlpha(),
                           optsMan.useSymbols());
 
     int pwLength = optsMan.passwordLength();

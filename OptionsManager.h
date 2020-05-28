@@ -25,6 +25,21 @@
 class OptionsManager
 {
 public:
+    static const QString STR_OPTIONS;
+    static const QString STR_DEFAULT;
+    static const QString STR_NAME;
+    static const QString STR_CURRENT_KEY;
+    static const QString STR_CHARS_TO_EXCLUDE;
+    static const QString STR_USE_EXTENDED_ASCII;
+    static const QString STR_USE_PUNCTUATION;
+    static const QString STR_USE_SYMBOLS;
+    static const QString STR_USE_DIGITS;
+    static const QString STR_USE_LOWER_ALPHA;
+    static const QString STR_USE_UPPER_ALPHA;
+    static const QString STR_PASSWORD_LENGTH;
+    static const QString STR_COPY_TO_CLIPBOARD;
+
+private:
     struct OptionsSet
     {
         QString mName;
@@ -46,6 +61,7 @@ public:
 
     typedef QMap<QString, OptionsSet> ListType;
 
+public:
     /**
      * The only way of getting an instance.
      * @return Reference to the instance.
@@ -90,7 +106,13 @@ public:
     void readFromJSON(const QJsonObject& jsonObject);
 
     void setName(const QString& name, QString key = "");
-    QString name(QString key = "") const;
+    QString name(QString key) const;
+
+    QStringList names();
+
+    void saveOptions(const QString& newName);
+
+    void switchOptions(const QString& name);
 
 private:
     OptionsManager();
@@ -99,6 +121,7 @@ private:
 
     QString mCurrentOptionsKey;
     ListType mOptionsMap;
+    OptionsSet mActiveOptions;
 };
 
 #endif // OPTIONS_H

@@ -13,25 +13,32 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef OPTIONSDIALOG_H
-#define OPTIONSDIALOG_H
+#include "IndicatorWidget.h"
 
-#include <QDialog>
+#include <QPainter>
+//#include <QPaintEvent>
 
-namespace Ui {
-class OptionsDialog;
+IndicatorWidget::IndicatorWidget(QWidget* parent)
+    : QFrame(parent), mIsActive(false)
+{
+
 }
 
-class OptionsDialog : public QDialog
+void IndicatorWidget::setActive(bool isActive)
 {
-    Q_OBJECT
+    mIsActive = isActive;
+    //repaint(rect().x()+1, rect().y()+1, -rect().width(), -rect().height());
+    repaint();
+}
 
-public:
-    explicit OptionsDialog(QWidget *parent = nullptr);
-    ~OptionsDialog();
+void IndicatorWidget::paintEvent(QPaintEvent*)
+{
+    QPainter painter(this);
 
-private:
-    Ui::OptionsDialog *ui;
-};
-
-#endif // OPTIONSDIALOG_H
+    if (mIsActive)
+    {
+        painter.setPen(Qt::blue);
+        painter.setBrush(Qt::SolidPattern);
+        painter.drawRect(rect());
+    }
+}

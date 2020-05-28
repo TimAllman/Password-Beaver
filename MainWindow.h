@@ -52,16 +52,14 @@ protected:
      */
     virtual void closeEvent(QCloseEvent *event) override;
 
+private:
+    void displayCurrentOptions();
+
 private slots:
     /**
      * Slot to show the About dialog.
      */
     void onAboutActionTriggered();
-
-    /**
-     * Slot to exit the program.
-     */
-    void onExitActionTriggered();
 
     /**
      * Slot to show help.
@@ -130,9 +128,9 @@ private slots:
 
     void onOptionsNameComboBoxEditTextChanged(const QString& text);
 
-    void onSaveOptionsPushButtonClicked(int state);
+    void onSaveOptionsPushButtonClicked(bool);
 
-    void onDeleteOptionsPushButtonClicked(int state);
+    void onDeleteOptionsPushButtonClicked(bool);
 
 private:
     Ui::MainWindow *ui;

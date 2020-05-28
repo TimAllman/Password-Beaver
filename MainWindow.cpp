@@ -14,13 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <QClipboard>
-#include <QIcon>
-#include <QMessageBox>
-#include <QCloseEvent>
-#include <QJsonDocument>
-#include <QSettings>
-
 #include "Global.h"
 #include "MainWindow.h"
 #include "ui_mainwindow.h"
@@ -29,6 +22,14 @@
 #include "AboutDialog.h"
 #include "Exceptions.h"
 #include "OptionsManager.h"
+
+#include <QClipboard>
+#include <QIcon>
+#include <QMessageBox>
+#include <QCloseEvent>
+#include <QJsonDocument>
+#include <QSettings>
+#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent), ui(new Ui::MainWindow)
@@ -41,37 +42,52 @@ MainWindow::MainWindow(QWidget *parent) :
     QCoreApplication::setOrganizationDomain(QString(Global::ORGANIZATION_DOMAIN));
     QCoreApplication::setApplicationName(QString(Global::APPLICATION_NAME));
 
-    // Get the OptionsManager instance.
-    OptionsManager& optsManager = OptionsManager::instance();
+    // Get the OptionsManager instance. This has a default options set on construction
+    // and may have other sets from reading the settings.
+    OptionsManager& optsMan = OptionsManager::instance();
+
+    // load up the combobox with the names and set the active name in the editor.
+    ui->optionsNameComboBox->addItems(optsMan.names());
+    ui->optionsNameComboBox->setEditText(optsMan.currentKey());
 
     // Make the initial settings to the UI controls before connecting the
     // signals and slots. Otherwise the values may change because of
     // slots being called before we want them
-    ui->punctuationCheckBox->setCheckState(static_cast<Qt::CheckState>(optsManager.usePunctuation()));
-    ui->symbolsCheckBox->setCheckState(static_cast<Qt::CheckState>(optsManager.useSymbols()));
-    ui->digitsCheckBox->setCheckState(static_cast<Qt::CheckState>(optsManager.useDigits()));
-    ui->upperCaseCheckBox->setCheckState(static_cast<Qt::CheckState>(optsManager.useUpperAlpha()));
-    ui->lowerCaseCheckBox->setCheckState(static_cast<Qt::CheckState>(optsManager.useLowerAlpha()));
-    ui->copyToClipboardCheckBox->setChecked(optsManager.copyToClipboard());
-    ui->extendedAsciiCheckBox->setChecked(optsManager.useExtendedAscii());
+    ui->punctuationCheckBox->setCheckState(static_cast<Qt::CheckState>(optsMan.usePunctuation()));
+    ui->symbolsCheckBox->setCheckState(static_cast<Qt::CheckState>(optsMan.useSymbols()));
+    ui->digitsCheckBox->setCheckState(static_cast<Qt::CheckState>(optsMan.useDigits()));
+    ui->upperCaseCheckBox->setCheckState(static_cast<Qt::CheckState>(optsMan.useUpperAlpha()));
+    ui->lowerCaseCheckBox->setCheckState(static_cast<Qt::CheckState>(optsMan.useLowerAlpha()));
+    ui->copyToClipboardCheckBox->setChecked(optsMan.copyToClipboard());
+    ui->extendedAsciiCheckBox->setChecked(optsMan.useExtendedAscii());
 
     ui->passwordLengthSpinBox->setRange(Global::MIN_PW_LENGTH, Global::MAX_PW_LENGTH);
-    int pwlen = static_cast<int>(optsManager.passwordLength());
+    int pwlen = static_cast<int>(optsMan.passwordLength());
     if (pwlen >= Global::MIN_PW_LENGTH && pwlen <= Global::MAX_PW_LENGTH)
         ui->passwordLengthSpinBox->setValue(pwlen);
     else
     {
         ui->passwordLengthSpinBox->setValue(Global::DEFAULT_PW_LENGTH);
-        optsManager.setPasswordLength(Global::DEFAULT_PW_LENGTH);
+        optsMan.setPasswordLength(Global::DEFAULT_PW_LENGTH);
     }
 
-    ui->excludeCharsLineEdit->setText(optsManager.charsToExclude());
+    ui->excludeCharsLineEdit->setText(optsMan.charsToExclude());
 
     // Now do the connections.
-    connect(ui->actionAbout_Qt, &QAction::triggered, qApp, &QApplication::aboutQt);
+    ui->aboutQtAction->setMenuRole(QAction::AboutQtRole);
+    connect(ui->aboutQtAction, &QAction::triggered, qApp, &QApplication::aboutQt);
+
+    ui->aboutAction->setIcon(QIcon::fromTheme("help-about"));
+    ui->aboutAction->setMenuRole(QAction::AboutRole); // for macos only
     connect(ui->aboutAction, &QAction::triggered, this, &MainWindow::onAboutActionTriggered);
-    connect(ui->exitAction, &QAction::triggered, this, &MainWindow::onExitActionTriggered);
-    connect(ui->quitPushButton, &QPushButton::clicked, this, &MainWindow::onExitActionTriggered);
+
+    ui->exitAction->setShortcut(QKeySequence::Quit);
+    ui->exitAction->setIcon(QIcon::fromTheme("application-exit"));
+    connect(ui->exitAction, &QAction::triggered, this, &QWidget::close);
+
+    ui->helpAction->setIcon(QIcon::fromTheme("help-contents"));
+
+    connect(ui->quitPushButton, &QPushButton::clicked, this, &QWidget::close);
     connect(ui->generatePushButton, &QPushButton::clicked, this, &MainWindow::onGeneratePushButtonClicked);
 
     connect(ui->punctuationCheckBox, SIGNAL(stateChanged(int)),
@@ -102,14 +118,15 @@ MainWindow::MainWindow(QWidget *parent) :
             this, SLOT(onOptionsNameComboBoxEditTextChanged(const QString&)));
 
     connect(ui->saveOptionsPushButton, SIGNAL(clicked(bool)),
-            this, SLOT(onSaveOptionsPushButtonClicked(int)));
+            this, SLOT(onSaveOptionsPushButtonClicked(bool)));
 
     connect(ui->deleteOptionsPushButton, SIGNAL(clicked(bool)),
-            this, SLOT(onDeleteOptionsPushButtonClicked(int)));
+            this, SLOT(onDeleteOptionsPushButtonClicked(bool)));
 
     // TODO continue with setting up push buttons
     ui->saveOptionsPushButton->setEnabled(false);
     ui->deleteOptionsPushButton->setEnabled(true);
+    ui->indicatorWidget->setActive(false);
 
     setPoolSizeLineEditText();
 
@@ -129,11 +146,11 @@ void MainWindow::testGenerator()
 
 void MainWindow::setPoolSizeLineEditText()
 {
-    OptionsManager& optsManager = OptionsManager::instance();
+    OptionsManager& optsMan = OptionsManager::instance();
 
-    CharacterPool pool(optsManager.useExtendedAscii(), optsManager.charsToExclude(),
-                       optsManager.usePunctuation(), optsManager.useDigits(), optsManager.useUpperAlpha(),
-                       optsManager.useLowerAlpha(), optsManager.useSymbols());
+    CharacterPool pool(optsMan.useExtendedAscii(), optsMan.charsToExclude(), optsMan.usePunctuation(),
+                       optsMan.useDigits(), optsMan.useUpperAlpha(), optsMan.useLowerAlpha(),
+                       optsMan.useSymbols());
 
     // Here we inform the user of the pool size and show it
     // in @c Qt::red if it is too small.
@@ -157,29 +174,58 @@ void MainWindow::closeEvent(QCloseEvent* event)
 {
     // We'll just call @c onExitActionTriggered()
     // and leave without complaint.
+    QJsonObject jsonObj;
+
+    OptionsManager& optsMan = OptionsManager::instance();
+    optsMan.writeToJSON(jsonObj);
+    QJsonDocument jsonDoc(jsonObj);
+    QByteArray json = jsonDoc.toJson(QJsonDocument::Indented);
+
+    qDebug() << json;
+
+    QSettings settings;
+    settings.setValue("Options", json);
+    settings.setValue("WindowGeometry", saveGeometry());
+
     event->accept();
-    onExitActionTriggered();
+    //onExitActionTriggered();
+}
+
+void MainWindow::displayCurrentOptions()
+{
+    OptionsManager& optsMan = OptionsManager::instance();
+
+    // load up the combobox with the names.
+    //ui->optionsNameComboBox->addItems(optsMan.names());
+
+    // Make the initial settings to the UI controls before connecting the
+    // signals and slots. Otherwise the values may change because of
+    // slots being called before we want them
+    ui->punctuationCheckBox->setCheckState(static_cast<Qt::CheckState>(optsMan.usePunctuation()));
+    ui->symbolsCheckBox->setCheckState(static_cast<Qt::CheckState>(optsMan.useSymbols()));
+    ui->digitsCheckBox->setCheckState(static_cast<Qt::CheckState>(optsMan.useDigits()));
+    ui->upperCaseCheckBox->setCheckState(static_cast<Qt::CheckState>(optsMan.useUpperAlpha()));
+    ui->lowerCaseCheckBox->setCheckState(static_cast<Qt::CheckState>(optsMan.useLowerAlpha()));
+    ui->copyToClipboardCheckBox->setChecked(optsMan.copyToClipboard());
+    ui->extendedAsciiCheckBox->setChecked(optsMan.useExtendedAscii());
+
+    ui->passwordLengthSpinBox->setRange(Global::MIN_PW_LENGTH, Global::MAX_PW_LENGTH);
+    int pwlen = static_cast<int>(optsMan.passwordLength());
+    if (pwlen >= Global::MIN_PW_LENGTH && pwlen <= Global::MAX_PW_LENGTH)
+        ui->passwordLengthSpinBox->setValue(pwlen);
+    else
+    {
+        ui->passwordLengthSpinBox->setValue(Global::DEFAULT_PW_LENGTH);
+        optsMan.setPasswordLength(Global::DEFAULT_PW_LENGTH);
+    }
+
+    ui->excludeCharsLineEdit->setText(optsMan.charsToExclude());
 }
 
 void MainWindow::onAboutActionTriggered()
 {
     AboutDialog dlg;
     dlg.exec();
-}
-
-void MainWindow::onExitActionTriggered()
-{
-    QJsonObject jsonObj;
-
-    OptionsManager& optsManager = OptionsManager::instance();
-    optsManager.writeToJSON(jsonObj);
-    QJsonDocument jsonDoc(jsonObj);
-    QByteArray json = jsonDoc.toJson(QJsonDocument::Compact);
-
-    QSettings settings;
-    settings.setValue("Options", json);
-    settings.setValue("WindowGeometry", saveGeometry());
-    close();
 }
 
 void MainWindow::onGeneratePushButtonClicked()
@@ -294,40 +340,51 @@ void MainWindow::onOptionsNameComboBoxEditTextChanged(const QString &text)
     //  - is empty, both buttons are disabled.
     //  - is not a key/name or is "Default", Delete button is disabled but Save is active.
     //  - is a key/name other than "Default", Delete and Save buttons are enabled.
-
-
-    if (text.isEmpty())
+    if (text.isEmpty() || text == "Default")
     {
         ui->saveOptionsPushButton->setEnabled(false);
         ui->deleteOptionsPushButton->setEnabled(false);
-    }
-    else if (text == "Default")
-    {
-        ui->saveOptionsPushButton->setEnabled(false);
-        ui->deleteOptionsPushButton->setEnabled(true);
+        ui->indicatorWidget->setActive(false);
     }
     else if (OptionsManager::instance().contains(text))
     {
         ui->saveOptionsPushButton->setEnabled(true);
         ui->deleteOptionsPushButton->setEnabled(true);
+        ui->indicatorWidget->setActive(false);
     }
     else
     {
+        // something new has been typed in.
         ui->saveOptionsPushButton->setEnabled(true);
         ui->deleteOptionsPushButton->setEnabled(false);
+        ui->indicatorWidget->setActive(true);
+    }
+
+    // We now see if this text represents a set of options.
+    OptionsManager& optMan = OptionsManager::instance();
+    if (optMan.names().contains(text))
+    {
+        optMan.setCurrentKey(text);
+        displayCurrentOptions();
     }
 }
 
-void MainWindow::onSaveOptionsPushButtonClicked(int state)
+void MainWindow::onSaveOptionsPushButtonClicked(bool)
 {
-
+    // get current opt set, set name to edit text, add to map.
+    QString newName = ui->optionsNameComboBox->currentText();
+    OptionsManager& optMan = OptionsManager::instance();
+    optMan.saveOptions(newName);
+    ui->optionsNameComboBox->addItem(newName);
 }
 
-void MainWindow::onDeleteOptionsPushButtonClicked(int)
+void MainWindow::onDeleteOptionsPushButtonClicked(bool)
 {
     // Check to see that this is not the default options set.
 //    OptionsManager& optMan = OptionsManager::instance();
 //    if (optMan.)
+    QString newName = ui->optionsNameComboBox->currentText();
+    OptionsManager::instance().saveOptions(newName);
 
 }
 

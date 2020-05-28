@@ -13,17 +13,23 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "OptionsDialog.h"
-#include "ui_optionsdialog.h"
+#ifndef INDICATORWIDGET_H
+#define INDICATORWIDGET_H
 
-OptionsDialog::OptionsDialog(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::OptionsDialog)
-{
-    ui->setupUi(this);
-}
+#include <QFrame>
 
-OptionsDialog::~OptionsDialog()
+class IndicatorWidget : public QFrame
 {
-    delete ui;
-}
+public:
+    IndicatorWidget(QWidget* parent = nullptr);
+
+    void setActive(bool isActive);
+
+protected:
+    void paintEvent(QPaintEvent* event) override;
+
+private:
+    bool mIsActive;
+};
+
+#endif // INDICATORWIDGET_H
