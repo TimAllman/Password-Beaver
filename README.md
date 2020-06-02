@@ -1,6 +1,8 @@
 Password Beaver
 ===============
 
+THIS PROGRAM IS NOT READY FOR USE.
+
 Password Beaver is a lightweight, easy to use and secure password generator. By default it
 creates passwords based upon random selection from the printable characters
 of the ASCII character set. The passwords are intended to be used with a password
