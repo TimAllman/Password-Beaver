@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "HelpDialog.h"
-#include "ui_HelpDialog.h"
+#include "ui_helpdialog.h"
 
 HelpDialog::HelpDialog(QWidget *parent) :
     QDialog(parent),

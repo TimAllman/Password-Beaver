@@ -37,6 +37,8 @@ OptionsManager::OptionsManager()
         QJsonObject jsonObj = jsonDoc.object();
         readFromJSON(jsonObj);
     }
+
+    setActive(mActiveOptionsKey);
 }
 
 OptionsManager &OptionsManager::instance()
@@ -52,8 +54,9 @@ OptionsManager &OptionsManager::instance()
 
 void OptionsManager::setDefaults()
 {
-    mCurrentOptionsKey = STR_DEFAULT;
+    mActiveOptionsKey = STR_DEFAULT;
     mOptionsMap.insert(STR_DEFAULT, OptionsSet());
+    mActiveOptions = mOptionsMap.value(mActiveOptionsKey);
 }
 
 bool OptionsManager::contains(const QString &name)
@@ -63,138 +66,102 @@ bool OptionsManager::contains(const QString &name)
 
 void OptionsManager::setCurrentKey(const QString& key)
 {
-    mCurrentOptionsKey = key;
+    mActiveOptionsKey = key;
 }
 
 QString OptionsManager::currentKey()
 {
-    return mCurrentOptionsKey;
+    return mActiveOptionsKey;
 }
 
-void OptionsManager::setUseExtendedAscii(bool extendedAscii, QString key)
+void OptionsManager::setUseExtendedAscii(bool extendedAscii)
 {
-    if (key.isEmpty())
-        key = mCurrentOptionsKey;
-    mOptionsMap[key].mUseExtendedAscii = extendedAscii;
+    mActiveOptions.mUseExtendedAscii = extendedAscii;
 }
 
-bool OptionsManager::useExtendedAscii(QString key) const
+bool OptionsManager::useExtendedAscii() const
 {
-    if (key.isEmpty())
-        key = mCurrentOptionsKey;
-    return mOptionsMap[key].mUseExtendedAscii;
+    return mActiveOptions.mUseExtendedAscii;
 }
 
-void OptionsManager::setUsePunctuation(int usePunct, QString key)
+void OptionsManager::setUsePunctuation(int usePunct)
 {
-    if (key.isEmpty())
-        key = mCurrentOptionsKey;
-    mOptionsMap[key].mUsePunctuation = usePunct;
+    mActiveOptions.mUsePunctuation = usePunct;
 }
 
-int OptionsManager::usePunctuation(QString key) const
+int OptionsManager::usePunctuation() const
 {
-    if (key.isEmpty())
-        key = mCurrentOptionsKey;
-    return mOptionsMap[key].mUsePunctuation;
+    return mActiveOptions.mUsePunctuation;
 }
 
-void OptionsManager::setUseSymbols(int useSymbols, QString key)
+void OptionsManager::setUseSymbols(int useSymbols)
 {
-    if (key.isEmpty())
-        key = mCurrentOptionsKey;
-    mOptionsMap[key].mUseSymbols = useSymbols;
+    mActiveOptions.mUseSymbols = useSymbols;
 }
 
-int OptionsManager::useSymbols(QString key) const
+int OptionsManager::useSymbols() const
 {
-    if (key.isEmpty())
-        key = mCurrentOptionsKey;
-    return mOptionsMap[key].mUseSymbols;
+    return mActiveOptions.mUseSymbols;
 }
 
-void OptionsManager::setUseDigits(int useDigits, QString key)
+void OptionsManager::setUseDigits(int useDigits)
 {
-    if (key.isEmpty())
-        key = mCurrentOptionsKey;
-    mOptionsMap[key].mUseDigits = useDigits;
+    mActiveOptions.mUseDigits = useDigits;
 }
 
-int OptionsManager::useDigits(QString key) const
+int OptionsManager::useDigits() const
 {
-    if (key.isEmpty())
-        key = mCurrentOptionsKey;
-    return mOptionsMap[key].mUseDigits;
+    return mActiveOptions.mUseDigits;
 }
 
-void OptionsManager::setUseUpperAlpha(int useUpper, QString key)
+void OptionsManager::setUseUpperAlpha(int useUpper)
 {
-    if (key.isEmpty())
-        key = mCurrentOptionsKey;
-    mOptionsMap[key].mUseUpperAlpha = useUpper;
+    mActiveOptions.mUseUpperAlpha = useUpper;
 }
 
-int OptionsManager::useUpperAlpha(QString key) const
+int OptionsManager::useUpperAlpha() const
 {
-    if (key.isEmpty())
-        key = mCurrentOptionsKey;
-    return mOptionsMap[key].mUseUpperAlpha;
+    return mActiveOptions.mUseUpperAlpha;
 }
 
-void OptionsManager::setUseLowerAlpha(int useLower, QString key)
+void OptionsManager::setUseLowerAlpha(int useLower)
 {
-    if (key.isEmpty())
-        key = mCurrentOptionsKey;
-    mOptionsMap[key].mUseLowerAlpha = useLower;
+    mActiveOptions.mUseLowerAlpha = useLower;
 }
 
-int OptionsManager::useLowerAlpha(QString key) const
+int OptionsManager::useLowerAlpha() const
 {
-    if (key.isEmpty())
-        key = mCurrentOptionsKey;
-    return mOptionsMap[key].mUseLowerAlpha;
+    return mActiveOptions.mUseLowerAlpha;
 }
 
-void OptionsManager::setCharsToExclude(const QString& chars, QString key)
+void OptionsManager::setCharsToExclude(const QString& chars)
 {
-    if (key.isEmpty())
-        key = mCurrentOptionsKey;
-    mOptionsMap[key].mCharsToExclude = chars;
+    mActiveOptions.mCharsToExclude = chars;
 }
 
-QString OptionsManager::charsToExclude(QString key) const
+QString OptionsManager::charsToExclude() const
 {
-    if (key.isEmpty())
-        key = mCurrentOptionsKey;
-    return mOptionsMap[key].mCharsToExclude;
+    return mActiveOptions.mCharsToExclude;
 }
 
-void OptionsManager::setPasswordLength(int length, QString key)
+void OptionsManager::setPasswordLength(int length)
 {
-    if (key.isEmpty())
-        key = mCurrentOptionsKey;
-    mOptionsMap[key].mPasswordLength = length;
+    mActiveOptions.mPasswordLength = length;
 }
 
-int OptionsManager::passwordLength(QString key) const
+int OptionsManager::passwordLength() const
 {
-    if (key.isEmpty())
-        key = mCurrentOptionsKey;
-    return mOptionsMap[key].mPasswordLength;
+    return mActiveOptions.mPasswordLength;
 }
 
-void OptionsManager::setCopyToClipboard(bool copy, QString key)
+void OptionsManager::setCopyToClipboard(bool copy)
 {
-    if (key.isEmpty())
-        key = mCurrentOptionsKey;
-    mOptionsMap[key].mCopyToClipboard = copy;
+    mActiveOptions.mCopyToClipboard = copy;
 }
 
-bool OptionsManager::copyToClipboard(QString key) const
+bool OptionsManager::copyToClipboard() const
 {
-    if (key.isEmpty())
-        key = mCurrentOptionsKey;
-    return mOptionsMap[key].mCopyToClipboard;
+    return mActiveOptions.mCopyToClipboard;
 }
 
 void OptionsManager::writeToJSON(QJsonObject& jsonObject) const
@@ -204,7 +171,7 @@ void OptionsManager::writeToJSON(QJsonObject& jsonObject) const
         jsonObject.erase(iter);
 
     // The key of the currently active set of options
-    jsonObject[STR_CURRENT_KEY] = mCurrentOptionsKey;
+    jsonObject[STR_CURRENT_KEY] = mActiveOptionsKey;
 
     // Array of option sets
     QJsonArray jsonArray;
@@ -237,26 +204,35 @@ void OptionsManager::readFromJSON(const QJsonObject& jsonObject)
             QJsonObject obj = optArray[idx].toObject();
             optRec.readFromJSON(obj);
             tempList.insert(optRec.mName, optRec);
-            mCurrentOptionsKey = optRec.mName;
+            mActiveOptionsKey = optRec.mName;
         }
     }
 
-    mCurrentOptionsKey = curKey;
+    mActiveOptionsKey = curKey;
     mOptionsMap = tempList;
 }
 
-void OptionsManager::setName(const QString &name, QString key)
+void OptionsManager::setName(const QString &name)
 {
-    if (key.isEmpty())
-        key = mCurrentOptionsKey;
-    mOptionsMap[key].mName = name;
+    mActiveOptions.mName = name;
 }
 
-QString OptionsManager::name(QString key) const
+QString OptionsManager::name() const
 {
-    if (key.isEmpty())
-        key = mCurrentOptionsKey;
-    return mOptionsMap[key].mName;
+    return mActiveOptions.mName;
+}
+
+bool OptionsManager::isModified(const QString &name)
+{
+    // Considered modified if
+    //   - the name is not a key in the map.
+    //   - the name is in the map and mActiveOptions is not equal to mOptionsMap[name].
+    if (!mOptionsMap.contains(name))
+        return true;
+    else if (!mActiveOptions.compareOptions(mOptionsMap.value(name)))
+        return true;
+    else
+        return false;
 }
 
 QStringList OptionsManager::names()
@@ -265,17 +241,48 @@ QStringList OptionsManager::names()
     return mOptionsMap.keys();
 }
 
-void OptionsManager::saveOptions(const QString& newName)
+void OptionsManager::setActive(const QString& name)
 {
-    OptionsSet newOpts = mOptionsMap[mCurrentOptionsKey];
-    newOpts.mName = newName;
-    mOptionsMap.insert(newName, newOpts);
-    mCurrentOptionsKey = newName;
+    if (contains(name))
+    {
+        mActiveOptions = mOptionsMap.value(name);
+        mActiveOptionsKey = name;
+    }
 }
 
-void OptionsManager::switchOptions(const QString &name)
+void OptionsManager::saveOptions(const QString& newName)
 {
+    // never overwrite "Default"
+    if (newName == STR_DEFAULT)
+        return;
 
+    // We want to copy the active opts buffer to the map.
+    // If the key exists in the map we overwrite the current entry
+    // If key does not exist we create a new entry. The [] operator does just what we want.
+    mActiveOptions.mName = newName;
+    mOptionsMap[newName] = mActiveOptions;
+    mActiveOptionsKey = newName;
+}
+
+void OptionsManager::deleteOptions(const QString &name)
+{
+    // never delete "Default"
+    if (name == STR_DEFAULT)
+        return;
+
+    auto iter = mOptionsMap.find(name);
+    if (iter != mOptionsMap.end())
+    {
+        auto newIter = iter;
+        if (iter == mOptionsMap.begin())
+            ++newIter;
+        else
+            --newIter;
+
+        mOptionsMap.erase(iter);
+
+        setActive(newIter->mName);
+    }
 }
 
 OptionsManager::OptionsSet::OptionsSet()
@@ -297,7 +304,7 @@ void OptionsManager::OptionsSet::setToDefault()
     mCopyToClipboard = true;
 }
 
-void OptionsManager::OptionsSet::writeToJSON(QJsonObject &jsonObj) const
+void OptionsManager::OptionsSet::writeToJSON(QJsonObject& jsonObj) const
 {
     jsonObj[STR_NAME] = mName;
     jsonObj[STR_CHARS_TO_EXCLUDE] = mCharsToExclude;
@@ -311,7 +318,7 @@ void OptionsManager::OptionsSet::writeToJSON(QJsonObject &jsonObj) const
     jsonObj[STR_COPY_TO_CLIPBOARD] = mCopyToClipboard;
 }
 
-void OptionsManager::OptionsSet::readFromJSON(const QJsonObject &jsonObj)
+void OptionsManager::OptionsSet::readFromJSON(const QJsonObject& jsonObj)
 {
     mName = jsonObj[STR_NAME].toString();
     mUseExtendedAscii = jsonObj[STR_USE_EXTENDED_ASCII].toBool();
@@ -323,4 +330,28 @@ void OptionsManager::OptionsSet::readFromJSON(const QJsonObject &jsonObj)
     mCharsToExclude = jsonObj[STR_CHARS_TO_EXCLUDE].toString();
     mPasswordLength = jsonObj[STR_PASSWORD_LENGTH].toInt();
     mCopyToClipboard = jsonObj[STR_COPY_TO_CLIPBOARD].toBool();
+}
+
+bool OptionsManager::OptionsSet::compareOptions(const OptionsManager::OptionsSet& other) const
+{
+    // compare all options but mName
+    return ((mUseExtendedAscii == other.mUseExtendedAscii) &&
+            (mUsePunctuation == other.mUsePunctuation) &&
+            (mUseSymbols == other.mUseSymbols) &&
+            (mUseDigits == other.mUseDigits) &&
+            (mUseUpperAlpha == other.mUseUpperAlpha) &&
+            (mUseLowerAlpha == other.mUseLowerAlpha) &&
+            (mCharsToExclude == other.mCharsToExclude) &&
+            (mPasswordLength == other.mPasswordLength) &&
+            (mCopyToClipboard == other.mCopyToClipboard));
+}
+
+bool operator==(const OptionsManager::OptionsSet& lhs, const OptionsManager::OptionsSet& rhs)
+{
+    return ((lhs.mName == rhs.mName) && lhs.compareOptions(rhs));
+}
+
+bool operator!=(const OptionsManager::OptionsSet &lhs, const OptionsManager::OptionsSet &rhs)
+{
+    return !(lhs == rhs);
 }

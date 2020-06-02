@@ -35,10 +35,15 @@ void IndicatorWidget::paintEvent(QPaintEvent*)
 {
     QPainter painter(this);
 
+    QRect r = rect();
+    r.adjust(0, 0, -1, -1);
+    painter.drawRect(r);
+
     if (mIsActive)
     {
-        painter.setPen(Qt::blue);
-        painter.setBrush(Qt::SolidPattern);
-        painter.drawRect(rect());
+        r.adjust(1, 1, -1, -1);
+        painter.setPen(Qt::red);
+        painter.setBrush(Qt::red);
+        painter.drawRect(r);
     }
 }

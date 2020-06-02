@@ -54,6 +54,7 @@ protected:
 
 private:
     void displayCurrentOptions();
+    void updateGui();
 
 private slots:
     /**
@@ -126,7 +127,11 @@ private slots:
 
     void onExcludeCharsLineEditTextChanged();
 
+    void onOptionsNameComboBoxEditingFinished();
+
     void onOptionsNameComboBoxEditTextChanged(const QString& text);
+
+    void onOptionsNameComboBoxCurrentIndexChanged(int index);
 
     void onSaveOptionsPushButtonClicked(bool);
 

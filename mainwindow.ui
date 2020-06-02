@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>346</width>
+    <width>372</width>
     <height>417</height>
    </rect>
   </property>
@@ -141,15 +141,9 @@
             </widget>
            </item>
            <item row="2" column="1">
-            <widget class="QLineEdit" name="poolSizeLineEdit">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="readOnly">
-              <bool>true</bool>
+            <widget class="QLabel" name="poolSizeLabel">
+             <property name="text">
+              <string/>
              </property>
             </widget>
            </item>
@@ -178,6 +172,12 @@
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
         <widget class="QComboBox" name="optionsNameComboBox">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>2</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="editable">
           <bool>true</bool>
          </property>
@@ -188,11 +188,81 @@
        </item>
        <item>
         <widget class="IndicatorWidget" name="indicatorWidget">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>2</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="maximumSize">
           <size>
            <width>10</width>
            <height>10</height>
           </size>
+         </property>
+         <property name="palette">
+          <palette>
+           <active>
+            <colorrole role="Base">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Window">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>170</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </active>
+           <inactive>
+            <colorrole role="Base">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Window">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>170</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </inactive>
+           <disabled>
+            <colorrole role="Base">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>170</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Window">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>170</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </disabled>
+          </palette>
          </property>
          <property name="frameShape">
           <enum>QFrame::StyledPanel</enum>
@@ -275,37 +345,11 @@
          <item row="1" column="1">
           <layout class="QHBoxLayout" name="horizontalLayout_3">
            <item>
-            <widget class="QLineEdit" name="entropyLineEdit">
-             <property name="enabled">
-              <bool>true</bool>
-             </property>
-             <property name="acceptDrops">
-              <bool>false</bool>
-             </property>
-             <property name="readOnly">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="bitsLabel">
+            <widget class="QLabel" name="entropyLabel">
              <property name="text">
-              <string>bits</string>
+              <string/>
              </property>
             </widget>
-           </item>
-           <item>
-            <spacer name="horizontalSpacer">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
            </item>
           </layout>
          </item>
@@ -345,7 +389,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>346</width>
+     <width>372</width>
      <height>22</height>
     </rect>
    </property>

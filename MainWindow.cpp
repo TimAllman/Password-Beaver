@@ -42,13 +42,15 @@ MainWindow::MainWindow(QWidget *parent) :
     QCoreApplication::setOrganizationDomain(QString(Global::ORGANIZATION_DOMAIN));
     QCoreApplication::setApplicationName(QString(Global::APPLICATION_NAME));
 
-    // Get the OptionsManager instance. This has a default options set on construction
-    // and may have other sets from reading the settings.
+    // Get the OptionsManager instance. This has default options that are set on construction
+    // and may have other option sets created from reading the settings.
     OptionsManager& optsMan = OptionsManager::instance();
 
     // load up the combobox with the names and set the active name in the editor.
     ui->optionsNameComboBox->addItems(optsMan.names());
     ui->optionsNameComboBox->setEditText(optsMan.currentKey());
+    ui->optionsNameComboBox->setDuplicatesEnabled(false);
+    ui->optionsNameComboBox->setInsertPolicy(QComboBox::InsertAlphabetically);
 
     // Make the initial settings to the UI controls before connecting the
     // signals and slots. Otherwise the values may change because of
@@ -116,6 +118,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->optionsNameComboBox, SIGNAL(editTextChanged(const QString&)),
             this, SLOT(onOptionsNameComboBoxEditTextChanged(const QString&)));
+    connect(ui->optionsNameComboBox, SIGNAL(currentIndexChanged(int)),
+            this, SLOT(onOptionsNameComboBoxCurrentIndexChanged(int)));
 
     connect(ui->saveOptionsPushButton, SIGNAL(clicked(bool)),
             this, SLOT(onSaveOptionsPushButtonClicked(bool)));
@@ -123,12 +127,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->deleteOptionsPushButton, SIGNAL(clicked(bool)),
             this, SLOT(onDeleteOptionsPushButtonClicked(bool)));
 
-    // TODO continue with setting up push buttons
-    ui->saveOptionsPushButton->setEnabled(false);
-    ui->deleteOptionsPushButton->setEnabled(true);
-    ui->indicatorWidget->setActive(false);
 
     setPoolSizeLineEditText();
+    updateGui();
 
     QSettings settings;
     restoreGeometry(settings.value("WindowGeometry").toByteArray());
@@ -158,22 +159,16 @@ void MainWindow::setPoolSizeLineEditText()
     QPalette palette;
 
     if (pool.poolSize() < Global::MIN_POOL_LENGTH)
-    {
         palette.setColor(QPalette::Text, Qt::red);
-    }
     else
-    {
         palette.setColor(QPalette::Text, Qt::black);
-    }
 
-    ui->poolSizeLineEdit->setPalette(palette);
-    ui->poolSizeLineEdit->setText(strSize);
+    ui->poolSizeLabel->setPalette(palette);
+    ui->poolSizeLabel->setText(strSize);
 }
 
 void MainWindow::closeEvent(QCloseEvent* event)
 {
-    // We'll just call @c onExitActionTriggered()
-    // and leave without complaint.
     QJsonObject jsonObj;
 
     OptionsManager& optsMan = OptionsManager::instance();
@@ -181,22 +176,18 @@ void MainWindow::closeEvent(QCloseEvent* event)
     QJsonDocument jsonDoc(jsonObj);
     QByteArray json = jsonDoc.toJson(QJsonDocument::Indented);
 
-    qDebug() << json;
+    //qDebug() << json;
 
     QSettings settings;
     settings.setValue("Options", json);
     settings.setValue("WindowGeometry", saveGeometry());
 
     event->accept();
-    //onExitActionTriggered();
 }
 
 void MainWindow::displayCurrentOptions()
 {
     OptionsManager& optsMan = OptionsManager::instance();
-
-    // load up the combobox with the names.
-    //ui->optionsNameComboBox->addItems(optsMan.names());
 
     // Make the initial settings to the UI controls before connecting the
     // signals and slots. Otherwise the values may change because of
@@ -222,6 +213,45 @@ void MainWindow::displayCurrentOptions()
     ui->excludeCharsLineEdit->setText(optsMan.charsToExclude());
 }
 
+void MainWindow::updateGui()
+{
+    // This just responds to text edits. If the current text:
+    //  - is empty, both buttons are disabled.
+    //  - is not a key/name or is "Default", Delete button is disabled but Save is active.
+    //  - is a key/name other than "Default", Delete and Save buttons are enabled.
+    QString curText = ui->optionsNameComboBox->currentText();
+    OptionsManager& optsMan = OptionsManager::instance();
+
+    if (curText.isEmpty() || curText == "Default")
+    {
+        ui->saveOptionsPushButton->setEnabled(false);
+        ui->deleteOptionsPushButton->setEnabled(false);
+        ui->indicatorWidget->setActive(false);
+    }
+    else if (optsMan.contains(curText))
+    {
+        if (optsMan.isModified(curText))
+        {
+            ui->saveOptionsPushButton->setEnabled(true);
+            ui->deleteOptionsPushButton->setEnabled(true);
+            ui->indicatorWidget->setActive(true);
+        }
+        else
+        {
+            ui->saveOptionsPushButton->setEnabled(false);
+            ui->deleteOptionsPushButton->setEnabled(true);
+            ui->indicatorWidget->setActive(false);
+        }
+    }
+    else
+    {
+        // something new has been typed in.
+        ui->saveOptionsPushButton->setEnabled(true);
+        ui->deleteOptionsPushButton->setEnabled(false);
+        ui->indicatorWidget->setActive(true);
+    }
+}
+
 void MainWindow::onAboutActionTriggered()
 {
     AboutDialog dlg;
@@ -238,11 +268,12 @@ void MainWindow::onGeneratePushButtonClicked()
         password = gen.password();
     }
 
-    catch(ExclusionException ex)
+    catch(ExclusionException& ex)
     {
-        QMessageBox msgBox(QMessageBox::Critical, tr("Password Beaver Error"), ex.message(),
-                           nullptr, this);
-
+        QMessageBox msgBox(this);
+        msgBox.setIcon(QMessageBox::Critical);
+        msgBox.setText(tr("Password Beaver Error"));
+        msgBox.setInformativeText(ex.message());
         msgBox.setDetailedText(tr("Some required characters are not available because "
                                   "they have been manually excluded. Remove at least one of these "
                                   "characters from the \"Exclude these characters\" editor or use "
@@ -255,9 +286,10 @@ void MainWindow::onGeneratePushButtonClicked()
 
     catch(SmallCharacterPoolException& ex)
     {
-        QMessageBox msgBox(QMessageBox::Critical, tr("Password Beaver Error"), ex.message(),
-                           nullptr, this);
-
+        QMessageBox msgBox(this);
+        msgBox.setIcon(QMessageBox::Critical);
+        msgBox.setText(tr("Password Beaver Error"));
+        msgBox.setInformativeText(ex.message());
         msgBox.setDetailedText(tr("The character pool from which the password is derived "
                                   "is too small. Add more character classes or remove some "
                                   "from the exclusion list."));
@@ -269,12 +301,12 @@ void MainWindow::onGeneratePushButtonClicked()
 
     OptionsManager& optsMan = OptionsManager::instance();
     QClipboard* clip = QGuiApplication::clipboard();
-    if (optsMan.copyToClipboard(optsMan.currentKey()))
+    if (optsMan.copyToClipboard())
         clip->setText(password);
 
     ui->passwordLineEdit->setText(password);
     QString entrStr = QString::number(gen.entropy(), 'f', 1) + " bits";
-    ui->entropyLineEdit->setText(entrStr);
+    ui->entropyLabel->setText(entrStr);
 }
 
 void MainWindow::onHelpActionTriggered()
@@ -286,52 +318,67 @@ void MainWindow::onPunctuationCheckboxStateChanged(int state)
 {
     OptionsManager::instance().setUsePunctuation(state);
     setPoolSizeLineEditText();
+    updateGui();
 }
 
 void MainWindow::onSymbolsCheckboxStateChanged(int state)
 {
     OptionsManager::instance().setUseSymbols(state);
     setPoolSizeLineEditText();
+    updateGui();
 }
 
 void MainWindow::onDigitsCheckboxStateChanged(int state)
 {
     OptionsManager::instance().setUseDigits(state);
     setPoolSizeLineEditText();
+    updateGui();
 }
 
 void MainWindow::onUpperCaseCheckboxStateChanged(int state)
 {
     OptionsManager::instance().setUseUpperAlpha(state);
     setPoolSizeLineEditText();
+    updateGui();
 }
 
 void MainWindow::onLowerCaseCheckboxStateChanged(int state)
 {
     OptionsManager::instance().setUseLowerAlpha(state);
     setPoolSizeLineEditText();
+    updateGui();
 }
 
 void MainWindow::onCopyToClipboardCheckboxStateChanged(int state)
 {
     OptionsManager::instance().setCopyToClipboard(state);
+    updateGui();
 }
 
 void MainWindow::onExtendedAsciiCheckboxStateChanged(int state)
 {
     OptionsManager::instance().setUseExtendedAscii(state);
     setPoolSizeLineEditText();
+    updateGui();
 }
 
 void MainWindow::onPasswordLengthSpinBoxValueChanged(int length)
 {
     OptionsManager::instance().setPasswordLength(length);
+    updateGui();
 }
 
 void MainWindow::onExcludeCharsLineEditTextChanged()
 {
     OptionsManager::instance().setCharsToExclude(ui->excludeCharsLineEdit->text());
     setPoolSizeLineEditText();
+    updateGui();
+}
+
+void MainWindow::onOptionsNameComboBoxEditingFinished()
+{
+    qDebug() << "optionsNameComboBoxEditingFinished: " <<
+                ui->optionsNameComboBox->lineEdit()->text();
 }
 
 void MainWindow::onOptionsNameComboBoxEditTextChanged(const QString &text)
@@ -340,33 +387,18 @@ void MainWindow::onOptionsNameComboBoxEditTextChanged(const QString &text)
     //  - is empty, both buttons are disabled.
     //  - is not a key/name or is "Default", Delete button is disabled but Save is active.
     //  - is a key/name other than "Default", Delete and Save buttons are enabled.
-    if (text.isEmpty() || text == "Default")
-    {
-        ui->saveOptionsPushButton->setEnabled(false);
-        ui->deleteOptionsPushButton->setEnabled(false);
-        ui->indicatorWidget->setActive(false);
-    }
-    else if (OptionsManager::instance().contains(text))
-    {
-        ui->saveOptionsPushButton->setEnabled(true);
-        ui->deleteOptionsPushButton->setEnabled(true);
-        ui->indicatorWidget->setActive(false);
-    }
-    else
-    {
-        // something new has been typed in.
-        ui->saveOptionsPushButton->setEnabled(true);
-        ui->deleteOptionsPushButton->setEnabled(false);
-        ui->indicatorWidget->setActive(true);
-    }
 
-    // We now see if this text represents a set of options.
-    OptionsManager& optMan = OptionsManager::instance();
-    if (optMan.names().contains(text))
-    {
-        optMan.setCurrentKey(text);
-        displayCurrentOptions();
-    }
+    qDebug() << "onOptionsNameComboBoxEditTextChanged: " << text;
+    updateGui();
+}
+
+void MainWindow::onOptionsNameComboBoxCurrentIndexChanged(int index)
+{
+    qDebug() << "onOptionsNameComboBoxCurrentIndexChanged: " << index;
+    QString name = ui->optionsNameComboBox->itemText(index);
+    OptionsManager::instance().setActive(name);
+    displayCurrentOptions();
+    updateGui();
 }
 
 void MainWindow::onSaveOptionsPushButtonClicked(bool)
@@ -375,17 +407,33 @@ void MainWindow::onSaveOptionsPushButtonClicked(bool)
     QString newName = ui->optionsNameComboBox->currentText();
     OptionsManager& optMan = OptionsManager::instance();
     optMan.saveOptions(newName);
-    ui->optionsNameComboBox->addItem(newName);
+
+    // We just update the combobox list in bulk
+    ui->optionsNameComboBox->clear();
+    ui->optionsNameComboBox->addItems(optMan.names());
+    int idx = ui->optionsNameComboBox->findText(newName);
+    ui->optionsNameComboBox->setCurrentIndex(idx);
 }
 
 void MainWindow::onDeleteOptionsPushButtonClicked(bool)
 {
     // Check to see that this is not the default options set.
-//    OptionsManager& optMan = OptionsManager::instance();
-//    if (optMan.)
-    QString newName = ui->optionsNameComboBox->currentText();
-    OptionsManager::instance().saveOptions(newName);
+    QString curName = ui->optionsNameComboBox->currentText();
+    if (curName == OptionsManager::STR_DEFAULT)
+        return;
 
+    OptionsManager& optMan = OptionsManager::instance();
+    if (optMan.contains(ui->optionsNameComboBox->currentText()))
+    {
+        // remove it from the combobox
+        int curIdx = ui->optionsNameComboBox->currentIndex();
+        QString curText = ui->optionsNameComboBox->currentText();
+        ui->optionsNameComboBox->removeItem(curIdx);
+
+        optMan.deleteOptions(curText);
+        displayCurrentOptions();
+        updateGui();
+    }
 }
 
 void MainWindow::onExcludeCharsLineEditEditingFinished()

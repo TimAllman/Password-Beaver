@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright © 2020 Tim Allman
  *
  * This program is free software: you can redistribute it and/or modify
@@ -57,7 +57,25 @@ private:
         void setToDefault();
         void writeToJSON(QJsonObject& jsonObj) const;
         void readFromJSON(const QJsonObject& jsonObj);
+
+        /**
+         * Compares two instances for all members except mName.
+         * The @c mName is not an option in the same way that the others
+         * that affect the production pd passwords are and often we
+         * want to compare everything but the name. Inclusion of @c mName
+         * in the struct is a convenience that reflects this field's
+         * inclusion in the JSON representation that probably avoids more
+         * problems than it creates.
+         *
+         * @param other The other instance.
+         * @return true if all members (other than @c mName are equal.
+         * @c false otherwise.
+         */
+        bool compareOptions(const OptionsSet& other) const;
     };
+
+    friend bool operator==(const OptionsSet& lhs, const OptionsSet& rhs);
+    friend bool operator!=(const OptionsSet& lhs, const OptionsSet& rhs);
 
     typedef QMap<QString, OptionsSet> ListType;
 
@@ -75,53 +93,61 @@ public:
     void setCurrentKey(const QString& key);
     QString currentKey();
 
-    void setUseExtendedAscii(bool extendedAscii, QString key = "");
-    bool useExtendedAscii(QString key = "") const;
+    void setUseExtendedAscii(bool extendedAscii);
+    bool useExtendedAscii() const;
 
-    void setUsePunctuation(int usePunct, QString key = "");
-    int usePunctuation(QString key = "") const;
+    void setUsePunctuation(int usePunct);
+    int usePunctuation() const;
 
-    void setUseSymbols(int useSymbols, QString key = "");
-    int useSymbols(QString key = "") const;
+    void setUseSymbols(int useSymbols);
+    int useSymbols() const;
 
-    void setUseDigits(int useDigits, QString key = "");
-    int useDigits(QString key = "") const;
+    void setUseDigits(int useDigits);
+    int useDigits() const;
 
-    void setUseUpperAlpha(int useUpper, QString key = "");
-    int useUpperAlpha(QString key = "") const;
+    void setUseUpperAlpha(int useUpper);
+    int useUpperAlpha() const;
 
-    void setUseLowerAlpha(int useLower, QString key = "");
-    int useLowerAlpha(QString key = "") const;
+    void setUseLowerAlpha(int useLower);
+    int useLowerAlpha() const;
 
-    void setCharsToExclude(const QString& chars, QString key = "");
-    QString charsToExclude(QString key = "") const;
+    void setCharsToExclude(const QString& chars);
+    QString charsToExclude() const;
 
-    void setPasswordLength(int length, QString key = "");
-    int passwordLength(QString key = "") const;
+    void setPasswordLength(int length);
+    int passwordLength() const;
 
-    void setCopyToClipboard(bool copy, QString key = "");
-    bool copyToClipboard(QString key = "") const;
+    void setCopyToClipboard(bool copy);
+    bool copyToClipboard() const;
 
     void writeToJSON(QJsonObject& jsonObject) const;
     void readFromJSON(const QJsonObject& jsonObject);
 
-    void setName(const QString& name, QString key = "");
-    QString name(QString key) const;
+    void setName(const QString& name);
+    QString name() const;
+
+    bool isModified(const QString&name);
 
     QStringList names();
 
+    void setActive(const QString& name);
+
     void saveOptions(const QString& newName);
 
-    void switchOptions(const QString& name);
+    void deleteOptions(const QString& name);
 
 private:
     OptionsManager();
     ~OptionsManager() = default;
     OptionsManager(const OptionsManager&) = delete;
 
-    QString mCurrentOptionsKey;
+    QString mActiveOptionsKey;
     ListType mOptionsMap;
     OptionsSet mActiveOptions;
 };
+
+bool operator==(const OptionsManager::OptionsSet& lhs, const OptionsManager::OptionsSet& rhs);
+
+bool operator!=(const OptionsManager::OptionsSet& lhs, const OptionsManager::OptionsSet& rhs);
 
 #endif // OPTIONS_H
