@@ -17,19 +17,35 @@
 #define INDICATORWIDGET_H
 
 #include <QFrame>
-
+/**
+ * @brief The IndicatorWidget class.
+ * This is a small widget which is used to indicate that the current options are
+ * not identical with any in the @c OptionsManager.
+ */
 class IndicatorWidget : public QFrame
 {
 public:
+    /**
+     * Constructor.
+     * @param parent The parent window.
+     */
     IndicatorWidget(QWidget* parent = nullptr);
 
+    /**
+     * Used top turn this on and off.
+     * @param isActive Show 'on' state when true, 'off' if false.
+     */
     void setActive(bool isActive);
 
 protected:
+    /**
+     * Required paint event so that the system can draw the widget.
+     * @param event The event.
+     */
     void paintEvent(QPaintEvent* event) override;
 
 private:
-    bool mIsActive;
+    bool mIsActive; ///< Variable to hold state.
 };
 
 #endif // INDICATORWIDGET_H

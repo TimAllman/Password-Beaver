@@ -35,13 +35,18 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
+    /**
+     * Constructor.
+     * @param parent Probably null.
+     */
     explicit MainWindow(QWidget *parent = nullptr);
 
+    /**
+     * Destructor
+     */
     ~MainWindow() override;
 
     void testGenerator();
-
-    void setPoolSizeLineEditText();
 
 protected:
     /**
@@ -53,7 +58,19 @@ protected:
     virtual void closeEvent(QCloseEvent *event) override;
 
 private:
+    /**
+     * Displays the size of the character pool.
+     */
+    void setPoolSizeLineEditText();
+
+    /**
+     * Displays all of the current options. @see OptionsManager.
+     */
     void displayCurrentOptions();
+
+    /**
+     * Manage the GUI to reflect the state of the options. @see OptionsManager.
+     */
     void updateGui();
 
 private slots:
@@ -125,19 +142,43 @@ private slots:
      */
     void onExcludeCharsLineEditEditingFinished();
 
+    /**
+     * Slot to respond to changes in the excluded characters editor.
+     */
     void onExcludeCharsLineEditTextChanged();
 
+    /**
+     * Slot to respond to finishing editing in the editor in the combobox.
+     */
     void onOptionsNameComboBoxEditingFinished();
 
+    /**
+     * Slot to respond to changes in the editor in the combobox.
+     */
     void onOptionsNameComboBoxEditTextChanged(const QString& text);
 
+    /**
+     * Slot to respond to selection of a new name in the combobox.
+     * @param index The index of the new selection.
+     */
     void onOptionsNameComboBoxCurrentIndexChanged(int index);
 
+    /**
+     * Slot to respond to user clicking the 'Save' pushbutton.
+     * @param bool Not used.
+     */
     void onSaveOptionsPushButtonClicked(bool);
 
+    /**
+     * Slot to respond to user clicking the 'Delete' pushbutton.
+     * @param bool Not used.
+     */
     void onDeleteOptionsPushButtonClicked(bool);
 
 private:
+    /**
+     * The GUI.
+     */
     Ui::MainWindow *ui;
 };
 

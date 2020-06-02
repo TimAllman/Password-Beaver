@@ -40,22 +40,43 @@ public:
     static const QString STR_COPY_TO_CLIPBOARD;
 
 private:
+    /**
+     * @brief The OptionsSet struct.
+     * This is the struct used to contain a set of options.
+     */
     struct OptionsSet
     {
-        QString mName;
-        bool mUseExtendedAscii;
-        int mUsePunctuation;
-        int mUseSymbols;
-        int mUseDigits;
-        int mUseUpperAlpha;
-        int mUseLowerAlpha;
-        QString mCharsToExclude;
-        int mPasswordLength;
-        bool mCopyToClipboard;
+        QString mName;          ///< The user assigned name of the option set.
+        bool mUseExtendedAscii; ///< Include extended ASCII characters in the password if true.
+        int mUsePunctuation;    ///< Include punctuation characters in the password if true.
+        int mUseSymbols;        ///< Include symbol characters in the password if true.
+        int mUseDigits;         ///< Include digit characters in the password if true.
+        int mUseUpperAlpha;     ///< Include upper case alpha characters in the password if true.
+        int mUseLowerAlpha;     ///< Include lower case alpha characters in the password if true.
+        QString mCharsToExclude;///< Specific characters to exclude.
+        int mPasswordLength;    ///< The requested length of the password.
+        bool mCopyToClipboard;  ///< Copy result to clipboard if true.
 
+        /**
+         * Constructor.
+         */
         OptionsSet();
+
+        /**
+         * Initialise the instance.
+         */
         void setToDefault();
+
+        /**
+         * Fill up the QJsonObject with the contents of this.
+         * @param jsonObj The object to fill.
+         */
         void writeToJSON(QJsonObject& jsonObj) const;
+
+        /**
+         * Load the data in the object.
+         * @param jsonObj The object to read from.
+         */
         void readFromJSON(const QJsonObject& jsonObj);
 
         /**
@@ -74,9 +95,25 @@ private:
         bool compareOptions(const OptionsSet& other) const;
     };
 
+    /**
+     * Equality operator. This works as expected. @see OptionsSet::compareOptions.
+     * @param lhs The instance on the left side.
+     * @param rhs The instance on the right side.
+     * @return true if both instances are identical.
+     */
     friend bool operator==(const OptionsSet& lhs, const OptionsSet& rhs);
+
+    /**
+     * Inequality operator. This works as expected. @see OptionsSet::compareOptions.
+     * @param lhs The instance on the left side.
+     * @param rhs The instance on the right side.
+     * @return true if both instances are different.
+     */
     friend bool operator!=(const OptionsSet& lhs, const OptionsSet& rhs);
 
+    /**
+     * ListType. A convenient container type for storing the option sets.
+     */
     typedef QMap<QString, OptionsSet> ListType;
 
 public:
@@ -86,10 +123,8 @@ public:
      */
     static OptionsManager& instance();
 
-    void setDefaults();
-
-    bool contains(const QString& name);
-
+///@{
+/// Getters and setters.
     void setCurrentKey(const QString& key);
     QString currentKey();
 
@@ -125,25 +160,72 @@ public:
 
     void setName(const QString& name);
     QString name() const;
+///@}
 
+    /**
+     * Fills up an instance with a standard set of options.
+     */
+    void addDefaults();
+
+    /**
+     * See if this instance contains an OptionSet keyed to @c name in @c mOptionsMap.
+     * @param name The name of the option set. Used as a key on the map.
+     * @return @c true if this record exists, @c false otherwise.
+     */
+    bool contains(const QString& name);
+
+    /**
+     * Check to see if mActiveOptions contains a record with the same name/key and if
+     * that record is identical with the active one.
+     * @param name The name of the record. Also used as a key in mOptionsMap.
+     * @return @c true if the record exists and is identical with mActiveOptions.
+     */
     bool isModified(const QString&name);
 
+    /**
+     * Get the list of names/keys in the map.
+     * @return The list of keys.
+     */
     QStringList names();
 
+    /**
+     * Make the record keyed to @c name the active one.
+     * @param name The record we want to be the active one.
+     */
     void setActive(const QString& name);
 
+    /**
+     * Store the current active options in the map. If @c name does not exist a new record
+     * will be created. Otherwise the existing one will be overwritten.
+     * @param newName
+     */
     void saveOptions(const QString& newName);
 
+    /**
+     * Delete a record from the map.
+     * @param name The name/key of the record to delete.
+     */
     void deleteOptions(const QString& name);
 
 private:
+    /**
+     * Constructor. Private because we are using this class as a singleton.
+     */
     OptionsManager();
+
+    /**
+     * Default destructor.
+     */
     ~OptionsManager() = default;
+
+    /**
+     * Deleted copy constructor.
+     */
     OptionsManager(const OptionsManager&) = delete;
 
-    QString mActiveOptionsKey;
-    ListType mOptionsMap;
-    OptionsSet mActiveOptions;
+    QString mActiveOptionsKey;  ///< The key of the currently active option set.
+    ListType mOptionsMap;       ///< Map to contain the data.
+    OptionsSet mActiveOptions;  ///< The buffer of current options.
 };
 
 bool operator==(const OptionsManager::OptionsSet& lhs, const OptionsManager::OptionsSet& rhs);

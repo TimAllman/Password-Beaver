@@ -25,7 +25,7 @@ OptionsManager::OptionsManager()
     QSettings settings;
     QByteArray jsonString;
 
-    setDefaults();
+    addDefaults();
 
     if (settings.contains(STR_OPTIONS))
     {
@@ -52,7 +52,7 @@ OptionsManager &OptionsManager::instance()
     return *instance;
 }
 
-void OptionsManager::setDefaults()
+void OptionsManager::addDefaults()
 {
     mActiveOptionsKey = STR_DEFAULT;
     mOptionsMap.insert(STR_DEFAULT, OptionsSet());
@@ -191,6 +191,7 @@ void OptionsManager::readFromJSON(const QJsonObject& jsonObject)
         curKey = jsonObject.value(STR_CURRENT_KEY).toString();
     else
     {
+        // TODO Make this more robust.
         //throw something;
     }
 

@@ -408,14 +408,8 @@
     <addaction name="aboutQtAction"/>
     <addaction name="aboutAction"/>
    </widget>
-   <widget class="QMenu" name="menuAbout">
-    <property name="title">
-     <string>About</string>
-    </property>
-   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuHelp"/>
-   <addaction name="menuAbout"/>
   </widget>
   <action name="exitAction">
    <property name="icon">
