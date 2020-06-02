@@ -35,6 +35,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    setFixedSize(width(),height());
 
     // This should happen first so that the proper path to the
     // configuration file is set properly.

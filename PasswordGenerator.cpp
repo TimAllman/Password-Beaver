@@ -23,11 +23,11 @@
 #include <QRegularExpression>
 #include <QRegularExpressionMatch>
 #include <QtDebug>
+#include <QString>
 
-#include <string>
-#include <random>
 #include <chrono>
-#include <cstddef>
+#include <vector>
+#include <algorithm>
 
 PasswordGenerator::PasswordGenerator()
 {
@@ -93,12 +93,14 @@ QString PasswordGenerator::password()
     }
     while (!validPassword(charSet, password));
 
+    QString pw = shufflePassword(password);
+
     if (nLoops > 1)
         qDebug() << "Valid password found after " << nLoops << " tries.";
 
     mEntropy = calcEntropy(password.length(), allChars.length());
 
-    return password;
+    return pw;
 }
 
 double PasswordGenerator::entropy() const
@@ -109,6 +111,20 @@ double PasswordGenerator::entropy() const
 double PasswordGenerator::calcEntropy(int passwordLength, int charSetLength)
 {
     return passwordLength * log2(charSetLength);
+}
+
+QString PasswordGenerator::shufflePassword(const QString& password)
+{
+    std::vector<int> vec;
+    for (auto iter = password.cbegin(); iter != password.cend(); ++iter)
+        vec.push_back(iter->unicode());
+
+    std::shuffle(vec.begin(), vec.end(), mGenerator);
+    QString newPw;
+    for (auto iter = vec.cbegin(); iter != vec.cend(); ++iter)
+        newPw.append(QChar(*iter));
+
+    return newPw;
 }
 
 bool PasswordGenerator::validPassword(const CharacterPool& charSet, const QString& password) const

@@ -17,11 +17,12 @@
 #ifndef PASSWORDGENERATOR_H
 #define PASSWORDGENERATOR_H
 
-#include <random>
+#include "CharacterPool.h"
 
 #include <QString>
 
-#include "CharacterPool.h"
+#include <random>
+
 
 class PasswordGenerator
 {
@@ -73,6 +74,13 @@ private:
      * @return The entropy.
      */
     double calcEntropy(int passwordLength, int charSetLength);
+
+    /**
+     * Shuffles the password to provide a bit more randomness.
+     * @param password The password to shuffle.
+     * @return The password shuffled.
+     */
+    QString shufflePassword(const QString& password);
 
     /**
      * An implementation of the Mersenne Twister random number generator.

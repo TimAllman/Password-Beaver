@@ -28,12 +28,15 @@ CONFIG += c++1z strict_c++
 # All of these are needed in order for qmake to run properly and for the
 # build to complete. These show up as corresponding Makefile variables.
 # This is done because clang++-10 leads to compile errors in the Qt headers.
+QMAKE_CC = clang
+QMAKE_CXX = clang++
+QMAKE_LINK = clang++
 #QMAKE_CC = clang-8
 #QMAKE_CXX = clang++-8
 #QMAKE_LINK = clang++-8
-QMAKE_CC = gcc
-QMAKE_CXX = g++
-QMAKE_LINK = g++
+#QMAKE_CC = gcc
+#QMAKE_CXX = g++
+#QMAKE_LINK = g++
 
 
 #QMAKE_CXXFLAGS += -Wno-deprecated-copy

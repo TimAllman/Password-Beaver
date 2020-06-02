@@ -81,6 +81,8 @@ void CharacterPool::makeCharacterSet()
         mAllChars += mPunctChars;
     if (mUseSymbols)
         mAllChars += mSymbolChars;
+
+    redistribute();
 }
 
 QString CharacterPool::allChars() const
@@ -91,6 +93,34 @@ QString CharacterPool::allChars() const
 int CharacterPool::poolSize() const
 {
     return mAllChars.size();
+}
+
+void CharacterPool::redistribute()
+{
+    float allSize = mAllChars.length();
+    float digitSize = mDigitChars.length();
+    float puncSize = mPunctChars.length();
+    float symbolSize = mSymbolChars.length();
+
+    int charsAdded = 0;
+
+    if (digitSize / allSize < 0.1)
+    {
+        charsAdded += mDigitChars.length();
+        mDigitChars += mDigitChars;
+    }
+
+    if (puncSize / allSize < 0.1)
+    {
+        charsAdded += mPunctChars.length();
+        mPunctChars += mPunctChars;
+    }
+
+    if (symbolSize / allSize < 0.1)
+    {
+        charsAdded += mSymbolChars.length();
+        mSymbolChars += mSymbolChars;
+    }
 }
 
 QString CharacterPool::symbolChars() const
