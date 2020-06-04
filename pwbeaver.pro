@@ -40,6 +40,9 @@ QMAKE_LINK = clang++-9
 
 #QMAKE_LFLAGS += -static
 
+#LIBS +=
+## QMAKE_LFLAGS += -static
+
 SOURCES += \
         AboutDialog.cpp \
         CharacterPool.cpp \
@@ -63,6 +66,7 @@ HEADERS += \
         PasswordGenerator.h
 
 FORMS += \
+        HelpDialog.ui \
         aboutdialog.ui \
         helpdialog.ui \
         mainwindow.ui

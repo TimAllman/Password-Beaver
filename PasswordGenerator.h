@@ -57,6 +57,8 @@ private:
      */
     unsigned randomIndex(unsigned maxIdx) const;
 
+    unsigned contains(const QString& string, const QString& chars) const;
+
     /**
      * Checks to see if @c password meets the criteria for a
      * valid password. It returns @c true if @c password contains at least one

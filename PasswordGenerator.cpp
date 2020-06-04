@@ -58,6 +58,24 @@ unsigned PasswordGenerator::randomIndex(unsigned maxIdx) const
     return retval;
 }
 
+unsigned PasswordGenerator::contains(const QString& string, const QString& chars) const
+{
+    unsigned count = 0;
+
+    // loop through 'chars' and count the number of times a character in 'chars'
+    // is found in 'string'. Multiple occurrences of a character are counted as one
+    // match.
+    for (auto iter = chars.cbegin(); iter != chars.cend(); ++iter)
+    {
+        if (string.contains(*iter))
+        {
+            ++count;
+        }
+    }
+
+    return count;
+}
+
 QString PasswordGenerator::password()
 {
     OptionsManager& optsMan = OptionsManager::instance();
@@ -143,35 +161,32 @@ bool PasswordGenerator::validPassword(const CharacterPool& charSet, const QStrin
 
     if (optsMan.usePunctuation() == CharacterPool::REQUIRE)
     {
-        re.setPattern("[" + charSet.punctChars() + "]+");
-        match = re.match(password);
-        if (!match.hasMatch())
+        unsigned count = contains(password, charSet.punctChars());
+        if (count == 0)
             return false;
     }
 
     if (optsMan.useDigits() == CharacterPool::REQUIRE)
     {
-        re.setPattern("[" + charSet.digitChars() + "]+");
-        match = re.match(password);
-        if (!match.hasMatch())
+        unsigned count = contains(password, charSet.digitChars());
+        if (count == 0)
             return false;
     }
 
     if (optsMan.useLowerAlpha() == CharacterPool::REQUIRE)
     {
-        re.setPattern("[" + charSet.lowerAlphaChars() + "]+");
-        match = re.match(password);
-        if (!match.hasMatch())
+        unsigned count = contains(password, charSet.lowerAlphaChars());
+        if (count == 0)
             return false;
     }
 
     if (optsMan.useUpperAlpha() == CharacterPool::REQUIRE)
     {
-        re.setPattern("[" + charSet.upperAlphaChars() + "]+");
-        QRegularExpressionMatch match = re.match(password);
-        if (!match.hasMatch())
+        unsigned count = contains(password, charSet.upperAlphaChars());
+        if (count == 0)
             return false;
     }
 
     return true;
 }
+
