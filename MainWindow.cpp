@@ -49,7 +49,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // load up the combobox with the names and set the active name in the editor.
     ui->optionsNameComboBox->addItems(optsMan.names());
-    ui->optionsNameComboBox->setEditText(optsMan.currentKey());
+    ui->optionsNameComboBox->setEditText(optsMan.activeKey());
     ui->optionsNameComboBox->setDuplicatesEnabled(false);
     ui->optionsNameComboBox->setInsertPolicy(QComboBox::InsertAlphabetically);
 
@@ -62,7 +62,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->upperCaseCheckBox->setCheckState(static_cast<Qt::CheckState>(optsMan.useUpperAlpha()));
     ui->lowerCaseCheckBox->setCheckState(static_cast<Qt::CheckState>(optsMan.useLowerAlpha()));
     ui->copyToClipboardCheckBox->setChecked(optsMan.copyToClipboard());
-    ui->extendedAsciiCheckBox->setChecked(optsMan.useExtendedAscii());
+    ui->unicodeCheckBox->setChecked(optsMan.useUnicode());
 
     ui->passwordLengthSpinBox->setRange(Global::MIN_PW_LENGTH, Global::MAX_PW_LENGTH);
     int pwlen = static_cast<int>(optsMan.passwordLength());
@@ -106,8 +106,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->copyToClipboardCheckBox, SIGNAL(stateChanged(int)),
             this, SLOT(onCopyToClipboardCheckboxStateChanged(int)));
-    connect(ui->extendedAsciiCheckBox, SIGNAL(stateChanged(int)),
-            this, SLOT(onExtendedAsciiCheckboxStateChanged(int)));
+    connect(ui->unicodeCheckBox, SIGNAL(stateChanged(int)),
+            this, SLOT(onUnicodeCheckboxStateChanged(int)));
 
     connect(ui->excludeCharsLineEdit, SIGNAL(editingFinished()),
             this, SLOT(onExcludeCharsLineEditEditingFinished()));
@@ -150,7 +150,7 @@ void MainWindow::setPoolSizeLineEditText()
 {
     OptionsManager& optsMan = OptionsManager::instance();
 
-    CharacterPool pool(optsMan.useExtendedAscii(), optsMan.charsToExclude(), optsMan.usePunctuation(),
+    CharacterPool pool(optsMan.useUnicode(), optsMan.charsToExclude(), optsMan.usePunctuation(),
                        optsMan.useDigits(), optsMan.useUpperAlpha(), optsMan.useLowerAlpha(),
                        optsMan.useSymbols());
 
@@ -177,8 +177,6 @@ void MainWindow::closeEvent(QCloseEvent* event)
     QJsonDocument jsonDoc(jsonObj);
     QByteArray json = jsonDoc.toJson(QJsonDocument::Indented);
 
-    //qDebug() << json;
-
     QSettings settings;
     settings.setValue("Options", json);
     settings.setValue("WindowGeometry", saveGeometry());
@@ -199,7 +197,7 @@ void MainWindow::displayCurrentOptions()
     ui->upperCaseCheckBox->setCheckState(static_cast<Qt::CheckState>(optsMan.useUpperAlpha()));
     ui->lowerCaseCheckBox->setCheckState(static_cast<Qt::CheckState>(optsMan.useLowerAlpha()));
     ui->copyToClipboardCheckBox->setChecked(optsMan.copyToClipboard());
-    ui->extendedAsciiCheckBox->setChecked(optsMan.useExtendedAscii());
+    ui->unicodeCheckBox->setChecked(optsMan.useUnicode());
 
     ui->passwordLengthSpinBox->setRange(Global::MIN_PW_LENGTH, Global::MAX_PW_LENGTH);
     int pwlen = static_cast<int>(optsMan.passwordLength());
@@ -356,9 +354,9 @@ void MainWindow::onCopyToClipboardCheckboxStateChanged(int state)
     updateGui();
 }
 
-void MainWindow::onExtendedAsciiCheckboxStateChanged(int state)
+void MainWindow::onUnicodeCheckboxStateChanged(int state)
 {
-    OptionsManager::instance().setUseExtendedAscii(state);
+    OptionsManager::instance().setUseUnicode(state);
     setPoolSizeLineEditText();
     updateGui();
 }

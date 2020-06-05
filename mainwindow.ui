@@ -90,9 +90,9 @@
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="extendedAsciiCheckBox">
+          <widget class="QCheckBox" name="unicodeCheckBox">
            <property name="text">
-            <string>Extended ASCII</string>
+            <string>Unicode</string>
            </property>
           </widget>
          </item>

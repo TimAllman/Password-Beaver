@@ -66,7 +66,6 @@ HEADERS += \
         PasswordGenerator.h
 
 FORMS += \
-        HelpDialog.ui \
         aboutdialog.ui \
         helpdialog.ui \
         mainwindow.ui

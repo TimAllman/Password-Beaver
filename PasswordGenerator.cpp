@@ -66,12 +66,8 @@ unsigned PasswordGenerator::contains(const QString& string, const QString& chars
     // is found in 'string'. Multiple occurrences of a character are counted as one
     // match.
     for (auto iter = chars.cbegin(); iter != chars.cend(); ++iter)
-    {
         if (string.contains(*iter))
-        {
             ++count;
-        }
-    }
 
     return count;
 }
@@ -79,13 +75,47 @@ unsigned PasswordGenerator::contains(const QString& string, const QString& chars
 QString PasswordGenerator::password()
 {
     OptionsManager& optsMan = OptionsManager::instance();
-    CharacterPool charSet(optsMan.useExtendedAscii(), optsMan.charsToExclude(),
+    CharacterPool charSet(optsMan.useUnicode(), optsMan.charsToExclude(),
                           optsMan.usePunctuation(), optsMan.useDigits(),
                           optsMan.useUpperAlpha(), optsMan.useLowerAlpha(),
                           optsMan.useSymbols());
 
-    int pwLength = optsMan.passwordLength();
+    // Because the small character classes (symbols, punctuation & digits)
+    // can be underrepresented we start by adding two of each to the password
+    // at the start if they are required but do nothing if they are merely
+    // allowed or are excluded.
+
     QString password;
+    int numExtraChars = 0;
+    if (optsMan.useSymbols() == CharacterPool::REQUIRE)
+    {
+        for (auto i = 0; i < 2; ++i)
+        {
+            unsigned idx = randomIndex(charSet.symbolChars().length() - 1);
+            password += charSet.symbolChars()[idx];
+            ++numExtraChars;
+        }
+    }
+
+    if (optsMan.usePunctuation() == CharacterPool::REQUIRE)
+    {
+        for (auto i = 0; i < 2; ++i)
+        {
+            unsigned idx = randomIndex(charSet.punctChars().length() - 1);
+            password += charSet.punctChars()[idx];
+            ++numExtraChars;
+        }
+    }
+
+    if (optsMan.useDigits() == CharacterPool::REQUIRE)
+    {
+        for (auto i = 0; i < 2; ++i)
+        {
+            unsigned idx = randomIndex(charSet.digitChars().length() - 1);
+            password += charSet.digitChars()[idx];
+            ++numExtraChars;
+        }
+    }
 
     QString allChars = charSet.allChars();
     int charSetLength = allChars.size();
@@ -98,11 +128,11 @@ QString PasswordGenerator::password()
         ex.raise();
     }
 
+    int pwLength = optsMan.passwordLength() - numExtraChars;
     int nLoops = 0;   // for debugging only
     do
     {
         ++nLoops;
-        password = "";
         for (int i = 0; i < pwLength; ++i)
         {
             unsigned idx = randomIndex(charSetLength - 1);
@@ -111,14 +141,15 @@ QString PasswordGenerator::password()
     }
     while (!validPassword(charSet, password));
 
-    QString pw = shufflePassword(password);
+    // shuffle the password so that the extra characters are not all at the front.
+    password = shufflePassword(password);
 
     if (nLoops > 1)
         qDebug() << "Valid password found after " << nLoops << " tries.";
 
     mEntropy = calcEntropy(password.length(), allChars.length());
 
-    return pw;
+    return password;
 }
 
 double PasswordGenerator::entropy() const

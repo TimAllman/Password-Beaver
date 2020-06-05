@@ -20,10 +20,10 @@
 #include "CharacterPool.h"
 #include "Exceptions.h"
 
-CharacterPool::CharacterPool(bool useExtendedAscii, const QString& excludedChars,
+CharacterPool::CharacterPool(bool useUnicode, const QString& excludedChars,
                              int usePunctuation, int useDigits, int useUpperAlpha,
                              int useLowerAlpha, int useSymbols)
-    : mUseExtendedAscii(useExtendedAscii), mExcludedChars(excludedChars),
+    : mUseUnicode(useUnicode), mExcludedChars(excludedChars),
     mUsePunctuation(usePunctuation), mUseDigits(useDigits), mUseUpperAlpha(useUpperAlpha),
     mUseLowerAlpha(useLowerAlpha), mUseSymbols(useSymbols)
 {
@@ -32,10 +32,12 @@ CharacterPool::CharacterPool(bool useExtendedAscii, const QString& excludedChars
 
 void CharacterPool::makeCharacterSet()
 {
-    //
-    int lastChar = 127;
-    if (mUseExtendedAscii)
-        lastChar = 255;
+    // Select the ASCII characters only.
+    int lastChar = 0x7F;
+
+    // Use the ISO/IEC 8859-1 (Latin-1 Extension) character set if wanted.
+    if (mUseUnicode)
+        lastChar = 0xFF;
 
     for(int c = 0; c <= lastChar; ++c)
     {
@@ -81,8 +83,6 @@ void CharacterPool::makeCharacterSet()
         mAllChars += mPunctChars;
     if (mUseSymbols)
         mAllChars += mSymbolChars;
-
-    redistribute();
 }
 
 QString CharacterPool::allChars() const

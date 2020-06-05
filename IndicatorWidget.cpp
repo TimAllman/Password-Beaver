@@ -21,13 +21,11 @@
 IndicatorWidget::IndicatorWidget(QWidget* parent)
     : QFrame(parent), mIsActive(false)
 {
-
 }
 
 void IndicatorWidget::setActive(bool isActive)
 {
     mIsActive = isActive;
-    //repaint(rect().x()+1, rect().y()+1, -rect().width(), -rect().height());
     repaint();
 }
 

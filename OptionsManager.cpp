@@ -9,9 +9,9 @@
 const QString OptionsManager::STR_OPTIONS = "Options";
 const QString OptionsManager::STR_DEFAULT = "Default";
 const QString OptionsManager::STR_NAME = "Name";
-const QString OptionsManager::STR_CURRENT_KEY = "CurrentKey";
+const QString OptionsManager::STR_ACTIVE_KEY = "ActiveKey";
 const QString OptionsManager::STR_CHARS_TO_EXCLUDE = "CharsToExclude";
-const QString OptionsManager::STR_USE_EXTENDED_ASCII = "UseExtendedAscii";
+const QString OptionsManager::STR_USE_UNICODE = "UseUnicode";
 const QString OptionsManager::STR_USE_PUNCTUATION = "UsePunctuation";
 const QString OptionsManager::STR_USE_SYMBOLS = "UseSymbols";
 const QString OptionsManager::STR_USE_DIGITS = "UseDigits";
@@ -22,14 +22,12 @@ const QString OptionsManager::STR_COPY_TO_CLIPBOARD = "CopyToClipboard";
 
 OptionsManager::OptionsManager()
 {
+    addDefault();
+
     QSettings settings;
-    QByteArray jsonString;
-
-    addDefaults();
-
     if (settings.contains(STR_OPTIONS))
     {
-        jsonString = settings.value(STR_OPTIONS).toByteArray();
+        QByteArray jsonString = settings.value(STR_OPTIONS).toByteArray();
 
         QJsonParseError jsonErr;
         QJsonDocument jsonDoc = QJsonDocument::fromJson(jsonString, &jsonErr);
@@ -52,7 +50,7 @@ OptionsManager &OptionsManager::instance()
     return *instance;
 }
 
-void OptionsManager::addDefaults()
+void OptionsManager::addDefault()
 {
     mActiveOptionsKey = STR_DEFAULT;
     mOptionsMap.insert(STR_DEFAULT, OptionsSet());
@@ -64,24 +62,24 @@ bool OptionsManager::contains(const QString &name)
     return mOptionsMap.contains(name);
 }
 
-void OptionsManager::setCurrentKey(const QString& key)
+void OptionsManager::setActiveKey(const QString& key)
 {
     mActiveOptionsKey = key;
 }
 
-QString OptionsManager::currentKey()
+QString OptionsManager::activeKey()
 {
     return mActiveOptionsKey;
 }
 
-void OptionsManager::setUseExtendedAscii(bool extendedAscii)
+void OptionsManager::setUseUnicode(bool useUnicode)
 {
-    mActiveOptions.mUseExtendedAscii = extendedAscii;
+    mActiveOptions.mUseUnicode = useUnicode;
 }
 
-bool OptionsManager::useExtendedAscii() const
+bool OptionsManager::useUnicode() const
 {
-    return mActiveOptions.mUseExtendedAscii;
+    return mActiveOptions.mUseUnicode;
 }
 
 void OptionsManager::setUsePunctuation(int usePunct)
@@ -171,7 +169,7 @@ void OptionsManager::writeToJSON(QJsonObject& jsonObject) const
         jsonObject.erase(iter);
 
     // The key of the currently active set of options
-    jsonObject[STR_CURRENT_KEY] = mActiveOptionsKey;
+    jsonObject[STR_ACTIVE_KEY] = mActiveOptionsKey;
 
     // Array of option sets
     QJsonArray jsonArray;
@@ -187,8 +185,8 @@ void OptionsManager::writeToJSON(QJsonObject& jsonObject) const
 void OptionsManager::readFromJSON(const QJsonObject& jsonObject)
 {
     QString curKey;
-    if (jsonObject.contains(STR_CURRENT_KEY))
-        curKey = jsonObject.value(STR_CURRENT_KEY).toString();
+    if (jsonObject.contains(STR_ACTIVE_KEY))
+        curKey = jsonObject.value(STR_ACTIVE_KEY).toString();
     else
     {
         // TODO Make this more robust.
@@ -294,7 +292,7 @@ OptionsManager::OptionsSet::OptionsSet()
 void OptionsManager::OptionsSet::setToDefault()
 {
     mName = OptionsManager::STR_DEFAULT;
-    mUseExtendedAscii = false;
+    mUseUnicode = false;
     mUsePunctuation = 2;
     mUseSymbols = 2;
     mUseDigits = 2;
@@ -309,7 +307,7 @@ void OptionsManager::OptionsSet::writeToJSON(QJsonObject& jsonObj) const
 {
     jsonObj[STR_NAME] = mName;
     jsonObj[STR_CHARS_TO_EXCLUDE] = mCharsToExclude;
-    jsonObj[STR_USE_EXTENDED_ASCII] = mUseExtendedAscii;
+    jsonObj[STR_USE_UNICODE] = mUseUnicode;
     jsonObj[STR_USE_PUNCTUATION] = mUsePunctuation;
     jsonObj[STR_USE_SYMBOLS] = mUseSymbols;
     jsonObj[STR_USE_DIGITS] = mUseDigits;
@@ -322,7 +320,7 @@ void OptionsManager::OptionsSet::writeToJSON(QJsonObject& jsonObj) const
 void OptionsManager::OptionsSet::readFromJSON(const QJsonObject& jsonObj)
 {
     mName = jsonObj[STR_NAME].toString();
-    mUseExtendedAscii = jsonObj[STR_USE_EXTENDED_ASCII].toBool();
+    mUseUnicode = jsonObj[STR_USE_UNICODE].toBool();
     mUsePunctuation = jsonObj[STR_USE_PUNCTUATION].toInt();
     mUseSymbols = jsonObj[STR_USE_SYMBOLS].toInt();
     mUseDigits = jsonObj[STR_USE_DIGITS].toInt();
@@ -336,7 +334,7 @@ void OptionsManager::OptionsSet::readFromJSON(const QJsonObject& jsonObj)
 bool OptionsManager::OptionsSet::compareOptions(const OptionsManager::OptionsSet& other) const
 {
     // compare all options but mName
-    return ((mUseExtendedAscii == other.mUseExtendedAscii) &&
+    return ((mUseUnicode == other.mUseUnicode) &&
             (mUsePunctuation == other.mUsePunctuation) &&
             (mUseSymbols == other.mUseSymbols) &&
             (mUseDigits == other.mUseDigits) &&

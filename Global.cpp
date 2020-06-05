@@ -30,7 +30,7 @@ QString const Global::APPLICATION_URL = "https://github.com/TimAllman/Password-B
 int const Global::MIN_POOL_LENGTH = 8;
 
 int const Global::MIN_PW_LENGTH = 8;    ///< Minimum password length.
-int const Global::MAX_PW_LENGTH = 50;   ///< Maximum password length.
+int const Global::MAX_PW_LENGTH = 99;   ///< Maximum password length.
 
 /// Default password length.
 int const Global::DEFAULT_PW_LENGTH = 16;

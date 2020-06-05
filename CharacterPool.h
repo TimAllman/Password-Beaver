@@ -39,8 +39,8 @@ public:
     };
 
     /**
-     * Charset constructor.
-     * @param useExtendedAscii ///< Use the full ISO-8859-1 code page if @c true. ASCII otherwise.
+     * Constructor.
+     * @param useUnicode ///< Use the full UTF-16 standard if @c true. ASCII otherwise.
      * @param excludedChars    ///< The characters set by user to exclude if @c true.
      * @param usePunctuation   ///< Use punctuation, symbols etc. Can be @c EXCLUDE, @c REQUEST or @c REQUIRE
      * @param useDigits        ///< Use digits. Can be @c EXCLUDE, @c REQUEST or @c REQUIRE.
@@ -48,7 +48,7 @@ public:
      * @param useLowerAlpha    ///< Use lower case letters. Can be @c EXCLUDE, @c REQUEST or @c REQUIRE.
      * @param useSymbols       ///< Use symbols. Can be @c EXCLUDE, @c REQUEST or @c REQUIRE.
      */
-    explicit CharacterPool(bool useExtendedAscii, const QString& excludedChars,
+    explicit CharacterPool(bool useUnicode, const QString& excludedChars,
                            int usePunctuation, int useDigits, int useUpperAlpha,
                            int useLowerAlpha, int useSymbols);
 
@@ -129,7 +129,7 @@ private:
      */
     void makeCharacterSet();
 
-    bool mUseExtendedAscii;  ///< Use the full ISO-8859-1 code page if @c true. ASCII otherwise.
+    bool mUseUnicode;        ///< Use the full UTF-16 standard if @c true. ASCII otherwise.
     QString mExcludedChars;  ///< The characters set by user to exclude if @c true.
     int mUsePunctuation;     ///< Use punctuation, symbols etc. Can be @c EXCLUDE, @c REQUEST or @c REQUIRE.
     int mUseDigits;          ///< Use digits. Can be @c EXCLUDE, @c REQUEST or @c REQUIRE.

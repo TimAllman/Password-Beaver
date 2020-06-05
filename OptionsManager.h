@@ -28,9 +28,9 @@ public:
     static const QString STR_OPTIONS;
     static const QString STR_DEFAULT;
     static const QString STR_NAME;
-    static const QString STR_CURRENT_KEY;
+    static const QString STR_ACTIVE_KEY;
     static const QString STR_CHARS_TO_EXCLUDE;
-    static const QString STR_USE_EXTENDED_ASCII;
+    static const QString STR_USE_UNICODE;
     static const QString STR_USE_PUNCTUATION;
     static const QString STR_USE_SYMBOLS;
     static const QString STR_USE_DIGITS;
@@ -47,7 +47,7 @@ private:
     struct OptionsSet
     {
         QString mName;          ///< The user assigned name of the option set.
-        bool mUseExtendedAscii; ///< Include extended ASCII characters in the password if true.
+        bool mUseUnicode; ///< Include extended ASCII characters in the password if true.
         int mUsePunctuation;    ///< Include punctuation characters in the password if true.
         int mUseSymbols;        ///< Include symbol characters in the password if true.
         int mUseDigits;         ///< Include digit characters in the password if true.
@@ -125,11 +125,11 @@ public:
 
 ///@{
 /// Getters and setters.
-    void setCurrentKey(const QString& key);
-    QString currentKey();
+    void setActiveKey(const QString& key);
+    QString activeKey();
 
-    void setUseExtendedAscii(bool extendedAscii);
-    bool useExtendedAscii() const;
+    void setUseUnicode(bool useUnicode);
+    bool useUnicode() const;
 
     void setUsePunctuation(int usePunct);
     int usePunctuation() const;
@@ -165,7 +165,7 @@ public:
     /**
      * Fills up an instance with a standard set of options.
      */
-    void addDefaults();
+    void addDefault();
 
     /**
      * See if this instance contains an OptionSet keyed to @c name in @c mOptionsMap.

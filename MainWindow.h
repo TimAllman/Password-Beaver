@@ -129,7 +129,7 @@ private slots:
      * Slot to respond to the extended ASCII checkbox.
      * @param state The new state of the checkbox.
      */
-    void onExtendedAsciiCheckboxStateChanged(int state);
+    void onUnicodeCheckboxStateChanged(int state);
 
     /**
      * Slot to respond to changes in the password length spin box.
