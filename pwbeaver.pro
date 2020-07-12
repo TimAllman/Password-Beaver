@@ -4,9 +4,7 @@
 #
 #-------------------------------------------------
 
-QT += core gui help
-
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT += core widgets help
 
 TARGET = pwbeaver
 TEMPLATE = app
@@ -79,8 +77,13 @@ DISTFILES += \
     .gitignore \
     Doxyfile \
     README.md \
+    help/help.qhcp \
+    help/help.qhp \
     license.txt \
-    manual/Manual.html
+    manual/Manual.html \
+    manual/Screenshot.png
 
 RESOURCES += \
     pwbeaver.qrc
+
+TRANSLATIONS = pwbeaver_fr.ts

@@ -72,6 +72,7 @@ unsigned PasswordGenerator::contains(const QString& string, const QString& chars
     return count;
 }
 
+//exclude lookalikes.
 QString PasswordGenerator::password()
 {
     OptionsManager& optsMan = OptionsManager::instance();

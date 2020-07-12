@@ -3,71 +3,72 @@
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
 	<title>Password Beaver Manual</title>
-	<meta name="generator" content="LibreOffice 6.0.7.3 (Linux)"/>
+	<meta name="generator" content="LibreOffice 6.4.3.2 (Linux)"/>
 	<meta name="created" content="00:00:00"/>
-	<meta name="changed" content="2019-10-30T19:28:55.590776540"/>
+	<meta name="changed" content="2020-06-09T10:46:04.921852403"/>
 	<style type="text/css">
-		h2.cjk { font-family: "Noto Sans CJK SC" }
-		h2.ctl { font-family: "Lohit Devanagari" }
-		h3.cjk { font-family: "Noto Sans CJK SC" }
-		h3.ctl { font-family: "Lohit Devanagari" }
+		@page { size: 21.59cm 27.94cm; margin-left: 2cm; margin-right: 1cm; margin-top: 1cm; margin-bottom: 1cm }
+		p { margin-bottom: 0.25cm; background: transparent; line-height: 115%; background: transparent }
+		h2 { margin-top: 0.35cm; margin-bottom: 0.21cm; background: transparent; background: transparent; page-break-after: avoid }
+		h2.western { font-family: "Liberation Serif", serif; font-size: 18pt; font-weight: bold }
+		h2.cjk { font-family: "Noto Sans CJK SC"; font-size: 18pt; font-weight: bold }
+		h2.ctl { font-family: "Lohit Devanagari"; font-size: 18pt; font-weight: bold }
+		h3 { margin-top: 0.25cm; margin-bottom: 0.21cm; background: transparent; background: transparent; page-break-after: avoid }
+		h3.western { font-family: "Liberation Serif", serif; font-size: 14pt; font-weight: bold }
+		h3.cjk { font-family: "Noto Sans CJK SC"; font-size: 14pt; font-weight: bold }
+		h3.ctl { font-family: "Lohit Devanagari"; font-size: 14pt; font-weight: bold }
+		h1 { margin-bottom: 0.21cm; background: transparent; background: transparent; page-break-after: avoid }
+		h1.western { font-family: "Liberation Serif", serif; font-size: 24pt; font-weight: bold }
+		h1.cjk { font-family: "Noto Serif CJK SC"; font-size: 24pt; font-weight: bold }
+		h1.ctl { font-family: "Noto Sans Devanagari"; font-size: 24pt; font-weight: bold }
+		code.western { font-family: "Liberation Mono", monospace; font-size: 11pt }
 		code.cjk { font-family: "DejaVu Sans Mono", monospace }
+		code.ctl { font-family: "Liberation Mono", monospace }
+		em { font-style: italic }
+		strong { font-weight: bold }
+		a:link { color: #000080; so-language: zxx; text-decoration: underline }
+		a:visited { color: #800000; so-language: zxx; text-decoration: underline }
 	</style>
 </head>
-<body lang="en-CA" dir="ltr">
-<h1 align="center">Password Beaver</h1>
+<body lang="en-CA" link="#000080" vlink="#800000" dir="ltr"><h1 class="western" align="center">
+Password Beaver</h1>
 <p align="center"><img src="../icons/scalable/beaver.svg" name="Image1" align="bottom" width="200" height="200" border="0"/>
 
 </p>
 <h2 class="western"><a name="contents"></a>Contents</h2>
 <ul>
-	<li/>
-<p style="margin-bottom: 0cm"><a href="#about">About Password
+	<li><p style="margin-bottom: 0cm"><a href="#about">About Password
 	Beaver</a> 
 	</p>
-	<li/>
-<p style="margin-bottom: 0cm"><a href="#customising">Customising
+	<li><p style="margin-bottom: 0cm"><a href="#customising">Customising
 	the Beaver</a> 
 	</p>
-	<li/>
-<p style="margin-bottom: 0cm"><a href="#upper">Upper case
+	<li><p style="margin-bottom: 0cm"><a href="#upper">Upper case
 	letters</a> 
 	</p>
-	<li/>
-<p style="margin-bottom: 0cm"><a href="#lower">Lower case
+	<li><p style="margin-bottom: 0cm"><a href="#lower">Lower case
 	letters</a> 
 	</p>
-	<li/>
-<p style="margin-bottom: 0cm"><a href="#digits">Digits</a> 
+	<li><p style="margin-bottom: 0cm"><a href="#digits">Digits</a> 
 	</p>
-	<li/>
-<p style="margin-bottom: 0cm"><a href="#punctuation">Punctuation</a>
+	<li><p style="margin-bottom: 0cm"><a href="#punctuation">Punctuation</a>
 		</p>
-	<li/>
-<p style="margin-bottom: 0cm"><a href="#length">Password
-	length</a> 
-	</p>
-	<li/>
-<p style="margin-bottom: 0cm"><a href="#extended">Extended
-	ASCII</a> 
-	</p>
-	<li/>
-<p style="margin-bottom: 0cm"><a href="#exclude">Exclude
+	<li><p style="margin-bottom: 0cm"><a href="#length">Password length</a>
+		</p>
+	<li><p style="margin-bottom: 0cm"><a href="#extended">Extended ASCII</a>
+		</p>
+	<li><p style="margin-bottom: 0cm"><a href="#exclude">Exclude
 	characters</a> 
 	</p>
-	<li/>
-<p style="margin-bottom: 0cm"><a href="#passwordlen">Password
+	<li><p style="margin-bottom: 0cm"><a href="#passwordlen">Password
 	length</a> 
 	</p>
-	<li/>
-<p style="margin-bottom: 0cm"><a href="#clipboard">Copy to
+	<li><p style="margin-bottom: 0cm"><a href="#clipboard">Copy to
 	clipboard</a> 
 	</p>
-	<li/>
-<p style="margin-bottom: 0cm"><a href="#password">Password</a>
-		</p>
-	<li/>
-<p><a href="#entropy">Entropy</a> 
+	<li><p style="margin-bottom: 0cm"><a href="#password">Password</a> 
+	</p>
+	<li><p><a href="#entropy">Entropy</a> 
 	</p>
 </ul>
 <h2 class="western"><a name="about"></a>About the Beaver</h2>
@@ -87,14 +88,14 @@ user’s selections. It can be modified to <b>omit</b>, <b>request</b>
 or <b>require</b> characters from several groups. Currently these
 groups are <a href="#upper">upper case letters</a>, <a href="#lower">lower
 case letters</a>, <a href="#digits">digits</a>, <a href="#symbols">symbols</a>,
-and everything else which we refer to somewhat inaccurately as
+and everything else to which we refer somewhat inaccurately as
 <a href="#punctuation">punctuation</a>. Further, an arbitrary set of
 characters specified by the user can be excluded. You may want to do
 this to improve readability in case the password needs to be manually
-copied or perhaps to satisfy a Web site which doesn't accept some
+typed or perhaps to satisfy a Web site which doesn't accept some
 characters in its passwords. The <a href="#length">length of the
 password</a> can be set with the minimum length of 8 characters and a
-maximun of 50. 
+maximum of 99. 
 </p>
 <p>The generated passwords are intended to be used with a password
 manager as they are not easy for most people to remember. This makes
@@ -103,9 +104,9 @@ succeed and a brute force attack will likely take a very long time.
 Generally the best choice is to pick a long password from a large
 pool of characters. 
 </p>
-<h2 class="western"><a name="customising"></a>Customising the
+<h2 class="western"><a name="customising"></a>Customizing the
 password</h2>
-<p><img src="Manual-Libre_html_520e79550b6d3e3.png" name="Image2" alt="Beaver screenshot." align="bottom" width="365" height="509" border="0"/>
+<p><img src="Manual_html_9f65328383eed6b1.png" name="Image2" alt="Beaver screenshot." align="bottom" width="385" height="535" border="0"/>
 
 </p>
 <p><strong><font size="2" style="font-size: 11pt">A screenshot of
@@ -126,9 +127,10 @@ and 1 (digit) are excluded. </font>
 <h3 class="western">Selecting characters</h3>
 <p>Generally the best choice is to pick a long password from a large
 pool of characters. If the ASCII character set is chosen (i.e.
-Extended ASCII is <i>is </i><span style="font-variant: normal"><span style="font-style: normal">not
-chosen) there</span></span> will be 85 printable characters to select
-from while selecting <a href="#extended">Extended ASCII</a> (usually
+Extended ASCII is <span style="font-variant: normal"><i>not</i></span><span style="font-variant: normal">
+</span><span style="font-variant: normal"><span style="font-style: normal">chosen)
+there</span></span> will be 85 printable characters to select from
+while selecting <a href="#extended">Extended ASCII</a> (usually
 referred to as ISO-8859-1 or Latin 1) will give 155 possible
 characters.</p>
 <p>However, a program or Web site that requires a password may not
@@ -141,43 +143,72 @@ case letters</a>, <a href="#lower">lower case letters</a>, <a href="#digits">dig
 These check boxes have three states. 
 </p>
 <ul>
-	<li/>
-<p style="margin-bottom: 0cm">If the checkbox is <i>unchecked</i>,
+	<li><p style="margin-bottom: 0cm">If the checkbox is <i>unchecked</i>,
 	that group of characters will be <strong>excluded</strong> from the
 	character pool. 
 	</p>
-	<li/>
-<p style="margin-bottom: 0cm">If it is <i>fully checked</i> at
+	<li><p style="margin-bottom: 0cm">If it is <i>fully checked</i> at
 	least one character from the group will be <b>required</b>.</p>
-	<li/>
-<p>If it is <i>partly checked</i>, characters from that group
+	<li><p>If it is <i>partly checked</i>, characters from that group
 	are <b>requested</b><span style="font-weight: normal">. They may</span>
 	appear in the password or they may not.</p>
 </ul>
-<h3 class="western"><a name="exclude"></a>Excluding specific
-characters</h3>
+<h3 class="western"><a name="exclude"></a>Exclude</h3>
 <p>You may exclude certain characters arbitrarily from the character
 pool. It may be that a Web site does not accept some characters,
 usually those in the punctuation group. Or, you may wish to avoid
 characters that are easily confused such as I (upper I) and l (lower
-L). Check <b>Exclude these characters</b> to turn on this feature and
-enter the characters in the editor. Unchecking the check box will
-turn this off even if there are characters in the editor.</p>
-<h3 class="western">Character pool size</h3>
+L). Enter the characters in the <b>Exclude</b> <span style="font-weight: normal">text</span>
+editor.</p>
+<h3 class="western">Pool size</h3>
 <p>This is the current size of the character pool from which
 passwords are taken and changes as character groups are selected and
-as some are excluded. This field is read only.</p>
-<h3 class="western"><a name="passwordlen"></a>Password length</h3>
+as some are excluded. This field is for information only.</p>
+<h3 class="western"><a name="passwordlen"></a>Length</h3>
 <p>The length of the password can be changed here. The allowed range
 is 8 to 50 characters. The default length of 16 is a good choice for
 most uses. 
 </p>
-<h2 class="western"><a name="clipboard"></a>Copy to clipboard</h2>
+<h3 class="western"><a name="clipboard"></a>Copy to clipboard</h3>
 <p>The default behaviour is to copy the password to the system
 clipboard as soon as it is generated. Turn this off if you do not
 want to do this. The text can be selected with the mouse and copied
-if desired. 
-</p>
+if desired.</p>
+<h2 class="western">Configurations</h2>
+<p>Password Beaver maintains a database of configurations to simplify
+creating passwords for sites with particular requirements. In the
+Configurations section there is a combo-box allows you to select sets
+of options by name and to enter names for new sets of options, a
+small indicator to remind you when the options have been modified but
+not saved and two push buttons labelled ‘Save’ and ‘Delete’.</p>
+<p>When Password Beaver is first started it loads a default
+configuration named “Default”. This configuration cannot be
+modified, meaning that you cannot save or delete it. However, the
+name can be changed and the configuration can be saved under this new
+name.</p>
+<p>To the right of the combo box is a small parallelogram shaped
+widget that indicates, that either</p>
+<ol type="a">
+	<li><p>there is no option set with the name shown in the editor or 
+	</p>
+	<li><p>that there is an entry in the database with that name but the
+	stored options are different from those shown.</p>
+	<p style="background: transparent; line-height: 115%; background: transparent; page-break-before: auto">
+	If either a) or b) are true the widget is filled with colour.
+	Otherwise it is drawn in outline.</p>
+	<p style="background: transparent; line-height: 115%; background: transparent">
+	Pressing the ‘Save’ push button will store the data by creating
+	a new entry if one with the current name does not exist or by
+	overwriting the stored options with the new ones. The ‘Delete’
+	push button will remove the named set of options from the database.</p>
+</ol>
+<p>Note that the ‘Save’ and ‘Delete’ push buttons are enabled
+and disabled depending upon whether either operation can be done. In
+particular, they enforce the read only status of the ‘Default’
+entry. If ‘Default’ is the current item, neither both push
+buttons are disabled, even if the widget is lit up because you have
+changed the options. If you wish to save the new options, type in a
+new name and save the options with that.</p>
 <h2 class="western"><a name="password"></a>Password</h2>
 <p>This field is read only and contains the last password that was
 generated. If you don't like it for some reason generate another.</p>

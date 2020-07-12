@@ -218,36 +218,39 @@ void MainWindow::updateGui()
     //  - is empty, both buttons are disabled.
     //  - is not a key/name or is "Default", Delete button is disabled but Save is active.
     //  - is a key/name other than "Default", Delete and Save buttons are enabled.
+    // The state of the indicator widget always reflects the modified status.
     QString curText = ui->optionsNameComboBox->currentText();
     OptionsManager& optsMan = OptionsManager::instance();
 
-    if (curText.isEmpty() || curText == "Default")
+    if (curText == "Default")
     {
         ui->saveOptionsPushButton->setEnabled(false);
         ui->deleteOptionsPushButton->setEnabled(false);
-        ui->indicatorWidget->setActive(false);
-    }
-    else if (optsMan.contains(curText))
-    {
-        if (optsMan.isModified(curText))
-        {
-            ui->saveOptionsPushButton->setEnabled(true);
-            ui->deleteOptionsPushButton->setEnabled(true);
-            ui->indicatorWidget->setActive(true);
-        }
-        else
-        {
-            ui->saveOptionsPushButton->setEnabled(false);
-            ui->deleteOptionsPushButton->setEnabled(true);
-            ui->indicatorWidget->setActive(false);
-        }
+        ui->indicatorWidget->setActive(optsMan.isModified(curText));
     }
     else
     {
-        // something new has been typed in.
-        ui->saveOptionsPushButton->setEnabled(true);
-        ui->deleteOptionsPushButton->setEnabled(false);
-        ui->indicatorWidget->setActive(true);
+        if (optsMan.contains(curText))
+        {
+            if (optsMan.isModified(curText))
+            {
+                ui->saveOptionsPushButton->setEnabled(true);
+                ui->indicatorWidget->setActive(true);
+            }
+            else
+            {
+                ui->saveOptionsPushButton->setEnabled(false);
+                ui->indicatorWidget->setActive(false);
+            }
+            ui->deleteOptionsPushButton->setEnabled(true);
+        }
+        else
+        {
+            // something new has been typed in.
+            ui->saveOptionsPushButton->setEnabled(true);
+            ui->deleteOptionsPushButton->setEnabled(false);
+            ui->indicatorWidget->setActive(true);
+        }
     }
 }
 

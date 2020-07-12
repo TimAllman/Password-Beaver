@@ -18,7 +18,6 @@
 
 #include <QFrame>
 /**
- * @brief The IndicatorWidget class.
  * This is a small widget which is used to indicate that the current options are
  * not identical with any in the @c OptionsManager.
  */

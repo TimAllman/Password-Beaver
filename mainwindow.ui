@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>346</width>
-    <height>413</height>
+    <height>415</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -22,6 +22,9 @@
   <property name="windowIcon">
    <iconset resource="pwbeaver.qrc">
     <normaloff>:/icons/scalable/beaver.svg</normaloff>:/icons/scalable/beaver.svg</iconset>
+  </property>
+  <property name="locale">
+   <locale language="English" country="Canada"/>
   </property>
   <widget class="QWidget" name="centralWidget">
    <property name="sizePolicy">
@@ -41,6 +44,9 @@
         <layout class="QVBoxLayout" name="verticalLayout">
          <item>
           <widget class="QCheckBox" name="upperCaseCheckBox">
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select upper case letters - [&lt;span style=&quot; font-weight:600;&quot;&gt;A-Z&lt;/span&gt;]&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
            <property name="text">
             <string>Upper case letters</string>
            </property>
@@ -51,6 +57,9 @@
          </item>
          <item>
           <widget class="QCheckBox" name="lowerCaseCheckBox">
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select lower case letters - [&lt;span style=&quot; font-weight:600;&quot;&gt;a-z&lt;/span&gt;]&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
            <property name="text">
             <string>Lower case letters</string>
            </property>
@@ -61,6 +70,9 @@
          </item>
          <item>
           <widget class="QCheckBox" name="digitsCheckBox">
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select digits - [&lt;span style=&quot; font-weight:600;&quot;&gt;0-9&lt;/span&gt;]&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
            <property name="text">
             <string>Digits</string>
            </property>
@@ -71,6 +83,9 @@
          </item>
          <item>
           <widget class="QCheckBox" name="punctuationCheckBox">
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select punctuation characters - [&lt;span style=&quot; font-weight:600;&quot;&gt;!&amp;quot;#%&amp;amp;'()*,-./:;?@[\]_{}&lt;/span&gt;]&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
            <property name="text">
             <string>Punctuation</string>
            </property>
@@ -81,6 +96,9 @@
          </item>
          <item>
           <widget class="QCheckBox" name="symbolsCheckBox">
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select symbol characters - [&lt;span style=&quot; font-weight:600;&quot;&gt;$+&amp;lt;=&amp;gt;^`|~&lt;/span&gt;]&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
            <property name="text">
             <string>Symbols</string>
            </property>
@@ -91,8 +109,11 @@
          </item>
          <item>
           <widget class="QCheckBox" name="unicodeCheckBox">
+           <property name="toolTip">
+            <string>Include 8859-1 (Latin 1) characters.</string>
+           </property>
            <property name="text">
-            <string>Unicode</string>
+            <string>Extended ASCII</string>
            </property>
           </widget>
          </item>
@@ -111,6 +132,9 @@
            </item>
            <item row="0" column="1">
             <widget class="QLineEdit" name="excludeCharsLineEdit">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Exclude the characters entered here.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
              <property name="clearButtonEnabled">
               <bool>true</bool>
              </property>
@@ -126,7 +150,7 @@
            <item row="1" column="1">
             <widget class="QSpinBox" name="passwordLengthSpinBox">
              <property name="toolTip">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Set the length of the password.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Set the length of the password - 8-99&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="stepType">
               <enum>QAbstractSpinBox::DefaultStepType</enum>
@@ -142,6 +166,9 @@
            </item>
            <item row="2" column="1">
             <widget class="QLabel" name="poolSizeLabel">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The number of characters available for password generation. For information only.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
              <property name="text">
               <string/>
              </property>
@@ -178,6 +205,9 @@
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enter the name of the configuration to select, create or delete.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
          <property name="editable">
           <bool>true</bool>
          </property>
@@ -188,81 +218,17 @@
        </item>
        <item>
         <widget class="IndicatorWidget" name="indicatorWidget">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-           <horstretch>2</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="maximumSize">
+         <property name="minimumSize">
           <size>
            <width>10</width>
-           <height>10</height>
+           <height>24</height>
           </size>
          </property>
-         <property name="palette">
-          <palette>
-           <active>
-            <colorrole role="Base">
-             <brush brushstyle="SolidPattern">
-              <color alpha="255">
-               <red>255</red>
-               <green>255</green>
-               <blue>255</blue>
-              </color>
-             </brush>
-            </colorrole>
-            <colorrole role="Window">
-             <brush brushstyle="SolidPattern">
-              <color alpha="255">
-               <red>255</red>
-               <green>170</green>
-               <blue>0</blue>
-              </color>
-             </brush>
-            </colorrole>
-           </active>
-           <inactive>
-            <colorrole role="Base">
-             <brush brushstyle="SolidPattern">
-              <color alpha="255">
-               <red>255</red>
-               <green>255</green>
-               <blue>255</blue>
-              </color>
-             </brush>
-            </colorrole>
-            <colorrole role="Window">
-             <brush brushstyle="SolidPattern">
-              <color alpha="255">
-               <red>255</red>
-               <green>170</green>
-               <blue>0</blue>
-              </color>
-             </brush>
-            </colorrole>
-           </inactive>
-           <disabled>
-            <colorrole role="Base">
-             <brush brushstyle="SolidPattern">
-              <color alpha="255">
-               <red>255</red>
-               <green>170</green>
-               <blue>0</blue>
-              </color>
-             </brush>
-            </colorrole>
-            <colorrole role="Window">
-             <brush brushstyle="SolidPattern">
-              <color alpha="255">
-               <red>255</red>
-               <green>170</green>
-               <blue>0</blue>
-              </color>
-             </brush>
-            </colorrole>
-           </disabled>
-          </palette>
+         <property name="cursor">
+          <cursorShape>ArrowCursor</cursorShape>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Options are unsaved if active.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="frameShape">
           <enum>QFrame::StyledPanel</enum>
@@ -274,6 +240,9 @@
        </item>
        <item>
         <widget class="QPushButton" name="saveOptionsPushButton">
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Save the current options to the database.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
          <property name="text">
           <string>Save</string>
          </property>
@@ -281,6 +250,9 @@
        </item>
        <item>
         <widget class="QPushButton" name="deleteOptionsPushButton">
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Delete the current options from the database.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
          <property name="text">
           <string>Delete</string>
          </property>
@@ -324,6 +296,9 @@
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The generated password.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
            <property name="readOnly">
             <bool>true</bool>
            </property>
@@ -346,6 +321,9 @@
           <layout class="QHBoxLayout" name="horizontalLayout_3">
            <item>
             <widget class="QLabel" name="entropyLabel">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt; The entropy of the password. For information only.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
              <property name="text">
               <string/>
              </property>
@@ -365,6 +343,9 @@
              <height>16777215</height>
             </size>
            </property>
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Create a new password.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
            <property name="text">
             <string>Generate</string>
            </property>
@@ -372,6 +353,12 @@
          </item>
          <item>
           <widget class="QPushButton" name="quitPushButton">
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Exit &lt;span style=&quot; font-weight:600;&quot;&gt;Password Beaver&lt;/span&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+           <property name="locale">
+            <locale language="English" country="Canada"/>
+           </property>
            <property name="text">
             <string>Quit</string>
            </property>

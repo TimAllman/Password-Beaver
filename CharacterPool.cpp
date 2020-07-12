@@ -17,6 +17,8 @@
 #include <string>
 #include <random>
 
+#include <QDebug>
+
 #include "CharacterPool.h"
 #include "Exceptions.h"
 
@@ -45,6 +47,11 @@ void CharacterPool::makeCharacterSet()
         if ((ch.isPrint() && !ch.isSpace()) &&
             (!mExcludedChars.contains(ch, Qt::CaseSensitive)))
         {
+            if (ch == "<")
+                qDebug() << "< found";
+            if (ch == ">")
+                qDebug() << "> found";
+
             if (ch.isPunct())
                 mPunctChars += ch;
             else if (ch.isSymbol())
