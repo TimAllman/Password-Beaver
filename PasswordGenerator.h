@@ -67,7 +67,7 @@ private:
      * @param password The candidate password to check.
      * @return @c true on success, false otherwise.
      */
-    bool validPassword(const CharacterPool& charSet, const QString& password) const;
+    bool isValidPassword(const CharacterPool& charSet, const QString& password) const;
 
     /**
      * Calculate the entropy of the password.

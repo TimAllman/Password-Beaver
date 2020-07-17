@@ -115,14 +115,6 @@ public:
      */
     int poolSize() const;
 
-    /**
-     * If a character class ends up with poor representation in the pool
-     * it can be difficult to meet all of the requireents for a password in one pass.
-     * This is mostly a problem for the symbol, punctuation and digit classes.
-     * This function will increase the representation of these classes in the pool.
-     */
-    void redistribute();
-
 private:
     /**
      * Creates the character set returned by allChars().

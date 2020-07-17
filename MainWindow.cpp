@@ -128,7 +128,6 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->deleteOptionsPushButton, SIGNAL(clicked(bool)),
             this, SLOT(onDeleteOptionsPushButtonClicked(bool)));
 
-
     setPoolSizeLineEditText();
     updateGui();
 

@@ -22,19 +22,14 @@ DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs depr
 
 CONFIG += c++1z strict_c++
 
-# The default is gcc, g++, clang, clang++ depending upon the kit.
-# All of these are needed in order for qmake to run properly and for the
-# build to complete. These show up as corresponding Makefile variables.
-# This is done because clang++-10 leads to compile errors in the Qt headers.
-QMAKE_CC = clang-9
-QMAKE_CXX = clang++-9
-QMAKE_LINK = clang++-9
-#QMAKE_CC = clang-8
-#QMAKE_CXX = clang++-8
-#QMAKE_LINK = clang++-8
-#QMAKE_CC = gcc
-#QMAKE_CXX = g++
-#QMAKE_LINK = g++
+unix: !macx {
+}
+
+macx {
+}
+
+win32 {
+}
 
 #QMAKE_LFLAGS += -static
 

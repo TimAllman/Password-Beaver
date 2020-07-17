@@ -93,7 +93,7 @@ QString PasswordGenerator::password()
         for (auto i = 0; i < 2; ++i)
         {
             unsigned idx = randomIndex(charSet.symbolChars().length() - 1);
-            password += charSet.symbolChars()[idx];
+            password += charSet.symbolChars().at(idx);
             ++numExtraChars;
         }
     }
@@ -103,7 +103,7 @@ QString PasswordGenerator::password()
         for (auto i = 0; i < 2; ++i)
         {
             unsigned idx = randomIndex(charSet.punctChars().length() - 1);
-            password += charSet.punctChars()[idx];
+            password += charSet.punctChars().at(idx);
             ++numExtraChars;
         }
     }
@@ -113,7 +113,7 @@ QString PasswordGenerator::password()
         for (auto i = 0; i < 2; ++i)
         {
             unsigned idx = randomIndex(charSet.digitChars().length() - 1);
-            password += charSet.digitChars()[idx];
+            password += charSet.digitChars().at(idx);
             ++numExtraChars;
         }
     }
@@ -140,7 +140,7 @@ QString PasswordGenerator::password()
             password += allChars[idx];
         }
     }
-    while (!validPassword(charSet, password));
+    while (!isValidPassword(charSet, password));
 
     // shuffle the password so that the extra characters are not all at the front.
     password = shufflePassword(password);
@@ -165,19 +165,20 @@ double PasswordGenerator::calcEntropy(int passwordLength, int charSetLength)
 
 QString PasswordGenerator::shufflePassword(const QString& password)
 {
-    std::vector<int> vec;
+    std::vector<QChar> vec;
     for (auto iter = password.cbegin(); iter != password.cend(); ++iter)
-        vec.push_back(iter->unicode());
+        vec.push_back(*iter);
 
     std::shuffle(vec.begin(), vec.end(), mGenerator);
+
     QString newPw;
     for (auto iter = vec.cbegin(); iter != vec.cend(); ++iter)
-        newPw.append(QChar(*iter));
+        newPw.append(*iter);
 
     return newPw;
 }
 
-bool PasswordGenerator::validPassword(const CharacterPool& charSet, const QString& password) const
+bool PasswordGenerator::isValidPassword(const CharacterPool& charSet, const QString& password) const
 {
     OptionsManager& optsMan = OptionsManager::instance();
     QRegularExpression re;
