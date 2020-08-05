@@ -155,7 +155,7 @@ private slots:
     /**
      * Slot to respond to changes in the editor in the combobox.
      */
-    void onOptionsNameComboBoxEditTextChanged(const QString& text);
+    //void onOptionsNameComboBoxEditTextChanged(const QString& text);
 
     /**
      * Slot to respond to selection of a new name in the combobox.

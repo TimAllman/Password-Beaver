@@ -18,6 +18,7 @@
 #include <random>
 
 #include <QDebug>
+#include <QString>
 
 #include "CharacterPool.h"
 #include "Exceptions.h"
@@ -59,21 +60,6 @@ void CharacterPool::makeCharacterSet()
                 mUpperAlphaChars += ch;
         }
     }
-
-    if ((mUseSymbols == REQUIRE) && (mSymbolChars.length() == 0))
-        throw std::runtime_error("Symbol characters are required but have been excluded.");
-
-    if ((mUsePunctuation == REQUIRE) && (mPunctChars.length() == 0))
-        throw std::runtime_error("Punctuation characters are required but have been excluded.");
-
-    if ((mUseDigits == REQUIRE) && (mDigitChars.length() == 0))
-        throw std::runtime_error("Digit characters are required but have been excluded.");
-
-    if ((mUseLowerAlpha == REQUIRE) && (mLowerAlphaChars.length() == 0))
-        throw std::runtime_error("Lower case characters are required but have been excluded.");
-
-    if ((mUseUpperAlpha == REQUIRE) && (mUpperAlphaChars.length() == 0))
-        throw std::runtime_error("Upper case characters are required but have been excluded.");
 
     if (mUseDigits)
         mAllChars += mDigitChars;

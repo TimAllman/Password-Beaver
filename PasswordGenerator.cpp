@@ -72,7 +72,6 @@ unsigned PasswordGenerator::contains(const QString& string, const QString& chars
     return count;
 }
 
-//exclude lookalikes.
 QString PasswordGenerator::password()
 {
     OptionsManager& optsMan = OptionsManager::instance();
@@ -82,40 +81,30 @@ QString PasswordGenerator::password()
                           optsMan.useSymbols());
 
     // Because the small character classes (symbols, punctuation & digits)
-    // can be underrepresented we start by adding two of each to the password
+    // can be underrepresented we start by adding one of each to the password
     // at the start if they are required but do nothing if they are merely
     // allowed or are excluded.
-
     QString password;
     int numExtraChars = 0;
     if (optsMan.useSymbols() == CharacterPool::REQUIRE)
     {
-        for (auto i = 0; i < 2; ++i)
-        {
-            unsigned idx = randomIndex(charSet.symbolChars().length() - 1);
-            password += charSet.symbolChars().at(idx);
-            ++numExtraChars;
-        }
+        unsigned idx = randomIndex(charSet.symbolChars().length() - 1);
+        password += charSet.symbolChars().at(idx);
+        ++numExtraChars;
     }
 
     if (optsMan.usePunctuation() == CharacterPool::REQUIRE)
     {
-        for (auto i = 0; i < 2; ++i)
-        {
-            unsigned idx = randomIndex(charSet.punctChars().length() - 1);
-            password += charSet.punctChars().at(idx);
-            ++numExtraChars;
-        }
+        unsigned idx = randomIndex(charSet.punctChars().length() - 1);
+        password += charSet.punctChars().at(idx);
+        ++numExtraChars;
     }
 
     if (optsMan.useDigits() == CharacterPool::REQUIRE)
     {
-        for (auto i = 0; i < 2; ++i)
-        {
-            unsigned idx = randomIndex(charSet.digitChars().length() - 1);
-            password += charSet.digitChars().at(idx);
-            ++numExtraChars;
-        }
+        unsigned idx = randomIndex(charSet.digitChars().length() - 1);
+        password += charSet.digitChars().at(idx);
+        ++numExtraChars;
     }
 
     QString allChars = charSet.allChars();
@@ -125,7 +114,39 @@ QString PasswordGenerator::password()
     {
         QString len;
         len.setNum(charSetLength);
-        SmallCharacterPoolException ex("The character pool has too few (" + len + ") characters.");
+        QString str = "The character pool has too few (" + len + ") characters.";
+        SmallCharacterPoolException ex(QObject::tr(str.toUtf8()));
+        ex.raise();
+    }
+
+    if ((optsMan.useSymbols() == CharacterPool::REQUIRE) && (charSet.symbolChars().length() == 0))
+    {
+        ExclusionException ex(QObject::tr("Symbol characters are required but have been excluded."));
+        ex.raise();
+    }
+
+    if ((optsMan.usePunctuation() == CharacterPool::REQUIRE) && (charSet.punctChars().length() == 0))
+    {
+        ExclusionException ex(QObject::tr("Punctuation characters are required but have been excluded."));
+        ex.raise();
+    }
+
+
+    if ((optsMan.useDigits() == CharacterPool::REQUIRE) && (charSet.digitChars().length() == 0))
+    {
+        ExclusionException ex(QObject::tr("Digits are required but have been excluded."));
+        ex.raise();
+    }
+
+    if ((optsMan.useLowerAlpha() == CharacterPool::REQUIRE) && (charSet.lowerAlphaChars().length() == 0))
+    {
+        ExclusionException ex(QObject::tr("Lower case characters are required but have been excluded."));
+        ex.raise();
+    }
+
+    if ((optsMan.useUpperAlpha() == CharacterPool::REQUIRE) && (charSet.upperAlphaChars().length() == 0))
+    {
+        ExclusionException ex(QObject::tr("Upper case characters are required but have been excluded."));
         ex.raise();
     }
 
@@ -146,7 +167,7 @@ QString PasswordGenerator::password()
     password = shufflePassword(password);
 
     if (nLoops > 1)
-        qDebug() << "Valid password found after " << nLoops << " tries.";
+        qInfo() << "Valid password found after " << nLoops << " tries.";
 
     mEntropy = calcEntropy(password.length(), allChars.length());
 

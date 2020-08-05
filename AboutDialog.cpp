@@ -45,7 +45,7 @@ void AboutDialog::onBeaverPushButtonClicked()
 
     if (!success)
     {
-        QString msg("Unable to open URL: ");
+        QString msg(tr("Unable to open URL: "));
         msg += url.toString() + ".";
 
         QMessageBox msgBox;

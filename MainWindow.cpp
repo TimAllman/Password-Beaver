@@ -35,7 +35,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    setFixedSize(width(),height());
+    //setFixedSize(width(),height());
 
     // This should happen first so that the proper path to the
     // configuration file is set properly.
@@ -77,18 +77,18 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->excludeCharsLineEdit->setText(optsMan.charsToExclude());
 
     // Now do the connections.
-    ui->aboutQtAction->setMenuRole(QAction::AboutQtRole);
-    connect(ui->aboutQtAction, &QAction::triggered, qApp, &QApplication::aboutQt);
+    ui->actionAbout_Qt->setMenuRole(QAction::AboutQtRole);
+    connect(ui->actionAbout_Qt, &QAction::triggered, qApp, &QApplication::aboutQt);
 
-    ui->aboutAction->setIcon(QIcon::fromTheme("help-about"));
-    ui->aboutAction->setMenuRole(QAction::AboutRole); // for macos only
-    connect(ui->aboutAction, &QAction::triggered, this, &MainWindow::onAboutActionTriggered);
+    //ui->actionAbout->setIcon(QIcon::fromTheme("help-about"));
+    ui->actionAbout->setMenuRole(QAction::AboutRole); // for macos only
+    connect(ui->actionAbout, &QAction::triggered, this, &MainWindow::onAboutActionTriggered);
 
-    ui->exitAction->setShortcut(QKeySequence::Quit);
-    ui->exitAction->setIcon(QIcon::fromTheme("application-exit"));
-    connect(ui->exitAction, &QAction::triggered, this, &QWidget::close);
+    ui->actionQuit->setShortcut(QKeySequence::Quit);
+    ui->actionQuit->setIcon(QIcon::fromTheme("application-exit"));
+    connect(ui->actionQuit, &QAction::triggered, this, &QWidget::close);
 
-    ui->helpAction->setIcon(QIcon::fromTheme("help-contents"));
+    ui->actionManual->setIcon(QIcon::fromTheme("help-contents"));
 
     connect(ui->quitPushButton, &QPushButton::clicked, this, &QWidget::close);
     connect(ui->generatePushButton, &QPushButton::clicked, this, &MainWindow::onGeneratePushButtonClicked);
@@ -117,8 +117,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->passwordLengthSpinBox, SIGNAL(valueChanged(int)),
             this, SLOT(onPasswordLengthSpinBoxValueChanged(int)));
 
-    connect(ui->optionsNameComboBox, SIGNAL(editTextChanged(const QString&)),
-            this, SLOT(onOptionsNameComboBoxEditTextChanged(const QString&)));
+//    connect(ui->optionsNameComboBox, SIGNAL(editTextChanged(const QString&)),
+//            this, SLOT(onOptionsNameComboBoxEditTextChanged(const QString&)));
     connect(ui->optionsNameComboBox, SIGNAL(currentIndexChanged(int)),
             this, SLOT(onOptionsNameComboBoxCurrentIndexChanged(int)));
 
@@ -277,8 +277,8 @@ void MainWindow::onGeneratePushButtonClicked()
         msgBox.setInformativeText(ex.message());
         msgBox.setDetailedText(tr("Some required characters are not available because "
                                   "they have been manually excluded. Remove at least one of these "
-                                  "characters from the \"Exclude these characters\" editor or use "
-                                  "the check box to turn off this feature"));
+                                  "characters from the \"Exclude\" editor or use "
+                                  "the check box to turn off this feature."));
         msgBox.addButton(QMessageBox::Ok);
         msgBox.exec();
 
@@ -291,9 +291,8 @@ void MainWindow::onGeneratePushButtonClicked()
         msgBox.setIcon(QMessageBox::Critical);
         msgBox.setText(tr("Password Beaver Error"));
         msgBox.setInformativeText(ex.message());
-        msgBox.setDetailedText(tr("The character pool from which the password is derived "
-                                  "is too small. Add more character classes or remove some "
-                                  "from the exclusion list."));
+        msgBox.setDetailedText(tr("The character pool from which the password is derived is too small. "
+                                  "Add more character classes or remove some from the exclusion list."));
         msgBox.addButton(QMessageBox::Ok);
         msgBox.exec();
 
@@ -382,20 +381,19 @@ void MainWindow::onOptionsNameComboBoxEditingFinished()
                 ui->optionsNameComboBox->lineEdit()->text();
 }
 
-void MainWindow::onOptionsNameComboBoxEditTextChanged(const QString &text)
-{
-    // This just responds to text edits. If the current text:
-    //  - is empty, both buttons are disabled.
-    //  - is not a key/name or is "Default", Delete button is disabled but Save is active.
-    //  - is a key/name other than "Default", Delete and Save buttons are enabled.
-
-    qDebug() << "onOptionsNameComboBoxEditTextChanged: " << text;
-    updateGui();
-}
+//void MainWindow::onOptionsNameComboBoxEditTextChanged(const QString &text)
+//{
+//    // This just responds to text edits. If the current text:
+//    //  - is empty, both buttons are disabled.
+//    //  - is not a key/name or is "Default", Delete button is disabled but Save is active.
+//    //  - is a key/name other than "Default", Delete and Save buttons are enabled.
+//    qDebug() << "onOptionsNameComboBoxEditTextChanged: " << text;
+//    updateGui();
+//}
 
 void MainWindow::onOptionsNameComboBoxCurrentIndexChanged(int index)
 {
-    qDebug() << "onOptionsNameComboBoxCurrentIndexChanged: " << index;
+    //qDebug() << "onOptionsNameComboBoxCurrentIndexChanged: " << index;
     QString name = ui->optionsNameComboBox->itemText(index);
     OptionsManager::instance().setActive(name);
     displayCurrentOptions();

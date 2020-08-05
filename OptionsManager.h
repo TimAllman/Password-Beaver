@@ -25,6 +25,7 @@
 class OptionsManager
 {
 public:
+    // These are used when a JSON object is created to save the options.
     static const QString STR_OPTIONS;
     static const QString STR_DEFAULT;
     static const QString STR_NAME;

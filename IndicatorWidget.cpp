@@ -16,7 +16,6 @@
 #include "IndicatorWidget.h"
 
 #include <QPainter>
-//#include <QPaintEvent>
 
 IndicatorWidget::IndicatorWidget(QWidget* parent)
     : QFrame(parent), mIsActive(false)
@@ -47,26 +46,12 @@ void IndicatorWidget::paintEvent(QPaintEvent*)
     QPointF leftPoint(QPointF(r.x(), r.y() + r.height() / 2));
     poly << topPoint << rightPoint << bottomPoint << leftPoint;
 
-//    painter.setPen(Qt::darkGray);
-//    painter.setBrush(Qt::darkGray);
-//    painter.drawConvexPolygon(poly);
     painter.drawEllipse(r);
-//    painter.drawRect(r);
     if (mIsActive)
     {
-//        poly.clear();
         r.adjust(1, 1, -1, -1);
-
-//        QPointF topPoint(r.x() + r.width() / 2, r.y());
-//        QPointF rightPoint(QPointF(r.x() + r.width(), r.y() + r.height() / 2));
-//        QPointF bottomPoint(r.x() + r.width() / 2, r.y() + r.width() / 2);
-//        QPointF leftPoint(QPointF(r.x() + r.width(), r.y() + r.height() / 2));
-
-//        poly << topPoint << rightPoint << bottomPoint << leftPoint;
         painter.setPen(Qt::red);
         painter.setBrush(Qt::red);
-//        painter.drawConvexPolygon(poly);
         painter.drawEllipse(r);
-//        painter.drawRect(r);
     }
 }

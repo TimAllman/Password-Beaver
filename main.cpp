@@ -15,8 +15,11 @@
  */
 
 #include "MainWindow.h"
+
 #include <QApplication>
-#include <QStyleFactory>
+#include <QTranslator>
+
+//#include <QStyleFactory>
 #include <QDebug>
 
 int main(int argc, char *argv[])
@@ -31,9 +34,16 @@ int main(int argc, char *argv[])
 //    if (style)
 //        QApplication::setStyle(style);
 
-    QApplication a(argc, argv);
+    QApplication application(argc, argv);
+
+    QTranslator translator;
+    if (translator.load("pwbeaver_fr.qm", "/home/tim/devel/pwbeaver") == false)
+        qDebug() << "Could not load translation file.";
+
+    application.installTranslator(&translator);
+
     MainWindow w;
     w.show();
 
-    return a.exec();
+    return application.exec();
 }
