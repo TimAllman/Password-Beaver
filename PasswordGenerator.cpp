@@ -80,12 +80,26 @@ QString PasswordGenerator::password()
                           optsMan.useUpperAlpha(), optsMan.useLowerAlpha(),
                           optsMan.useSymbols());
 
-    // Because the small character classes (symbols, punctuation & digits)
-    // can be underrepresented we start by adding one of each to the password
-    // at the start if they are required but do nothing if they are merely
-    // allowed or are excluded.
+    // Because character classes, especially the small ones (symbols, punctuation & digits),
+    // can be underrepresented we start by adding one member of each required class to the password
+    // to begin with but do nothing if they are merely allowed or excluded.
     QString password;
     int numExtraChars = 0;
+
+    if (optsMan.useUpperAlpha() == CharacterPool::REQUIRE)
+    {
+        unsigned idx = randomIndex(charSet.upperAlphaChars().length() - 1);
+        password += charSet.upperAlphaChars().at(idx);
+        ++numExtraChars;
+    }
+
+    if (optsMan.useLowerAlpha() == CharacterPool::REQUIRE)
+    {
+        unsigned idx = randomIndex(charSet.lowerAlphaChars().length() - 1);
+        password += charSet.lowerAlphaChars().at(idx);
+        ++numExtraChars;
+    }
+
     if (optsMan.useSymbols() == CharacterPool::REQUIRE)
     {
         unsigned idx = randomIndex(charSet.symbolChars().length() - 1);
@@ -114,39 +128,8 @@ QString PasswordGenerator::password()
     {
         QString len;
         len.setNum(charSetLength);
-        QString str = "The character pool has too few (" + len + ") characters.";
+        QString str = QString(QObject::tr("The character pool has too few (%1) characters.")).arg(len);
         SmallCharacterPoolException ex(QObject::tr(str.toUtf8()));
-        ex.raise();
-    }
-
-    if ((optsMan.useSymbols() == CharacterPool::REQUIRE) && (charSet.symbolChars().length() == 0))
-    {
-        ExclusionException ex(QObject::tr("Symbol characters are required but have been excluded."));
-        ex.raise();
-    }
-
-    if ((optsMan.usePunctuation() == CharacterPool::REQUIRE) && (charSet.punctChars().length() == 0))
-    {
-        ExclusionException ex(QObject::tr("Punctuation characters are required but have been excluded."));
-        ex.raise();
-    }
-
-
-    if ((optsMan.useDigits() == CharacterPool::REQUIRE) && (charSet.digitChars().length() == 0))
-    {
-        ExclusionException ex(QObject::tr("Digits are required but have been excluded."));
-        ex.raise();
-    }
-
-    if ((optsMan.useLowerAlpha() == CharacterPool::REQUIRE) && (charSet.lowerAlphaChars().length() == 0))
-    {
-        ExclusionException ex(QObject::tr("Lower case characters are required but have been excluded."));
-        ex.raise();
-    }
-
-    if ((optsMan.useUpperAlpha() == CharacterPool::REQUIRE) && (charSet.upperAlphaChars().length() == 0))
-    {
-        ExclusionException ex(QObject::tr("Upper case characters are required but have been excluded."));
         ex.raise();
     }
 

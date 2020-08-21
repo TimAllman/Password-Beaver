@@ -40,7 +40,7 @@ public:
 
     /**
      * Constructor.
-     * @param useUnicode ///< Use the full UTF-16 standard if @c true. ASCII otherwise.
+     * @param useLatin1       ///< Use the full UTF-16 standard if @c true. ASCII otherwise.
      * @param excludedChars    ///< The characters set by user to exclude if @c true.
      * @param usePunctuation   ///< Use punctuation, symbols etc. Can be @c EXCLUDE, @c REQUEST or @c REQUIRE
      * @param useDigits        ///< Use digits. Can be @c EXCLUDE, @c REQUEST or @c REQUIRE.
@@ -48,7 +48,7 @@ public:
      * @param useLowerAlpha    ///< Use lower case letters. Can be @c EXCLUDE, @c REQUEST or @c REQUIRE.
      * @param useSymbols       ///< Use symbols. Can be @c EXCLUDE, @c REQUEST or @c REQUIRE.
      */
-    explicit CharacterPool(bool useUnicode, const QString& excludedChars,
+    explicit CharacterPool(bool useLatin1, const QString& excludedChars,
                            int usePunctuation, int useDigits, int useUpperAlpha,
                            int useLowerAlpha, int useSymbols);
 
@@ -121,8 +121,7 @@ private:
      */
     void makeCharacterSet();
 
-    bool mUseUnicode;        ///< Use the full UTF-16 standard if @c true. ASCII otherwise.
-    QString mExcludedChars;  ///< The characters set by user to exclude if @c true.
+    bool mUseLatin1;        ///< Use the Latin-1 set if @c true. ASCII otherwise.
     int mUsePunctuation;     ///< Use punctuation, symbols etc. Can be @c EXCLUDE, @c REQUEST or @c REQUIRE.
     int mUseDigits;          ///< Use digits. Can be @c EXCLUDE, @c REQUEST or @c REQUIRE.
     int mUseUpperAlpha;      ///< Use upper case letters. Can be @c EXCLUDE, @c REQUEST or @c REQUIRE.
@@ -130,11 +129,12 @@ private:
     int mUseSymbols;         ///< Use symbols. Can be @c EXCLUDE, @c REQUEST or @c REQUIRE.
 
     QString mAllChars;          ///< The full character set. The sum of all the type strings below.
-    QString mPunctChars;        ///< The punctuation characters in the pool to be used.
-    QString mDigitChars;        ///< The digit characters in the pool to be used.
-    QString mUpperAlphaChars;   ///< The upper case characters in the pool to be used.
-    QString mLowerAlphaChars;   ///< The lower case characters in the pool to be used.
-    QString mSymbolChars;       ///< The symbols in the pool to use.
+    QString mPunctChars;        ///< The punctuation characters.
+    QString mDigitChars;        ///< The digit characters.
+    QString mUpperAlphaChars;   ///< The upper case characters.
+    QString mLowerAlphaChars;   ///< The lower case characters.
+    QString mSymbolChars;       ///< The symbols.
+    QString mExcludedChars;     ///< The characters set by user to exclude if @c true.
 };
 
 #endif // CHARSET_H

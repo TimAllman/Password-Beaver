@@ -132,7 +132,9 @@ MainWindow::MainWindow(QWidget *parent) :
     updateGui();
 
     QSettings settings;
-    restoreGeometry(settings.value("WindowGeometry").toByteArray());
+    QPoint pos = settings.value("WindowPosition").toPoint();
+    if (pos != QPoint(0, 0))
+        move(settings.value("WindowPosition").toPoint());
 }
 
 MainWindow::~MainWindow()
@@ -179,7 +181,8 @@ void MainWindow::closeEvent(QCloseEvent* event)
     QSettings settings;
     settings.setValue("Options", json);
     settings.setValue("WindowGeometry", saveGeometry());
-
+    QPoint position = pos();
+    settings.setValue("WindowPosition", position);
     event->accept();
 }
 

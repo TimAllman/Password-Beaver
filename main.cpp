@@ -36,11 +36,16 @@ int main(int argc, char *argv[])
 
     QApplication application(argc, argv);
 
-    QTranslator translator;
-    if (translator.load("pwbeaver_fr.qm", "/home/tim/devel/pwbeaver") == false)
-        qDebug() << "Could not load translation file.";
+    QLocale::setDefault(QLocale::French);
 
-    application.installTranslator(&translator);
+    QTranslator translator;
+    QLocale locale;
+    if (locale.language() == QLocale::French)
+    {
+        if (translator.load("pwbeaver_fr.qm", ":/locale") == false)
+            qDebug() << "Could not load translation file.";
+        application.installTranslator(&translator);
+    }
 
     MainWindow w;
     w.show();

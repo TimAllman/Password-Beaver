@@ -14,39 +14,32 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <string>
-#include <random>
-
-#include <QDebug>
-#include <QString>
-
 #include "CharacterPool.h"
-#include "Exceptions.h"
 
-CharacterPool::CharacterPool(bool useUnicode, const QString& excludedChars,
-                             int usePunctuation, int useDigits, int useUpperAlpha,
-                             int useLowerAlpha, int useSymbols)
-    : mUseUnicode(useUnicode), mExcludedChars(excludedChars),
-    mUsePunctuation(usePunctuation), mUseDigits(useDigits), mUseUpperAlpha(useUpperAlpha),
-    mUseLowerAlpha(useLowerAlpha), mUseSymbols(useSymbols)
+CharacterPool::CharacterPool(bool useLatin1, const QString& excludedChars, int usePunctuation,
+                             int useDigits, int useUpperAlpha, int useLowerAlpha, int useSymbols)
+    : mUseLatin1(useLatin1), mUsePunctuation(usePunctuation), mUseDigits(useDigits),
+    mUseUpperAlpha(useUpperAlpha), mUseLowerAlpha(useLowerAlpha), mUseSymbols(useSymbols),
+    mExcludedChars(excludedChars)
 {
     makeCharacterSet();
 }
 
 void CharacterPool::makeCharacterSet()
 {
-    // Select the ASCII characters only.
-    int lastChar = 0x7F;
+    const int LAST_ASCII_CHAR = 0x7F;
+    const int LAST_LATIN1_CHAR = 0xFF;
 
-    // Use the ISO/IEC 8859-1 (Latin-1 Extension) character set if wanted.
-    if (mUseUnicode)
-        lastChar = 0xFF;
+    int lastChar;
+    if (mUseLatin1)
+        lastChar = LAST_LATIN1_CHAR;
+    else
+        lastChar = LAST_ASCII_CHAR;
 
-    for(int c = 0; c <= lastChar; ++c)
+    for(int i = 0; i <= lastChar; ++i)
     {
-        QChar ch(c);
-        if ((ch.isPrint() && !ch.isSpace()) &&
-            (!mExcludedChars.contains(ch, Qt::CaseSensitive)))
+        QChar ch(i);
+        if ((ch.isPrint() && !ch.isSpace()) && (!mExcludedChars.contains(ch, Qt::CaseSensitive)))
         {
             if (ch.isPunct())
                 mPunctChars += ch;

@@ -28,3 +28,8 @@ HelpDialog::~HelpDialog()
 {
     delete ui;
 }
+
+void HelpDialog::setHtmlText(const QString& /*helpText*/)
+{
+
+}

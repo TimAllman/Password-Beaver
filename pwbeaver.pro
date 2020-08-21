@@ -75,10 +75,12 @@ DISTFILES += \
     help/help.qhcp \
     help/help.qhp \
     license.txt \
+    locale/pwbeaver_fr.qm \
+    locale/pwbeaver_fr.ts \
     manual/Manual.html \
     manual/Screenshot.png
 
 RESOURCES += \
     pwbeaver.qrc
 
-TRANSLATIONS = pwbeaver_fr.ts
+TRANSLATIONS = locale/pwbeaver_fr.ts

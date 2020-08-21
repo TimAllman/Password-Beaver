@@ -4,5 +4,8 @@
         <file>icons/scalable/application-exit.svg</file>
         <file>icons/scalable/beaver.svg</file>
         <file>icons/scalable/qtlogo.svg</file>
+        <file>manual/Manual.html</file>
+        <file>manual/Screenshot.png</file>
+        <file>locale/pwbeaver_fr.qm</file>
     </qresource>
 </RCC>
