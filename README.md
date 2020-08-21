@@ -14,7 +14,7 @@ be pasted elsewhere.
 The character set used can be modified by the user to omit, request or require
 character classes (upper case, lower case, digits and punctuation and symbols).
 As well, an arbitrary user defined set of characters can be excluded to satisfy a cranky
-Web site ot to improve readability (e.g. "1" (one) and "l" (lower case L) can be hard
+Web site or to improve readability (e.g. "1" (one) and "l" (lower case L) can be hard
 to distinguish in some typefaces).
 
 
