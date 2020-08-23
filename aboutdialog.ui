@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>358</width>
-    <height>182</height>
+    <width>414</width>
+    <height>176</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -201,7 +201,7 @@
       <item>
        <widget class="QLabel" name="label_7">
         <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Thanks to &lt;a href=&quot;https://www.flaticon.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;Flaticon &lt;/span&gt;&lt;/a&gt;for the beaver icon&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Beaver icon made by &lt;a href=&quot;https://www.flaticon.com/authors/freepik&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0069d9;&quot;&gt;Freepik&lt;br/&gt;&lt;/span&gt;&lt;/a&gt;from &lt;a href=&quot;https://www.flaticon.com/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0069d9;&quot;&gt;www.flaticon.com&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="textFormat">
          <enum>Qt::RichText</enum>

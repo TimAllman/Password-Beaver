@@ -34,6 +34,9 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent), ui(new Ui::MainWindow)
 {
+    QIcon windowIcon(":/icons/icns/beaver.icns");
+    setWindowIcon(windowIcon);
+
     ui->setupUi(this);
     //setFixedSize(width(),height());
 

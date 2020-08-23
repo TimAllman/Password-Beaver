@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
 
     QApplication application(argc, argv);
 
-    QLocale::setDefault(QLocale::French);
+    //QLocale::setDefault(QLocale::French);
 
     QTranslator translator;
     QLocale locale;
