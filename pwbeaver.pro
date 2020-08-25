@@ -23,6 +23,8 @@ DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs depr
 CONFIG += c++1z strict_c++
 
 unix: !macx {
+#QMAKE_LFLAGS += -static
+#LIBS += -L ~/Qt/5.15.0/Src/qtbase/lib
 }
 
 macx {
@@ -30,11 +32,6 @@ macx {
 
 win32 {
 }
-
-#QMAKE_LFLAGS += -static
-
-#LIBS +=
-## QMAKE_LFLAGS += -static
 
 SOURCES += \
         AboutDialog.cpp \

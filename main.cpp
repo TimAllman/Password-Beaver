@@ -19,7 +19,7 @@
 #include <QApplication>
 #include <QTranslator>
 
-//#include <QStyleFactory>
+#include <QStyleFactory>
 #include <QDebug>
 
 int main(int argc, char *argv[])
