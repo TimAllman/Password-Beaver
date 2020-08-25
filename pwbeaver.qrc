@@ -8,5 +8,7 @@
         <file>manual/Screenshot.png</file>
         <file>locale/pwbeaver_fr.qm</file>
         <file>icons/icns/beaver.icns</file>
+        <file>icons/png/beaver.png</file>
+        <file>icons/png/Qt-logo.png</file>
     </qresource>
 </RCC>
