@@ -28,6 +28,7 @@ unix: !macx {
 }
 
 macx {
+ICON = icons/icns/beaver.icns
 }
 
 win32 {

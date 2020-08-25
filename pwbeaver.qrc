@@ -7,5 +7,6 @@
         <file>manual/Manual.html</file>
         <file>manual/Screenshot.png</file>
         <file>locale/pwbeaver_fr.qm</file>
+        <file>icons/icns/beaver.icns</file>
     </qresource>
 </RCC>
