@@ -262,7 +262,7 @@
            <property name="minimumSize">
             <size>
              <width>10</width>
-             <height>24</height>
+             <height>20</height>
             </size>
            </property>
            <property name="cursor">

@@ -16,12 +16,24 @@
 #include "HelpDialog.h"
 #include "ui_helpdialog.h"
 
+#include <QFile>
+#include <QTextStream>
+
 HelpDialog::HelpDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::HelpDialog)
 {
-    ui->helpTextEdit->setHtml("");
     ui->setupUi(this);
+
+    QFile manFile(":/manual/Manual.html");
+    if (!manFile.open(QIODevice::ReadOnly | QIODevice::Text))
+        return;
+
+    QTextStream inStream(&manFile);
+    QString text = inStream.read(100000l);
+
+    ui->textBrowser->setHtml(text);
+
 }
 
 HelpDialog::~HelpDialog()

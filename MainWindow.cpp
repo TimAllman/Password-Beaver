@@ -20,6 +20,7 @@
 #include "PasswordGenerator.h"
 #include "OptionsManager.h"
 #include "AboutDialog.h"
+#include "HelpDialog.h"
 #include "Exceptions.h"
 #include "OptionsManager.h"
 
@@ -92,6 +93,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionQuit, &QAction::triggered, this, &QWidget::close);
 
     ui->actionManual->setIcon(QIcon::fromTheme("help-contents"));
+    connect(ui->actionManual, &QAction::triggered, this, &MainWindow::onShowManualTriggered);
 
     connect(ui->quitPushButton, &QPushButton::clicked, this, &QWidget::close);
     connect(ui->generatePushButton, &QPushButton::clicked, this, &MainWindow::onGeneratePushButtonClicked);
@@ -120,8 +122,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->passwordLengthSpinBox, SIGNAL(valueChanged(int)),
             this, SLOT(onPasswordLengthSpinBoxValueChanged(int)));
 
-//    connect(ui->optionsNameComboBox, SIGNAL(editTextChanged(const QString&)),
-//            this, SLOT(onOptionsNameComboBoxEditTextChanged(const QString&)));
+    connect(ui->optionsNameComboBox, SIGNAL(editTextChanged(const QString&)),
+            this, SLOT(onOptionsNameComboBoxEditTextChanged(const QString&)));
     connect(ui->optionsNameComboBox, SIGNAL(currentIndexChanged(int)),
             this, SLOT(onOptionsNameComboBoxCurrentIndexChanged(int)));
 
@@ -387,19 +389,14 @@ void MainWindow::onOptionsNameComboBoxEditingFinished()
                 ui->optionsNameComboBox->lineEdit()->text();
 }
 
-//void MainWindow::onOptionsNameComboBoxEditTextChanged(const QString &text)
-//{
-//    // This just responds to text edits. If the current text:
-//    //  - is empty, both buttons are disabled.
-//    //  - is not a key/name or is "Default", Delete button is disabled but Save is active.
-//    //  - is a key/name other than "Default", Delete and Save buttons are enabled.
-//    qDebug() << "onOptionsNameComboBoxEditTextChanged: " << text;
-//    updateGui();
-//}
+void MainWindow::onOptionsNameComboBoxEditTextChanged(const QString &)
+{
+    // This just responds to text edits. The real work is done by updateGui().
+    updateGui();
+}
 
 void MainWindow::onOptionsNameComboBoxCurrentIndexChanged(int index)
 {
-    //qDebug() << "onOptionsNameComboBoxCurrentIndexChanged: " << index;
     QString name = ui->optionsNameComboBox->itemText(index);
     OptionsManager::instance().setActive(name);
     displayCurrentOptions();
@@ -439,6 +436,12 @@ void MainWindow::onDeleteOptionsPushButtonClicked(bool)
         displayCurrentOptions();
         updateGui();
     }
+}
+
+void MainWindow::onShowManualTriggered()
+{
+    HelpDialog dlg;
+    dlg.exec();
 }
 
 void MainWindow::onExcludeCharsLineEditEditingFinished()

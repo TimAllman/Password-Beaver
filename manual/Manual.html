@@ -3,9 +3,19 @@
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
 	<title>Password Beaver Manual</title>
-	<meta name="generator" content="LibreOffice 6.4.3.2 (Linux)"/>
+	<meta name="generator" content="LibreOffice 6.4.5.2 (Linux)"/>
 	<meta name="created" content="00:00:00"/>
-	<meta name="changed" content="2020-06-09T10:46:04.921852403"/>
+	<meta name="changed" content="2020-09-18T14:43:32.524371820"/>
+	<meta name="created" content="00:00:00">
+	<meta name="created" content="00:00:00">
+	<meta name="created" content="00:00:00">
+	<meta name="created" content="00:00:00">
+	<meta name="created" content="00:00:00">
+	<meta name="created" content="00:00:00">
+	<meta name="created" content="00:00:00">
+	<meta name="created" content="00:00:00">
+	<meta name="created" content="00:00:00">
+	<meta name="created" content="00:00:00">
 	<style type="text/css">
 		@page { size: 21.59cm 27.94cm; margin-left: 2cm; margin-right: 1cm; margin-top: 1cm; margin-bottom: 1cm }
 		p { margin-bottom: 0.25cm; background: transparent; line-height: 115%; background: transparent }
@@ -13,14 +23,14 @@
 		h2.western { font-family: "Liberation Serif", serif; font-size: 18pt; font-weight: bold }
 		h2.cjk { font-family: "Noto Sans CJK SC"; font-size: 18pt; font-weight: bold }
 		h2.ctl { font-family: "Lohit Devanagari"; font-size: 18pt; font-weight: bold }
-		h3 { margin-top: 0.25cm; margin-bottom: 0.21cm; background: transparent; background: transparent; page-break-after: avoid }
-		h3.western { font-family: "Liberation Serif", serif; font-size: 14pt; font-weight: bold }
-		h3.cjk { font-family: "Noto Sans CJK SC"; font-size: 14pt; font-weight: bold }
-		h3.ctl { font-family: "Lohit Devanagari"; font-size: 14pt; font-weight: bold }
 		h1 { margin-bottom: 0.21cm; background: transparent; background: transparent; page-break-after: avoid }
 		h1.western { font-family: "Liberation Serif", serif; font-size: 24pt; font-weight: bold }
 		h1.cjk { font-family: "Noto Serif CJK SC"; font-size: 24pt; font-weight: bold }
 		h1.ctl { font-family: "Noto Sans Devanagari"; font-size: 24pt; font-weight: bold }
+		h3 { margin-top: 0.25cm; margin-bottom: 0.21cm; background: transparent; background: transparent; page-break-after: avoid }
+		h3.western { font-family: "Liberation Sans", sans-serif; font-size: 14pt; font-weight: bold }
+		h3.cjk { font-family: "Noto Sans CJK SC"; font-size: 14pt; font-weight: bold }
+		h3.ctl { font-family: "Noto Sans Devanagari"; font-size: 14pt; font-weight: bold }
 		code.western { font-family: "Liberation Mono", monospace; font-size: 11pt }
 		code.cjk { font-family: "DejaVu Sans Mono", monospace }
 		code.ctl { font-family: "Liberation Mono", monospace }
@@ -35,96 +45,46 @@ Password Beaver</h1>
 <p align="center"><img src="../icons/scalable/beaver.svg" name="Image1" align="bottom" width="200" height="200" border="0"/>
 
 </p>
-<h2 class="western"><a name="contents"></a>Contents</h2>
-<ul>
-	<li><p style="margin-bottom: 0cm"><a href="#about">About Password
-	Beaver</a> 
-	</p>
-	<li><p style="margin-bottom: 0cm"><a href="#customising">Customising
-	the Beaver</a> 
-	</p>
-	<li><p style="margin-bottom: 0cm"><a href="#upper">Upper case
-	letters</a> 
-	</p>
-	<li><p style="margin-bottom: 0cm"><a href="#lower">Lower case
-	letters</a> 
-	</p>
-	<li><p style="margin-bottom: 0cm"><a href="#digits">Digits</a> 
-	</p>
-	<li><p style="margin-bottom: 0cm"><a href="#punctuation">Punctuation</a>
-		</p>
-	<li><p style="margin-bottom: 0cm"><a href="#length">Password length</a>
-		</p>
-	<li><p style="margin-bottom: 0cm"><a href="#extended">Extended ASCII</a>
-		</p>
-	<li><p style="margin-bottom: 0cm"><a href="#exclude">Exclude
-	characters</a> 
-	</p>
-	<li><p style="margin-bottom: 0cm"><a href="#passwordlen">Password
-	length</a> 
-	</p>
-	<li><p style="margin-bottom: 0cm"><a href="#clipboard">Copy to
-	clipboard</a> 
-	</p>
-	<li><p style="margin-bottom: 0cm"><a href="#password">Password</a> 
-	</p>
-	<li><p><a href="#entropy">Entropy</a> 
-	</p>
-</ul>
 <h2 class="western"><a name="about"></a>About the Beaver</h2>
-<p>Password Beaver is a lightweight, easy to use and secure password
-generator. It creates passwords based upon random selection from the
-printable characters of the ASCII character set or optionally from an
-extended ASCII character set. Unwanted characters can be arbitrarily
-excluded if needed. Optionally, the password is copied to the system
-clipboard so that it can be pasted where it is needed. 
-</p>
-<p><em>Password Beaver</em> creates a character pool based upon the
-user's selection of options. The pool of characters starts as the
-printable characters from either the <a href="https://en.wikipedia.org/wiki/US-ASCII">ASCII</a>
-or the <a href="https://en.wikipedia.org/wiki/ISO/IEC_8859-1">ISO-8859-1</a>
-(the most common extended ASCII) character sets, modified by the
-user’s selections. It can be modified to <b>omit</b>, <b>request</b>
-or <b>require</b> characters from several groups. Currently these
-groups are <a href="#upper">upper case letters</a>, <a href="#lower">lower
+<p><i>Password Beaver</i> is a lightweight, easy to use and secure
+password generator. It creates passwords that are hard to guess based
+upon random selection from the printable characters of the <a href="https://en.wikipedia.org/wiki/US-ASCII">ASCII</a>
+character set. This can be expanded to use the full <a href="https://en.wikipedia.org/wiki/ISO/IEC_8859-1">ISO-8859-1</a>
+character set, sometimes known also as <a href="https://en.wikipedia.org/wiki/Extended_ASCII">Extended
+ASCII</a> or Latin 1. A list of characters can be arbitrarily
+excluded if desired and the generated password can be automatically
+copied to the clipboard.</p>
+<h2 class="western">Password Generation</h2>
+<p><em>Password Beaver</em> starts with a character pool to select
+characters from based upon the selected options. By default the pool
+starts as the printable characters from either the <a href="https://en.wikipedia.org/wiki/US-ASCII">ASCII</a>
+character set or the <a href="https://en.wikipedia.org/wiki/ISO/IEC_8859-1">ISO-8859-1</a>
+character set, the most common <a href="https://en.wikipedia.org/wiki/Extended_ASCII">Extended
+ASCII</a> character set. The characters are divided into several
+groups, <a href="#upper">upper case letters</a>, <a href="#lower">lower
 case letters</a>, <a href="#digits">digits</a>, <a href="#symbols">symbols</a>,
 and everything else to which we refer somewhat inaccurately as
-<a href="#punctuation">punctuation</a>. Further, an arbitrary set of
-characters specified by the user can be excluded. You may want to do
-this to improve readability in case the password needs to be manually
-typed or perhaps to satisfy a Web site which doesn't accept some
-characters in its passwords. The <a href="#length">length of the
-password</a> can be set with the minimum length of 8 characters and a
-maximum of 99. 
+<a href="#punctuation">punctuation</a>. 
 </p>
-<p>The generated passwords are intended to be used with a password
-manager as they are not easy for most people to remember. This makes
-them harder to crack because a dictionary attack is very unlikely to
-succeed and a brute force attack will likely take a very long time.
-Generally the best choice is to pick a long password from a large
-pool of characters. 
-</p>
+<p>It can be modified to <b>omit</b>, <b>request</b> or <b>require</b>
+characters from one or more of these groups. Further, an arbitrary
+set of characters can be excluded. You may want to do this to improve
+readability in case the password needs to be manually typed or
+perhaps to satisfy a Web site which doesn't accept some characters in
+its passwords. The <b>length of the password</b> can be set to
+minimum length of 8 characters and a maximum of 99. After a password
+is created it is copied to the clipboard but this can be turned off
+if desired.</p>
+<p>The generated passwords are not easy for most people to remember
+so <i>Password Beaver</i> is best used with a password manager. This
+makes them harder to crack because a dictionary attack is very
+unlikely to succeed and a brute force attack will likely take a very
+long time. Generally the best choice is to pick a long password from
+a large pool of characters. The entropy is a good but not infallible
+indication of the strength of a password. See the section <a href="#About Passwords|outline"><b>About
+Passwords</b></a> <span style="font-weight: normal">below.</span></p>
 <h2 class="western"><a name="customising"></a>Customizing the
 password</h2>
-<p><img src="Manual_html_9f65328383eed6b1.png" name="Image2" alt="Beaver screenshot." align="bottom" width="385" height="535" border="0"/>
-
-</p>
-<p><strong><font size="2" style="font-size: 11pt">A screenshot of
-Password Beaver.<br/>
-</font></strong><strong><font size="2" style="font-size: 11pt"><span style="font-weight: normal">In
-this instance </span></font></strong><em><font size="2" style="font-size: 11pt">Upper
-case letters</font></em> <font size="2" style="font-size: 11pt">are
-required, </font><em><font size="2" style="font-size: 11pt">Lowercase
-letters</font></em> <font size="2" style="font-size: 11pt">are
-requested, </font><em><font size="2" style="font-size: 11pt">Digits</font></em>
-<font size="2" style="font-size: 11pt">are required and </font><em><font size="2" style="font-size: 11pt">Punctuation</font></em>
-<font size="2" style="font-size: 11pt">characters are requested and
-</font><em><font size="2" style="font-size: 11pt">Symbols</font></em>
-<font size="2" style="font-size: 11pt">are required. The potentially
-confusing characters O (upper O), 0 (zero), I (upper I), l (lower L)
-and 1 (digit) are excluded. </font>
-</p>
-<h3 class="western">Selecting characters</h3>
 <p>Generally the best choice is to pick a long password from a large
 pool of characters. If the ASCII character set is chosen (i.e.
 Extended ASCII is <span style="font-variant: normal"><i>not</i></span><span style="font-variant: normal">
@@ -135,12 +95,47 @@ referred to as ISO-8859-1 or Latin 1) will give 155 possible
 characters.</p>
 <p>However, a program or Web site that requires a password may not
 accept all possible characters or it may set some requirements such
-as requiring at least one upper case letter, one digit and one
-punctuation character. Using the top check boxes, it is possible to
-exclude, allow or require the following groups of characters: <a href="#upper">upper
-case letters</a>, <a href="#lower">lower case letters</a>, <a href="#digits">digits</a>,
-<a href="#symbols">symbols</a> and <a href="#punctuation">punctuation</a>.
-These check boxes have three states. 
+as requiring or forbidding certain groups or characters. Using the
+check boxes, you can <b>exclude</b>, <b>require</b> or merely <b>request</b>
+characters from the groups.</p>
+<p><span id="Frame1" dir="ltr" style="float: left; width: 14.25cm; height: 15.86cm; border: none; padding: 0cm; background: #ffffff"><p style="margin-top: 0.21cm; margin-bottom: 0.21cm; line-height: 100%; background: transparent">
+	<img src="Screenshot_main_en.png" name="Image2" align="left" width="344" height="466">
+  <br clear="left"/>
+</img>
+<font size="3" style="font-size: 12pt"><i>A
+	screenshot of Password Beaver.</i></font></p>
+	<p style="margin-top: 0.21cm; margin-bottom: 0.21cm; line-height: 100%; background: transparent">
+	<font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 10pt"><span style="font-variant: normal"><span style="font-style: normal">In
+	this case, </span></span><span style="font-variant: normal"><i>Upper
+	case letters</i></span><span style="font-variant: normal"><span style="font-style: normal">,
+	</span></span><span style="font-variant: normal"><i>Lowercase
+	letters</i></span><span style="font-variant: normal"> </span><span style="font-variant: normal"><span style="font-style: normal">and</span></span><span style="font-variant: normal">
+	</span><span style="font-variant: normal"><i>Digits</i></span><span style="font-variant: normal">
+	</span><span style="font-variant: normal"><span style="font-style: normal">are
+	</span></span><span style="font-variant: normal"><span style="font-style: normal"><b>required</b></span></span><span style="font-variant: normal"><span style="font-style: normal">.</span></span><span style="font-variant: normal">
+	</span><span style="font-variant: normal"><i>Symbols </i></span><span style="font-variant: normal"><span style="font-style: normal">and
+	</span></span><span style="font-variant: normal"><i>Punctuation</i></span><span style="font-variant: normal">
+	</span><span style="font-variant: normal"><span style="font-style: normal">characters
+	are </span></span><span style="font-variant: normal"><span style="font-style: normal"><b>requested</b></span></span><span style="font-variant: normal"><span style="font-style: normal">.
+	</span></span><span style="font-variant: normal"><i>Extended ASCII</i></span><span style="font-variant: normal">
+	</span><span style="font-variant: normal"><span style="font-style: normal">characters
+	are not used. The potentially confusing characters O (upper O), 0
+	(zero), I (upper I), l (lower L) and 1 (digit) are excluded. The
+	password has a length of 16 characters. The green ellipse indicates
+	that this configuration has been saved as Config-1. The new password
+	is taken from a character pool of 89 characters and the Entropy is
+	103.6 bits.</span></span></font></font></p>
+</span><br clear="left"><br/>
+<br/>
+
+</p>
+<p>Passwords are created by randomly taking characters from the base
+character set (<a href="https://en.wikipedia.org/wiki/US-ASCII">ASCII</a>
+or <a href="#extended">Extended ASCII</a>). Normally you should make
+passwords with characters from all of the classes but there may be
+reasons that you want to require or exclude some classes. This is
+usually because a particular Web site has its own requirements.</p>
+<p>The character class check boxes have three states. 
 </p>
 <ul>
 	<li><p style="margin-bottom: 0cm">If the checkbox is <i>unchecked</i>,
@@ -153,65 +148,81 @@ These check boxes have three states.
 	are <b>requested</b><span style="font-weight: normal">. They may</span>
 	appear in the password or they may not.</p>
 </ul>
-<h3 class="western"><a name="exclude"></a>Exclude</h3>
-<p>You may exclude certain characters arbitrarily from the character
-pool. It may be that a Web site does not accept some characters,
-usually those in the punctuation group. Or, you may wish to avoid
-characters that are easily confused such as I (upper I) and l (lower
-L). Enter the characters in the <b>Exclude</b> <span style="font-weight: normal">text</span>
-editor.</p>
-<h3 class="western">Pool size</h3>
+<p>You may want to exclude certain characters arbitrarily from the
+character pool. It may be that a Web site does not accept some
+characters or you may wish to avoid characters that are easily
+confused such as I (upper I) and l (lower L). Enter the characters in
+the <font face="Liberation Sans, sans-serif"><b>Exclude</b></font>
+<span style="font-weight: normal">text</span> editor.</p>
+<p>The length of the password can be changed in the <font face="Liberation Sans, sans-serif"><b>Length</b></font>
+<span style="font-weight: normal">spin box</span>. The allowed range
+is 8 to 99 characters. The default length of 16 is a good choice for
+most uses.</p>
 <p>This is the current size of the character pool from which
-passwords are taken and changes as character groups are selected and
-as some are excluded. This field is for information only.</p>
-<h3 class="western"><a name="passwordlen"></a>Length</h3>
-<p>The length of the password can be changed here. The allowed range
-is 8 to 50 characters. The default length of 16 is a good choice for
-most uses. 
-</p>
-<h3 class="western"><a name="clipboard"></a>Copy to clipboard</h3>
-<p>The default behaviour is to copy the password to the system
-clipboard as soon as it is generated. Turn this off if you do not
-want to do this. The text can be selected with the mouse and copied
-if desired.</p>
+passwords are taken is shown underneath the <font face="Liberation Sans, sans-serif"><b>Length</b></font>
+<span style="font-weight: normal">control. This field is for
+information only and reflects the choices made with the check boxes</span>
+<span style="font-weight: normal">and the </span><font face="Liberation Sans, sans-serif"><span style="font-weight: normal">Exclude</span></font>
+<span style="font-weight: normal">editor.</span></p>
+<p>The default behaviour of <i>Password </i><span style="font-variant: normal"><span style="font-style: normal">Beaver
+is</span></span> to copy the password to the system clipboard as soon
+as it is generated. Turn this off if you do not want to do this but
+prefer to copy the password by hand.</p>
 <h2 class="western">Configurations</h2>
 <p>Password Beaver maintains a database of configurations to simplify
 creating passwords for sites with particular requirements. In the
-Configurations section there is a combo-box allows you to select sets
-of options by name and to enter names for new sets of options, a
-small indicator to remind you when the options have been modified but
-not saved and two push buttons labelled ‘Save’ and ‘Delete’.</p>
+<font face="Liberation Sans, sans-serif"><b>Configurations</b></font>
+section there is a combo-box allows you to select sets of options by
+name and to enter names for new sets of options, a small indicator to
+remind you when the options have been modified but not saved and two
+push buttons labelled <font face="Liberation Sans, sans-serif"><b>Save</b></font>
+and <font face="Liberation Sans, sans-serif"><b>Delete</b></font>.</p>
 <p>When Password Beaver is first started it loads a default
-configuration named “Default”. This configuration cannot be
-modified, meaning that you cannot save or delete it. However, the
-name can be changed and the configuration can be saved under this new
-name.</p>
-<p>To the right of the combo box is a small parallelogram shaped
-widget that indicates, that either</p>
+configuration named “Default”. This configuration can be modified
+but you cannot save or delete it. However, the name can be changed
+and the configuration saved under this new name. In the screenshot
+the default configuration has been modified and saved as “<font face="Liberation Sans, sans-serif">Config-1</font>”.</p>
+<p>To the right of the combo box there is a small round widget. If it
+is <font color="#00a933">green</font> it indicates that the current
+configuration is stored in the database under the current name. If it
+is <font color="#ff0000">red</font> it indicates that either</p>
 <ol type="a">
-	<li><p>there is no option set with the name shown in the editor or 
+	<li><p>there is no set of options with the name shown in the editor
+	or 
 	</p>
 	<li><p>that there is an entry in the database with that name but the
 	stored options are different from those shown.</p>
-	<p style="background: transparent; line-height: 115%; background: transparent; page-break-before: auto">
-	If either a) or b) are true the widget is filled with colour.
-	Otherwise it is drawn in outline.</p>
-	<p style="background: transparent; line-height: 115%; background: transparent">
-	Pressing the ‘Save’ push button will store the data by creating
-	a new entry if one with the current name does not exist or by
-	overwriting the stored options with the new ones. The ‘Delete’
-	push button will remove the named set of options from the database.</p>
 </ol>
-<p>Note that the ‘Save’ and ‘Delete’ push buttons are enabled
-and disabled depending upon whether either operation can be done. In
-particular, they enforce the read only status of the ‘Default’
-entry. If ‘Default’ is the current item, neither both push
-buttons are disabled, even if the widget is lit up because you have
-changed the options. If you wish to save the new options, type in a
-new name and save the options with that.</p>
-<h2 class="western"><a name="password"></a>Password</h2>
-<p>This field is read only and contains the last password that was
-generated. If you don't like it for some reason generate another.</p>
+<p style="line-height: 115%; background: transparent; page-break-before: auto; page-break-after: auto">
+Pressing the <font face="Liberation Sans, sans-serif"><b>Save</b></font>
+button will store the data by creating a new entry if one with the
+current name does not exist or by overwriting the stored options with
+the new ones. The <font face="Liberation Sans, sans-serif"><b>Delete</b></font>
+push button will remove the named set of options from the database.</p>
+<p>Note that the <font face="Liberation Sans, sans-serif"><b>Save</b></font>
+and <font face="Liberation Sans, sans-serif"><b>Delete</b></font>
+buttons can be <span style="font-weight: normal">enabled</span> or
+<span style="font-weight: normal">disabled</span> depending upon
+whether either operation is permitted. In particular, they enforce
+the read only status of the ‘<font face="Liberation Sans, sans-serif">Default</font>’
+entry. If ‘<font face="Liberation Sans, sans-serif">Default</font>’
+is the current item, both push buttons are disabled, even if the
+widget is <font color="#c9211e">red</font> showing that the options
+have been changed. If you wish to save the new options, type in a new
+name and save the options with that.</p>
+<h2 class="western"><a name="__RefHeading___Toc82_140077794"></a><a name="password"></a><a name="About Passwords|outline"></a>
+About Passwords</h2>
+<p>When 
+</p>
+<h3 class="western">A good password is hard to guess.</h3>
+<p>There’s more to ‘hard to guess’ than you might think. Not
+only should it be hard for a human to guess but the technology of
+guessing passwords by machine is very well developed. 
+</p>
+<p><br/>
+<br/>
+
+</p>
 <h2 class="western"><a name="entropy"></a>Entropy</h2>
 <p>The entropy of the password is a measure of how many guesses would
 be necessary to guess it. Specifically, it is <code class="western">log</code><code class="western"><sub>2</sub></code><code class="western">(n)
@@ -219,8 +230,10 @@ be necessary to guess it. Specifically, it is <code class="western">log</code><c
 passwords given the password length and the character pool size. This
 is described in a <a href="https://en.wikipedia.org/wiki/Random_password_generator#Type_and_strength_of_password_generated" target="_blank">Wikipedia
 article</a>.</p>
-<h2 class="western">Password strength</h2>
-<p>A good password is hard to guess. 
+<h3 class="western">Keeping your password secret</h3>
+<p><br/>
+<br/>
+
 </p>
 </body>
 </html>

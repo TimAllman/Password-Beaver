@@ -48,7 +48,7 @@ private:
     struct OptionsSet
     {
         QString mName;          ///< The user assigned name of the option set.
-        bool mUseUnicode; ///< Include extended ASCII characters in the password if true.
+        bool mUseUnicode;       ///< Include extended ASCII characters in the password if true.
         int mUsePunctuation;    ///< Include punctuation characters in the password if true.
         int mUseSymbols;        ///< Include symbol characters in the password if true.
         int mUseDigits;         ///< Include digit characters in the password if true.

@@ -33,8 +33,12 @@
     </message>
     <message>
         <location filename="../aboutdialog.ui" line="204"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Beaver icon made by &lt;a href=&quot;https://www.flaticon.com/authors/freepik&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0069d9;&quot;&gt;Freepik&lt;br/&gt;&lt;/span&gt;&lt;/a&gt;from &lt;a href=&quot;https://www.flaticon.com/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0069d9;&quot;&gt;www.flaticon.com&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt; &lt;p&gt; Icône de castor créée par &lt;a href=&quot;https://www.flaticon.com/authors/freepik&quot;&gt; &lt;span style = &quot;text-decoration: underline; color: # 0069d9; &quot;&gt; Freepik &lt;br/&gt; &lt;/span&gt; &lt;/a&gt; de &lt;a href=&quot;https://www.flaticon.com/&quot;&gt; &lt;span style =&quot; text-decoration: underline; color: # 0069d9; &quot;&gt; www.flaticon.com &lt;/span&gt; &lt;/a&gt; &lt;/p&gt;&lt;/body&gt; &lt;/html&gt;</translation>
+    </message>
+    <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Thanks to &lt;a href=&quot;https://www.flaticon.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0057ae;&quot;&gt;Flaticon &lt;/span&gt;&lt;/a&gt;for the beaver icon&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt; &lt;p&gt; Merci à &lt;a href=&quot;https://www.flaticon.com&quot;&gt; &lt;span style = &quot;text-decoration: underline; color: # 0057ae;&quot;&gt; Flaticon &lt;/span&gt; &lt;/a&gt; pour l&apos;icône du castor &lt;/p&gt; &lt;/body&gt; &lt;/html&gt;</translation>
+        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt; &lt;p&gt; Merci à &lt;a href=&quot;https://www.flaticon.com&quot;&gt; &lt;span style = &quot;text-decoration: underline; color: # 0057ae;&quot;&gt; Flaticon &lt;/span&gt; &lt;/a&gt; pour l&apos;icône du castor &lt;/p&gt; &lt;/body&gt; &lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../AboutDialog.cpp" line="48"/>
@@ -297,19 +301,19 @@
         <translation>À propos de Qt</translation>
     </message>
     <message>
-        <location filename="../MainWindow.cpp" line="279"/>
-        <location filename="../MainWindow.cpp" line="295"/>
+        <location filename="../MainWindow.cpp" line="282"/>
+        <location filename="../MainWindow.cpp" line="298"/>
         <source>Password Beaver Error</source>
         <translation>Erreur de Password Beaver</translation>
     </message>
     <message>
-        <location filename="../MainWindow.cpp" line="281"/>
+        <location filename="../MainWindow.cpp" line="284"/>
         <source>Some required characters are not available because they have been manually excluded. Remove at least one of these characters from the &quot;Exclude&quot; editor or use the check box to turn off this feature.</source>
         <oldsource>Some required characters are not available because they have been manually excluded. Remove at least one of these characters from the &quot;Exclude these characters&quot; editor or use the check box to turn off this feature.</oldsource>
         <translation>Des caractères obligatoires ne sont pas disponibles car ils ont été exclus manuellement. Supprimez au moins un de ces caractères de l&apos;éditeur &quot;Exclurer&quot; ou utilisez la case à cocher pour désactiver cette fonctionnalité.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.cpp" line="297"/>
+        <location filename="../MainWindow.cpp" line="300"/>
         <source>The character pool from which the password is derived is too small. Add more character classes or remove some from the exclusion list.</source>
         <translation>Le jeu de caractères à partir duquel le mot de passe est dérivé est trop petit. Ajoutez d&apos;autres classes de caractères ou supprimez-en certaines de la liste d&apos;exclusion.</translation>
     </message>

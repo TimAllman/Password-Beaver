@@ -60,8 +60,8 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <widget class="QTextEdit" name="helpTextEdit">
-        <property name="readOnly">
+       <widget class="QTextBrowser" name="textBrowser">
+        <property name="openExternalLinks">
          <bool>true</bool>
         </property>
        </widget>
@@ -104,5 +104,22 @@
   </layout>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>closePushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>HelpDialog</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>486</x>
+     <y>536</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>272</x>
+     <y>283</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

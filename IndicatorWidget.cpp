@@ -32,26 +32,22 @@ void IndicatorWidget::paintEvent(QPaintEvent*)
 {
     QPainter painter(this);
 
-    // rect() returns QPoint(0, 0, width(), height())
+    // rect() returns QRect(0, 0, width(), height())
     QRect r = rect();
 
     // need to pull the bottom right corner in one point
-    r.adjust(0, r.height()/6, -1, -r.height()/6-1);
+    r.adjust(0, 0, -1, -1);
 
-    // We want to draw a parallelogram on point so we set up a polygon.
-    QPolygonF poly;
-    QPointF topPoint(r.x() + r.width() / 2, r.y());
-    QPointF rightPoint(QPointF(r.x() + r.width(), r.y() + r.height() / 2));
-    QPointF bottomPoint(r.x() + r.width() / 2, r.height());
-    QPointF leftPoint(QPointF(r.x(), r.y() + r.height() / 2));
-    poly << topPoint << rightPoint << bottomPoint << leftPoint;
+    QBrush brush;
+    brush.setStyle(Qt::SolidPattern);
+
+    if (mIsActive)
+        brush.setColor(Qt::red);
+    else
+        brush.setColor(Qt::green);
+
+    // Set the custom brush. The default pen is fine.
+    painter.setBrush(brush);
 
     painter.drawEllipse(r);
-    if (mIsActive)
-    {
-        r.adjust(1, 1, -1, -1);
-        painter.setPen(Qt::red);
-        painter.setBrush(Qt::red);
-        painter.drawEllipse(r);
-    }
 }

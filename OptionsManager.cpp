@@ -39,7 +39,7 @@ OptionsManager::OptionsManager()
     setActive(mActiveOptionsKey);
 }
 
-OptionsManager &OptionsManager::instance()
+OptionsManager& OptionsManager::instance()
 {
     /** Pointer to the one instance of this class. */
     static OptionsManager* instance;

@@ -41,10 +41,16 @@ PasswordGenerator::PasswordGenerator()
 #if defined(__linux__)
     std::random_device rd;
     mGenerator.seed(rd());
+#elif defined(__FreeBSD__)
+    std::random_device rd;
+    mGenerator.seed(rd());
 #elif defined(_WIN32)
     std::random_device rd;
     mGenerator.seed(rd());
 #elif defined(__APPLE__)
+    std::random_device rd;
+    mGenerator.seed(rd());
+#else
     std::random_device rd;
     mGenerator.seed(rd());
 #endif
