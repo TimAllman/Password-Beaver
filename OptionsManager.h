@@ -83,7 +83,7 @@ private:
         /**
          * Compares two instances for all members except mName.
          * The @c mName is not an option in the same way that the others
-         * that affect the production pd passwords are and often we
+         * that affect the production of passwords are and often we
          * want to compare everything but the name. Inclusion of @c mName
          * in the struct is a convenience that reflects this field's
          * inclusion in the JSON representation that probably avoids more

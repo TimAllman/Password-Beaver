@@ -1,4 +1,4 @@
-#include "OptionsManager.h"
+﻿#include "OptionsManager.h"
 
 #include <QJsonObject>
 #include <QJsonArray>

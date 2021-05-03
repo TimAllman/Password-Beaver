@@ -39,7 +39,6 @@ MainWindow::MainWindow(QWidget *parent) :
     setWindowIcon(windowIcon);
 
     ui->setupUi(this);
-    //setFixedSize(width(),height());
 
     // This should happen first so that the proper path to the
     // configuration file is set properly.
@@ -184,10 +183,10 @@ void MainWindow::closeEvent(QCloseEvent* event)
     QByteArray json = jsonDoc.toJson(QJsonDocument::Indented);
 
     QSettings settings;
-    settings.setValue("Options", json);
-    settings.setValue("WindowGeometry", saveGeometry());
+    settings.setValue(QLatin1String("Options"), json);
+    settings.setValue(QLatin1String("WindowGeometry"), saveGeometry());
     QPoint position = pos();
-    settings.setValue("WindowPosition", position);
+    settings.setValue(QLatin1String("WindowPosition"), position);
     event->accept();
 }
 

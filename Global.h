@@ -21,7 +21,7 @@
 
 /**
  * @file Global.h
- * Contains compile time information needed throughout the program.
+ * Contains information needed throughout the program.
  */
 
 struct Global
