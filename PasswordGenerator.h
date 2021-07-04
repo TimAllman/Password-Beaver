@@ -57,17 +57,25 @@ private:
      */
     unsigned randomIndex(unsigned maxIdx) const;
 
+    /**
+     * Count the number of times a character in @code chars is found in 'string'.
+     * Multiple occurrences of a character are counted as one match. This is used
+     * to determine whether @code string contains the specified characters.
+     * See isValidPassword().
+     * @param string A candidate password.
+     * @param chars The characters it must contain.
+     */
     unsigned contains(const QString& string, const QString& chars) const;
 
     /**
      * Checks to see if @c password meets the criteria for a
      * valid password. It returns @c true if @c password contains at least one
      * character from each of the character types REQUIREd.
-     * @param charSet The set of characters to choose from.
      * @param password The candidate password to check.
+     * @param charSet The set of characters to choose from.
      * @return @c true on success, false otherwise.
      */
-    bool isValidPassword(const CharacterPool& charSet, const QString& password) const;
+    bool isValidPassword(const QString& password, const CharacterPool& charSet) const;
 
     /**
      * Calculate the entropy of the password.
@@ -78,9 +86,11 @@ private:
     double calcEntropy(int passwordLength, int charSetLength);
 
     /**
-     * Shuffles the password to provide a bit more randomness.
+     * Shuffles the password to provide a bit more randomness. This is done to
+     * prevent all characters in a selected group from appearing all together
+     * in the password.
      * @param password The password to shuffle.
-     * @return The password shuffled.
+     * @return The shuffled password.
      */
     QString shufflePassword(const QString& password);
 
@@ -94,7 +104,7 @@ private:
      */
     mutable std::mt19937 mGenerator;
 
-    double mEntropy; ///< Stores the last calculated entropy.
+    double mEntropy; ///< Stores the last calculated entropy. See calcEntropy().
 };
 
 #endif // STRINGGENERATOR_H

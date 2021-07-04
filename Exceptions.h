@@ -33,23 +33,44 @@ public:
         : mMessage(msg)
     {}
 
+    /**
+     * Copy constructor.
+     * @param other The other exception that we wish to copy.
+     */
     ExclusionException(const ExclusionException& other)
     {
         mMessage = other.mMessage;
     }
 
-    ExclusionException operator=(const ExclusionException& other) = delete;
+    /**
+     * Deleted copy assignment operator.
+     * @return nothing
+     */
+    ExclusionException operator=(const ExclusionException&) = delete;
 
+    /**
+     * QException requires this function to be overridden in subclasses.
+     * See https://doc.qt.io/qt-5/qexception.html.
+     * @return Pointer to a new copy of @c *this.
+     */
     ExclusionException* clone() const override
     {
         return new ExclusionException(*this);
     }
 
+    /**
+     * QException requires this function to be overridden in subclasses.
+     * See https://doc.qt.io/qt-5/qexception.html.
+     */
     void raise() const override
     {
         throw *this;
     }
 
+    /**
+     * Get the stored message.
+     * @return The message.
+     */
     QString message() const
     {
         return mMessage;
@@ -62,7 +83,7 @@ public:
     {}
 
 private:
-    QString mMessage;
+    QString mMessage; ///< The message passed to the constructor.
 };
 
 /**
@@ -80,23 +101,44 @@ public:
         : mMessage(msg)
     {}
 
+    /**
+     * Copy constructor.
+     * @param other The other exception that we wish to copy.
+     */
     SmallCharacterPoolException(const SmallCharacterPoolException& other)
     {
         mMessage = other.mMessage;
     }
 
+    /**
+     * Deleted copy assignment operator.
+     * @return nothing
+     */
     SmallCharacterPoolException operator=(const SmallCharacterPoolException& other) = delete;
 
+    /**
+     * QException requires this function to be overridden in subclasses.
+     * See https://doc.qt.io/qt-5/qexception.html.
+     * @return Pointer to a new copy of @c *this.
+     */
     SmallCharacterPoolException* clone() const override
     {
         return new SmallCharacterPoolException(*this);
     }
 
+    /**
+     * QException requires this function to be overridden in subclasses.
+     * See https://doc.qt.io/qt-5/qexception.html.
+     */
     void raise() const override
     {
         throw *this;
     }
 
+    /**
+     * Get the stored message.
+     * @return The message.
+     */
     QString message() const
     {
         return mMessage;
@@ -109,7 +151,7 @@ public:
     {}
 
 private:
-    QString mMessage;
+    QString mMessage; ///< The message passed to the constructor.
 };
 
 #endif // EXCEPTIONS_H

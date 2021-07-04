@@ -25,6 +25,7 @@
 #include "OptionsManager.h"
 
 #include <QClipboard>
+#include <QTimer>
 #include <QIcon>
 #include <QMessageBox>
 #include <QCloseEvent>
@@ -79,6 +80,13 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->excludeCharsLineEdit->setText(optsMan.charsToExclude());
 
+    QFont font;
+    font.setFamily(QString::fromUtf8("Courier"));
+    font.setPointSize(12);
+    font.setWeight(QFont::DemiBold);
+    font.setKerning(false);
+    ui->passwordLineEdit->setFont(font);
+
     // Now do the connections.
     ui->actionAbout_Qt->setMenuRole(QAction::AboutQtRole);
     connect(ui->actionAbout_Qt, &QAction::triggered, qApp, &QApplication::aboutQt);
@@ -115,14 +123,14 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->excludeCharsLineEdit, SIGNAL(editingFinished()),
             this, SLOT(onExcludeCharsLineEditEditingFinished()));
-    connect(ui->excludeCharsLineEdit, SIGNAL(textChanged(const QString&)),
+    connect(ui->excludeCharsLineEdit, SIGNAL(textChanged(QString)),
             this, SLOT(onExcludeCharsLineEditTextChanged()));
 
     connect(ui->passwordLengthSpinBox, SIGNAL(valueChanged(int)),
             this, SLOT(onPasswordLengthSpinBoxValueChanged(int)));
 
-    connect(ui->optionsNameComboBox, SIGNAL(editTextChanged(const QString&)),
-            this, SLOT(onOptionsNameComboBoxEditTextChanged(const QString&)));
+    connect(ui->optionsNameComboBox, SIGNAL(editTextChanged(QString)),
+            this, SLOT(onOptionsNameComboBoxEditTextChanged()));
     connect(ui->optionsNameComboBox, SIGNAL(currentIndexChanged(int)),
             this, SLOT(onOptionsNameComboBoxCurrentIndexChanged(int)));
 
@@ -309,7 +317,10 @@ void MainWindow::onGeneratePushButtonClicked()
     OptionsManager& optsMan = OptionsManager::instance();
     QClipboard* clip = QGuiApplication::clipboard();
     if (optsMan.copyToClipboard())
+    {
         clip->setText(password);
+        QTimer::singleShot(5000, this, &MainWindow::clearClipboard);
+    }
 
     ui->passwordLineEdit->setText(password);
     QString entrStr = QString::number(gen.entropy(), 'f', 1) + " bits";
@@ -388,7 +399,7 @@ void MainWindow::onOptionsNameComboBoxEditingFinished()
                 ui->optionsNameComboBox->lineEdit()->text();
 }
 
-void MainWindow::onOptionsNameComboBoxEditTextChanged(const QString &)
+void MainWindow::onOptionsNameComboBoxEditTextChanged()
 {
     // This just responds to text edits. The real work is done by updateGui().
     updateGui();
@@ -435,6 +446,13 @@ void MainWindow::onDeleteOptionsPushButtonClicked(bool)
         displayCurrentOptions();
         updateGui();
     }
+}
+
+void MainWindow::clearClipboard()
+{
+    QClipboard* clip = QGuiApplication::clipboard();
+    clip->setText("");
+    // clip->clear() seems not to work on X11.
 }
 
 void MainWindow::onShowManualTriggered()

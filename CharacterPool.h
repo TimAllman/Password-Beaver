@@ -40,7 +40,7 @@ public:
 
     /**
      * Constructor.
-     * @param useLatin1       ///< Use the full UTF-16 standard if @c true. ASCII otherwise.
+     * @param useLatin1        ///< Use the full UTF-16 standard if @c true. ASCII otherwise.
      * @param excludedChars    ///< The characters set by user to exclude if @c true.
      * @param usePunctuation   ///< Use punctuation, symbols etc. Can be @c EXCLUDE, @c REQUEST or @c REQUIRE
      * @param useDigits        ///< Use digits. Can be @c EXCLUDE, @c REQUEST or @c REQUIRE.
@@ -121,7 +121,7 @@ private:
      */
     void makeCharacterSet();
 
-    bool mUseLatin1;        ///< Use the Latin-1 set if @c true. ASCII otherwise.
+    bool mUseLatin1;         ///< Use the Latin-1 set if @c true. ASCII otherwise.
     int mUsePunctuation;     ///< Use punctuation, symbols etc. Can be @c EXCLUDE, @c REQUEST or @c REQUIRE.
     int mUseDigits;          ///< Use digits. Can be @c EXCLUDE, @c REQUEST or @c REQUIRE.
     int mUseUpperAlpha;      ///< Use upper case letters. Can be @c EXCLUDE, @c REQUEST or @c REQUIRE.

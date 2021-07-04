@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>342</width>
+    <width>358</width>
     <height>437</height>
    </rect>
   </property>
@@ -203,8 +203,8 @@
            </property>
            <property name="sizeHint" stdset="0">
             <size>
-             <width>20</width>
-             <height>40</height>
+             <width>159</width>
+             <height>13</height>
             </size>
            </property>
           </spacer>
@@ -339,6 +339,12 @@
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="font">
+            <font>
+             <family>Courier</family>
+             <kerning>false</kerning>
+            </font>
+           </property>
            <property name="toolTip">
             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The generated password.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
@@ -430,7 +436,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>342</width>
+     <width>358</width>
      <height>22</height>
     </rect>
    </property>
@@ -460,6 +466,14 @@
   <action name="actionManual">
    <property name="text">
     <string>Manual</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Courier</family>
+     <weight>75</weight>
+     <bold>true</bold>
+     <kerning>false</kerning>
+    </font>
    </property>
   </action>
   <action name="actionAbout_Qt">

@@ -73,6 +73,8 @@ private:
      */
     void updateGui();
 
+    void clearClipboard();
+
 private slots:
     /**
      * Slot to show the About dialog.
@@ -155,7 +157,7 @@ private slots:
     /**
      * Slot to respond to changes in the editor in the combobox.
      */
-    void onOptionsNameComboBoxEditTextChanged(const QString&);
+    void onOptionsNameComboBoxEditTextChanged();
 
     /**
      * Slot to respond to selection of a new name in the combobox.

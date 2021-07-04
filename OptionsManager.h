@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright © 2020 Tim Allman
  *
  * This program is free software: you can redistribute it and/or modify
@@ -229,8 +229,22 @@ private:
     OptionsSet mActiveOptions;  ///< The buffer of current options.
 };
 
+/**
+ * Comparison operator.
+ * @param lhs The instance on the left hand side of the operator.
+ * @param rhs The instance on the right hand side of the operator.
+ * @return @code true if they are the same, @c false otherwise.
+ * Calls OptionsSet::compareOptions().
+ */
 bool operator==(const OptionsManager::OptionsSet& lhs, const OptionsManager::OptionsSet& rhs);
 
+/**
+ * Comparison operator.
+ * @param lhs The instance on the left hand side of the operator.
+ * @param rhs The instance on the right hand side of the operator.
+ * @return @code false if they are the same, @c true otherwise.
+ * Calls OptionsSet::compareOptions().
+ */
 bool operator!=(const OptionsManager::OptionsSet& lhs, const OptionsManager::OptionsSet& rhs);
 
 #endif // OPTIONS_H

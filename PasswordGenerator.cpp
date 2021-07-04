@@ -139,6 +139,7 @@ QString PasswordGenerator::password()
         ex.raise();
     }
 
+    // This is not elegant but is sufficient.
     int pwLength = optsMan.passwordLength() - numExtraChars;
     int nLoops = 0;   // for debugging only
     do
@@ -150,7 +151,7 @@ QString PasswordGenerator::password()
             password += allChars[idx];
         }
     }
-    while (!isValidPassword(charSet, password));
+    while (!isValidPassword(password, charSet));
 
     // shuffle the password so that the extra characters are not all at the front.
     password = shufflePassword(password);
@@ -188,7 +189,7 @@ QString PasswordGenerator::shufflePassword(const QString& password)
     return newPw;
 }
 
-bool PasswordGenerator::isValidPassword(const CharacterPool& charSet, const QString& password) const
+bool PasswordGenerator::isValidPassword(const QString& password, const CharacterPool& charSet) const
 {
     OptionsManager& optsMan = OptionsManager::instance();
     QRegularExpression re;
