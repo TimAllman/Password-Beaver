@@ -31,7 +31,7 @@ public:
     static const QString STR_NAME;
     static const QString STR_ACTIVE_KEY;
     static const QString STR_CHARS_TO_EXCLUDE;
-    static const QString STR_USE_UNICODE;
+    static const QString STR_USE_EXTENDED_ASCII;
     static const QString STR_USE_PUNCTUATION;
     static const QString STR_USE_SYMBOLS;
     static const QString STR_USE_DIGITS;
@@ -39,7 +39,7 @@ public:
     static const QString STR_USE_UPPER_ALPHA;
     static const QString STR_PASSWORD_LENGTH;
     static const QString STR_COPY_TO_CLIPBOARD;
-
+    static const QString STR_CLIPBOARD_CLEAR_TIME;
 private:
     /**
      * @brief The OptionsSet struct.
@@ -47,16 +47,17 @@ private:
      */
     struct OptionsSet
     {
-        QString mName;          ///< The user assigned name of the option set.
-        bool mUseUnicode;       ///< Include extended ASCII characters in the password if true.
-        int mUsePunctuation;    ///< Include punctuation characters in the password if true.
-        int mUseSymbols;        ///< Include symbol characters in the password if true.
-        int mUseDigits;         ///< Include digit characters in the password if true.
-        int mUseUpperAlpha;     ///< Include upper case alpha characters in the password if true.
-        int mUseLowerAlpha;     ///< Include lower case alpha characters in the password if true.
-        QString mCharsToExclude;///< Specific characters to exclude.
-        int mPasswordLength;    ///< The requested length of the password.
-        bool mCopyToClipboard;  ///< Copy result to clipboard if true.
+        QString mName;           ///< The user assigned name of the option set.
+        bool mUseExtendedAscii;        ///< Include extended ASCII characters in the password if true.
+        int mUsePunctuation;     ///< Include punctuation characters in the password if true.
+        int mUseSymbols;         ///< Include symbol characters in the password if true.
+        int mUseDigits;          ///< Include digit characters in the password if true.
+        int mUseUpperAlpha;      ///< Include upper case alpha characters in the password if true.
+        int mUseLowerAlpha;      ///< Include lower case alpha characters in the password if true.
+        QString mCharsToExclude; ///< Specific characters to exclude.
+        int mPasswordLength;     ///< The requested length of the password.
+        bool mCopyToClipboard;   ///< Copy result to clipboard if true.
+        int mClipboardClearTime; ///< Delay before clearing clipboard. 0 indicates not to clear.
 
         /**
          * Constructor.
@@ -81,23 +82,20 @@ private:
         void readFromJSON(const QJsonObject& jsonObj);
 
         /**
-         * Compares two instances for all members except mName.
-         * The @c mName is not an option in the same way that the others
-         * that affect the production of passwords are and often we
-         * want to compare everything but the name. Inclusion of @c mName
-         * in the struct is a convenience that reflects this field's
-         * inclusion in the JSON representation that probably avoids more
-         * problems than it creates.
-         *
+         * Compares two instances for all members that affect password
+         * generation. The members that affect other aspects of the program
+         * (@c mName, @c mCopyToClipboard & @c mClipboardClearTime are not
+         * part of the comparison.
          * @param other The other instance.
-         * @return true if all members (other than @c mName are equal.
+         * @return @c true if all compared members are equal.
          * @c false otherwise.
          */
-        bool compareOptions(const OptionsSet& other) const;
+        bool comparePasswordOptions(const OptionsSet& other) const;
     };
 
     /**
-     * Equality operator. This works as expected. @see OptionsSet::compareOptions.
+     * Equality operator. This works as expected. @see OptionsSet::compareOptions
+     * and the implementation code.
      * @param lhs The instance on the left side.
      * @param rhs The instance on the right side.
      * @return true if both instances are identical.
@@ -105,7 +103,8 @@ private:
     friend bool operator==(const OptionsSet& lhs, const OptionsSet& rhs);
 
     /**
-     * Inequality operator. This works as expected. @see OptionsSet::compareOptions.
+     * Inequality operator. This works as expected. @see OptionsSet::compareOptions
+     * and the implementation code.
      * @param lhs The instance on the left side.
      * @param rhs The instance on the right side.
      * @return true if both instances are different.
@@ -129,8 +128,8 @@ public:
     void setActiveKey(const QString& key);
     QString activeKey();
 
-    void setUseUnicode(bool useUnicode);
-    bool useUnicode() const;
+    void setUseExtendedAscii(bool useExtendedAscii);
+    bool useExtendedAscii() const;
 
     void setUsePunctuation(int usePunct);
     int usePunctuation() const;
@@ -155,6 +154,9 @@ public:
 
     void setCopyToClipboard(bool copy);
     bool copyToClipboard() const;
+
+    void setClipboardClearTime(int time);
+    int clipboardClearTime() const;
 
     void writeToJSON(QJsonObject& jsonObject) const;
     void readFromJSON(const QJsonObject& jsonObject);

@@ -25,6 +25,8 @@ HelpDialog::HelpDialog(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    setSizeGripEnabled(true);
+
     QFile manFile(":/manual/Manual.html");
     if (!manFile.open(QIODevice::ReadOnly | QIODevice::Text))
         return;

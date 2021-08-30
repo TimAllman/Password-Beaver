@@ -21,6 +21,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "HelpDialog.h"
+
 #include <QMainWindow>
 
 namespace Ui {
@@ -46,8 +48,6 @@ public:
      */
     ~MainWindow() override;
 
-    void testGenerator();
-
 protected:
     /**
      * This overrides the @c QWidget function. It catches the close event
@@ -72,8 +72,6 @@ private:
      * Manage the GUI to reflect the state of the options. @see OptionsManager.
      */
     void updateGui();
-
-    void clearClipboard();
 
 private slots:
     /**
@@ -127,11 +125,13 @@ private slots:
      */
     void onCopyToClipboardCheckboxStateChanged(int state);
 
+    void onClipboardClearTimeSpinBoxValueChanged(int value);
+
     /**
      * Slot to respond to the extended ASCII checkbox.
      * @param state The new state of the checkbox.
      */
-    void onUnicodeCheckboxStateChanged(int state);
+    void onExtendedAsciiCheckboxStateChanged(int state);
 
     /**
      * Slot to respond to changes in the password length spin box.
@@ -177,9 +177,20 @@ private slots:
      */
     void onDeleteOptionsPushButtonClicked(bool);
 
+    /**
+     * Slot to show the manual.
+     */
     void onShowManualTriggered();
 
+    /**
+     * Clear clipboard if timer triggers it.
+     */
+    void clearClipboard();
+
 private:
+
+    HelpDialog* helpDlg;
+
     /**
      * The GUI.
      */

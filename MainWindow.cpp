@@ -25,16 +25,15 @@
 #include "OptionsManager.h"
 
 #include <QClipboard>
-#include <QTimer>
 #include <QIcon>
 #include <QMessageBox>
 #include <QCloseEvent>
 #include <QJsonDocument>
 #include <QSettings>
-#include <QDebug>
+#include <QTimer>
 
 MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent), ui(new Ui::MainWindow)
+    QMainWindow(parent), helpDlg(nullptr), ui(new Ui::MainWindow)
 {
     QIcon windowIcon(":/icons/icns/beaver.icns");
     setWindowIcon(windowIcon);
@@ -66,7 +65,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->upperCaseCheckBox->setCheckState(static_cast<Qt::CheckState>(optsMan.useUpperAlpha()));
     ui->lowerCaseCheckBox->setCheckState(static_cast<Qt::CheckState>(optsMan.useLowerAlpha()));
     ui->copyToClipboardCheckBox->setChecked(optsMan.copyToClipboard());
-    ui->unicodeCheckBox->setChecked(optsMan.useUnicode());
+    ui->clipboardClearTimeSpinBox->setValue(optsMan.clipboardClearTime());
+    ui->extendedAsciiCheckBox->setChecked(optsMan.useExtendedAscii());
 
     ui->passwordLengthSpinBox->setRange(Global::MIN_PW_LENGTH, Global::MAX_PW_LENGTH);
     int pwlen = static_cast<int>(optsMan.passwordLength());
@@ -79,13 +79,6 @@ MainWindow::MainWindow(QWidget *parent) :
     }
 
     ui->excludeCharsLineEdit->setText(optsMan.charsToExclude());
-
-    QFont font;
-    font.setFamily(QString::fromUtf8("Courier"));
-    font.setPointSize(12);
-    font.setWeight(QFont::DemiBold);
-    font.setKerning(false);
-    ui->passwordLineEdit->setFont(font);
 
     // Now do the connections.
     ui->actionAbout_Qt->setMenuRole(QAction::AboutQtRole);
@@ -118,8 +111,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->copyToClipboardCheckBox, SIGNAL(stateChanged(int)),
             this, SLOT(onCopyToClipboardCheckboxStateChanged(int)));
-    connect(ui->unicodeCheckBox, SIGNAL(stateChanged(int)),
-            this, SLOT(onUnicodeCheckboxStateChanged(int)));
+    connect(ui->clipboardClearTimeSpinBox, SIGNAL(valueChanged(int)),
+            this, SLOT(onClipboardClearTimeSpinBoxValueChanged(int)));
+
+    connect(ui->extendedAsciiCheckBox, SIGNAL(stateChanged(int)),
+            this, SLOT(onExtendedAsciiCheckboxStateChanged(int)));
 
     connect(ui->excludeCharsLineEdit, SIGNAL(editingFinished()),
             this, SLOT(onExcludeCharsLineEditEditingFinished()));
@@ -151,19 +147,17 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+    delete helpDlg;
+    helpDlg = nullptr;
+
     delete ui;
-}
-
-void MainWindow::testGenerator()
-{
-
 }
 
 void MainWindow::setPoolSizeLineEditText()
 {
     OptionsManager& optsMan = OptionsManager::instance();
 
-    CharacterPool pool(optsMan.useUnicode(), optsMan.charsToExclude(), optsMan.usePunctuation(),
+    CharacterPool pool(optsMan.useExtendedAscii(), optsMan.charsToExclude(), optsMan.usePunctuation(),
                        optsMan.useDigits(), optsMan.useUpperAlpha(), optsMan.useLowerAlpha(),
                        optsMan.useSymbols());
 
@@ -211,7 +205,7 @@ void MainWindow::displayCurrentOptions()
     ui->upperCaseCheckBox->setCheckState(static_cast<Qt::CheckState>(optsMan.useUpperAlpha()));
     ui->lowerCaseCheckBox->setCheckState(static_cast<Qt::CheckState>(optsMan.useLowerAlpha()));
     ui->copyToClipboardCheckBox->setChecked(optsMan.copyToClipboard());
-    ui->unicodeCheckBox->setChecked(optsMan.useUnicode());
+    ui->extendedAsciiCheckBox->setChecked(optsMan.useExtendedAscii());
 
     ui->passwordLengthSpinBox->setRange(Global::MIN_PW_LENGTH, Global::MAX_PW_LENGTH);
     int pwlen = static_cast<int>(optsMan.passwordLength());
@@ -317,10 +311,11 @@ void MainWindow::onGeneratePushButtonClicked()
     OptionsManager& optsMan = OptionsManager::instance();
     QClipboard* clip = QGuiApplication::clipboard();
     if (optsMan.copyToClipboard())
-    {
         clip->setText(password);
-        QTimer::singleShot(5000, this, &MainWindow::clearClipboard);
-    }
+
+    int clipboardClearTime = optsMan.clipboardClearTime();
+    if (clipboardClearTime > 0)
+         QTimer::singleShot(clipboardClearTime * 1000, this, SLOT(clearClipboard()));
 
     ui->passwordLineEdit->setText(password);
     QString entrStr = QString::number(gen.entropy(), 'f', 1) + " bits";
@@ -373,9 +368,14 @@ void MainWindow::onCopyToClipboardCheckboxStateChanged(int state)
     updateGui();
 }
 
-void MainWindow::onUnicodeCheckboxStateChanged(int state)
+void MainWindow::onClipboardClearTimeSpinBoxValueChanged(int value)
 {
-    OptionsManager::instance().setUseUnicode(state);
+    OptionsManager::instance().setClipboardClearTime(value);
+}
+
+void MainWindow::onExtendedAsciiCheckboxStateChanged(int state)
+{
+    OptionsManager::instance().setUseExtendedAscii(state);
     setPoolSizeLineEditText();
     updateGui();
 }
@@ -448,17 +448,19 @@ void MainWindow::onDeleteOptionsPushButtonClicked(bool)
     }
 }
 
+void MainWindow::onShowManualTriggered()
+{
+    if (!helpDlg)
+        helpDlg = new HelpDialog();
+
+    helpDlg->show();
+    helpDlg->raise();
+}
+
 void MainWindow::clearClipboard()
 {
     QClipboard* clip = QGuiApplication::clipboard();
-    clip->setText("");
-    // clip->clear() seems not to work on X11.
-}
-
-void MainWindow::onShowManualTriggered()
-{
-    HelpDialog dlg;
-    dlg.exec();
+    clip->clear();
 }
 
 void MainWindow::onExcludeCharsLineEditEditingFinished()

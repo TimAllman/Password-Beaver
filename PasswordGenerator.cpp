@@ -22,7 +22,6 @@
 
 #include <QRegularExpression>
 #include <QRegularExpressionMatch>
-#include <QtDebug>
 #include <QString>
 
 #include <chrono>
@@ -81,7 +80,7 @@ unsigned PasswordGenerator::contains(const QString& string, const QString& chars
 QString PasswordGenerator::password()
 {
     OptionsManager& optsMan = OptionsManager::instance();
-    CharacterPool charSet(optsMan.useUnicode(), optsMan.charsToExclude(),
+    CharacterPool charSet(optsMan.useExtendedAscii(), optsMan.charsToExclude(),
                           optsMan.usePunctuation(), optsMan.useDigits(),
                           optsMan.useUpperAlpha(), optsMan.useLowerAlpha(),
                           optsMan.useSymbols());

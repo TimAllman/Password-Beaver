@@ -1,4 +1,4 @@
-﻿#include "OptionsManager.h"
+#include "OptionsManager.h"
 
 #include <QJsonObject>
 #include <QJsonArray>
@@ -11,7 +11,7 @@ const QString OptionsManager::STR_DEFAULT = "Default";
 const QString OptionsManager::STR_NAME = "Name";
 const QString OptionsManager::STR_ACTIVE_KEY = "ActiveKey";
 const QString OptionsManager::STR_CHARS_TO_EXCLUDE = "CharsToExclude";
-const QString OptionsManager::STR_USE_UNICODE = "UseUnicode";
+const QString OptionsManager::STR_USE_EXTENDED_ASCII = "UseExtendedAscii";
 const QString OptionsManager::STR_USE_PUNCTUATION = "UsePunctuation";
 const QString OptionsManager::STR_USE_SYMBOLS = "UseSymbols";
 const QString OptionsManager::STR_USE_DIGITS = "UseDigits";
@@ -19,6 +19,7 @@ const QString OptionsManager::STR_USE_LOWER_ALPHA = "UseLowerAlpha";
 const QString OptionsManager::STR_USE_UPPER_ALPHA = "UseUpperAlpha";
 const QString OptionsManager::STR_PASSWORD_LENGTH = "PasswordLength";
 const QString OptionsManager::STR_COPY_TO_CLIPBOARD = "CopyToClipboard";
+const QString OptionsManager::STR_CLIPBOARD_CLEAR_TIME = "ClipboardClearTime";
 
 OptionsManager::OptionsManager()
 {
@@ -72,14 +73,14 @@ QString OptionsManager::activeKey()
     return mActiveOptionsKey;
 }
 
-void OptionsManager::setUseUnicode(bool useUnicode)
+void OptionsManager::setUseExtendedAscii(bool useExtendedAscii)
 {
-    mActiveOptions.mUseUnicode = useUnicode;
+    mActiveOptions.mUseExtendedAscii = useExtendedAscii;
 }
 
-bool OptionsManager::useUnicode() const
+bool OptionsManager::useExtendedAscii() const
 {
-    return mActiveOptions.mUseUnicode;
+    return mActiveOptions.mUseExtendedAscii;
 }
 
 void OptionsManager::setUsePunctuation(int usePunct)
@@ -162,6 +163,16 @@ bool OptionsManager::copyToClipboard() const
     return mActiveOptions.mCopyToClipboard;
 }
 
+void OptionsManager::setClipboardClearTime(int time)
+{
+    mActiveOptions.mClipboardClearTime = time;
+}
+
+int OptionsManager::clipboardClearTime() const
+{
+    return mActiveOptions.mClipboardClearTime;
+}
+
 void OptionsManager::writeToJSON(QJsonObject& jsonObject) const
 {
     // We may be using a filled object so we clear it.
@@ -228,10 +239,11 @@ bool OptionsManager::isModified(const QString &name)
     //   - the name is in the map and mActiveOptions is not equal to mOptionsMap[name].
     if (!mOptionsMap.contains(name))
         return true;
-    else if (!mActiveOptions.compareOptions(mOptionsMap.value(name)))
+
+    if (!mActiveOptions.comparePasswordOptions(mOptionsMap.value(name)))
         return true;
-    else
-        return false;
+
+    return false;
 }
 
 QStringList OptionsManager::names()
@@ -278,7 +290,7 @@ void OptionsManager::deleteOptions(const QString &name)
         else
             --newIter;
 
-        mOptionsMap.erase(iter);
+        mOptionsMap.erase(static_cast<ListType::const_iterator>(iter));
 
         setActive(newIter->mName);
     }
@@ -292,7 +304,7 @@ OptionsManager::OptionsSet::OptionsSet()
 void OptionsManager::OptionsSet::setToDefault()
 {
     mName = OptionsManager::STR_DEFAULT;
-    mUseUnicode = false;
+    mUseExtendedAscii = false;
     mUsePunctuation = 2;
     mUseSymbols = 2;
     mUseDigits = 2;
@@ -301,13 +313,14 @@ void OptionsManager::OptionsSet::setToDefault()
     mCharsToExclude = "";
     mPasswordLength = 16;
     mCopyToClipboard = true;
+    mClipboardClearTime = 0;
 }
 
 void OptionsManager::OptionsSet::writeToJSON(QJsonObject& jsonObj) const
 {
     jsonObj[STR_NAME] = mName;
     jsonObj[STR_CHARS_TO_EXCLUDE] = mCharsToExclude;
-    jsonObj[STR_USE_UNICODE] = mUseUnicode;
+    jsonObj[STR_USE_EXTENDED_ASCII] = mUseExtendedAscii;
     jsonObj[STR_USE_PUNCTUATION] = mUsePunctuation;
     jsonObj[STR_USE_SYMBOLS] = mUseSymbols;
     jsonObj[STR_USE_DIGITS] = mUseDigits;
@@ -315,12 +328,13 @@ void OptionsManager::OptionsSet::writeToJSON(QJsonObject& jsonObj) const
     jsonObj[STR_USE_LOWER_ALPHA] = mUseLowerAlpha;
     jsonObj[STR_PASSWORD_LENGTH] = mPasswordLength;
     jsonObj[STR_COPY_TO_CLIPBOARD] = mCopyToClipboard;
+    jsonObj[STR_CLIPBOARD_CLEAR_TIME] = mClipboardClearTime;
 }
 
 void OptionsManager::OptionsSet::readFromJSON(const QJsonObject& jsonObj)
 {
     mName = jsonObj[STR_NAME].toString();
-    mUseUnicode = jsonObj[STR_USE_UNICODE].toBool();
+    mUseExtendedAscii = jsonObj[STR_USE_EXTENDED_ASCII].toBool();
     mUsePunctuation = jsonObj[STR_USE_PUNCTUATION].toInt();
     mUseSymbols = jsonObj[STR_USE_SYMBOLS].toInt();
     mUseDigits = jsonObj[STR_USE_DIGITS].toInt();
@@ -329,25 +343,29 @@ void OptionsManager::OptionsSet::readFromJSON(const QJsonObject& jsonObj)
     mCharsToExclude = jsonObj[STR_CHARS_TO_EXCLUDE].toString();
     mPasswordLength = jsonObj[STR_PASSWORD_LENGTH].toInt();
     mCopyToClipboard = jsonObj[STR_COPY_TO_CLIPBOARD].toBool();
+    mClipboardClearTime = jsonObj[STR_CLIPBOARD_CLEAR_TIME].toInt();
 }
 
-bool OptionsManager::OptionsSet::compareOptions(const OptionsManager::OptionsSet& other) const
+bool OptionsManager::OptionsSet::comparePasswordOptions(const OptionsManager::OptionsSet& other) const
 {
-    // compare all options but mName
-    return ((mUseUnicode == other.mUseUnicode) &&
+    // Compare all options that affect password creation.
+    return ((mUseExtendedAscii == other.mUseExtendedAscii) &&
             (mUsePunctuation == other.mUsePunctuation) &&
             (mUseSymbols == other.mUseSymbols) &&
             (mUseDigits == other.mUseDigits) &&
             (mUseUpperAlpha == other.mUseUpperAlpha) &&
             (mUseLowerAlpha == other.mUseLowerAlpha) &&
             (mCharsToExclude == other.mCharsToExclude) &&
-            (mPasswordLength == other.mPasswordLength) &&
-            (mCopyToClipboard == other.mCopyToClipboard));
+            (mPasswordLength == other.mPasswordLength));
 }
 
 bool operator==(const OptionsManager::OptionsSet& lhs, const OptionsManager::OptionsSet& rhs)
 {
-    return ((lhs.mName == rhs.mName) && lhs.compareOptions(rhs));
+    // Compare two @c OptionsSet instances completely.
+    return ((lhs.mName == rhs.mName) &&
+            (lhs.mCopyToClipboard == rhs.mCopyToClipboard) &&
+            (lhs.mClipboardClearTime == rhs.mClipboardClearTime) &&
+            lhs.comparePasswordOptions(rhs));
 }
 
 bool operator!=(const OptionsManager::OptionsSet &lhs, const OptionsManager::OptionsSet &rhs)
