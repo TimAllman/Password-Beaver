@@ -30,7 +30,6 @@
 #include <QCloseEvent>
 #include <QJsonDocument>
 #include <QSettings>
-#include <QTimer>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent), helpDlg(nullptr), ui(new Ui::MainWindow)
@@ -65,7 +64,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->upperCaseCheckBox->setCheckState(static_cast<Qt::CheckState>(optsMan.useUpperAlpha()));
     ui->lowerCaseCheckBox->setCheckState(static_cast<Qt::CheckState>(optsMan.useLowerAlpha()));
     ui->copyToClipboardCheckBox->setChecked(optsMan.copyToClipboard());
-    ui->clipboardClearTimeSpinBox->setValue(optsMan.clipboardClearTime());
     ui->extendedAsciiCheckBox->setChecked(optsMan.useExtendedAscii());
 
     ui->passwordLengthSpinBox->setRange(Global::MIN_PW_LENGTH, Global::MAX_PW_LENGTH);
@@ -111,8 +109,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->copyToClipboardCheckBox, SIGNAL(stateChanged(int)),
             this, SLOT(onCopyToClipboardCheckboxStateChanged(int)));
-    connect(ui->clipboardClearTimeSpinBox, SIGNAL(valueChanged(int)),
-            this, SLOT(onClipboardClearTimeSpinBoxValueChanged(int)));
 
     connect(ui->extendedAsciiCheckBox, SIGNAL(stateChanged(int)),
             this, SLOT(onExtendedAsciiCheckboxStateChanged(int)));
@@ -313,10 +309,6 @@ void MainWindow::onGeneratePushButtonClicked()
     if (optsMan.copyToClipboard())
         clip->setText(password);
 
-    int clipboardClearTime = optsMan.clipboardClearTime();
-    if (clipboardClearTime > 0)
-         QTimer::singleShot(clipboardClearTime * 1000, this, SLOT(clearClipboard()));
-
     ui->passwordLineEdit->setText(password);
     QString entrStr = QString::number(gen.entropy(), 'f', 1) + " bits";
     ui->entropyLabel->setText(entrStr);
@@ -366,11 +358,6 @@ void MainWindow::onCopyToClipboardCheckboxStateChanged(int state)
 {
     OptionsManager::instance().setCopyToClipboard(state);
     updateGui();
-}
-
-void MainWindow::onClipboardClearTimeSpinBoxValueChanged(int value)
-{
-    OptionsManager::instance().setClipboardClearTime(value);
 }
 
 void MainWindow::onExtendedAsciiCheckboxStateChanged(int state)
@@ -431,7 +418,7 @@ void MainWindow::onDeleteOptionsPushButtonClicked(bool)
 {
     // Check to see that this is not the default options set.
     QString curName = ui->optionsNameComboBox->currentText();
-    if (curName == OptionsManager::STR_DEFAULT)
+    if (curName == OptionsManager::STR_DEFAULT_NAME)
         return;
 
     OptionsManager& optMan = OptionsManager::instance();

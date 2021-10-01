@@ -27,10 +27,11 @@ class OptionsManager
 public:
     // These are used when a JSON object is created to save the options.
     static const QString STR_OPTIONS;
-    static const QString STR_DEFAULT;
+    static const QString STR_DEFAULT_NAME;
     static const QString STR_NAME;
     static const QString STR_ACTIVE_KEY;
     static const QString STR_CHARS_TO_EXCLUDE;
+    static const QString STR_DEF_CHARS_TO_EXCLUDE;
     static const QString STR_USE_EXTENDED_ASCII;
     static const QString STR_USE_PUNCTUATION;
     static const QString STR_USE_SYMBOLS;
@@ -39,7 +40,7 @@ public:
     static const QString STR_USE_UPPER_ALPHA;
     static const QString STR_PASSWORD_LENGTH;
     static const QString STR_COPY_TO_CLIPBOARD;
-    static const QString STR_CLIPBOARD_CLEAR_TIME;
+
 private:
     /**
      * @brief The OptionsSet struct.
@@ -47,8 +48,12 @@ private:
      */
     struct OptionsSet
     {
+        // These are general program options.
         QString mName;           ///< The user assigned name of the option set.
-        bool mUseExtendedAscii;        ///< Include extended ASCII characters in the password if true.
+        bool mCopyToClipboard;   ///< Copy result to clipboard if true.
+
+        // These are password generation options
+        bool mUseExtendedAscii;  ///< Include extended ASCII characters in the password if true.
         int mUsePunctuation;     ///< Include punctuation characters in the password if true.
         int mUseSymbols;         ///< Include symbol characters in the password if true.
         int mUseDigits;          ///< Include digit characters in the password if true.
@@ -56,8 +61,6 @@ private:
         int mUseLowerAlpha;      ///< Include lower case alpha characters in the password if true.
         QString mCharsToExclude; ///< Specific characters to exclude.
         int mPasswordLength;     ///< The requested length of the password.
-        bool mCopyToClipboard;   ///< Copy result to clipboard if true.
-        int mClipboardClearTime; ///< Delay before clearing clipboard. 0 indicates not to clear.
 
         /**
          * Constructor.
@@ -65,9 +68,9 @@ private:
         OptionsSet();
 
         /**
-         * Initialise the instance.
+         * Initialise the password options.
          */
-        void setToDefault();
+        void setDefaultPwOptions();
 
         /**
          * Fill up the QJsonObject with the contents of this.
@@ -155,9 +158,6 @@ public:
     void setCopyToClipboard(bool copy);
     bool copyToClipboard() const;
 
-    void setClipboardClearTime(int time);
-    int clipboardClearTime() const;
-
     void writeToJSON(QJsonObject& jsonObject) const;
     void readFromJSON(const QJsonObject& jsonObject);
 
@@ -216,16 +216,24 @@ private:
      */
     OptionsManager();
 
+
     /**
      * Default destructor.
      */
     ~OptionsManager() = default;
 
+public:
     /**
      * Deleted copy constructor.
      */
     OptionsManager(const OptionsManager&) = delete;
 
+    /**
+     * Deleted copy assignment operator.
+     */
+    OptionsManager& operator=(const OptionsManager&) = delete;
+
+private:
     QString mActiveOptionsKey;  ///< The key of the currently active option set.
     ListType mOptionsMap;       ///< Map to contain the data.
     OptionsSet mActiveOptions;  ///< The buffer of current options.

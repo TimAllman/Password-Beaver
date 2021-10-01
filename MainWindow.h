@@ -125,8 +125,6 @@ private slots:
      */
     void onCopyToClipboardCheckboxStateChanged(int state);
 
-    void onClipboardClearTimeSpinBoxValueChanged(int value);
-
     /**
      * Slot to respond to the extended ASCII checkbox.
      * @param state The new state of the checkbox.

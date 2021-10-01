@@ -7,10 +7,11 @@
 #include <QSettings>
 
 const QString OptionsManager::STR_OPTIONS = "Options";
-const QString OptionsManager::STR_DEFAULT = "Default";
+const QString OptionsManager::STR_DEFAULT_NAME = "Default";
 const QString OptionsManager::STR_NAME = "Name";
 const QString OptionsManager::STR_ACTIVE_KEY = "ActiveKey";
 const QString OptionsManager::STR_CHARS_TO_EXCLUDE = "CharsToExclude";
+const QString OptionsManager::STR_DEF_CHARS_TO_EXCLUDE = "O0l1|";
 const QString OptionsManager::STR_USE_EXTENDED_ASCII = "UseExtendedAscii";
 const QString OptionsManager::STR_USE_PUNCTUATION = "UsePunctuation";
 const QString OptionsManager::STR_USE_SYMBOLS = "UseSymbols";
@@ -19,7 +20,6 @@ const QString OptionsManager::STR_USE_LOWER_ALPHA = "UseLowerAlpha";
 const QString OptionsManager::STR_USE_UPPER_ALPHA = "UseUpperAlpha";
 const QString OptionsManager::STR_PASSWORD_LENGTH = "PasswordLength";
 const QString OptionsManager::STR_COPY_TO_CLIPBOARD = "CopyToClipboard";
-const QString OptionsManager::STR_CLIPBOARD_CLEAR_TIME = "ClipboardClearTime";
 
 OptionsManager::OptionsManager()
 {
@@ -42,19 +42,16 @@ OptionsManager::OptionsManager()
 
 OptionsManager& OptionsManager::instance()
 {
-    /** Pointer to the one instance of this class. */
-    static OptionsManager* instance;
+    /** The one instance of this class. */
+    static OptionsManager instance;
 
-    /** Create an instance if necessary */
-    if (instance == nullptr)
-        instance = new OptionsManager;
-    return *instance;
+    return instance;
 }
 
 void OptionsManager::addDefault()
 {
-    mActiveOptionsKey = STR_DEFAULT;
-    mOptionsMap.insert(STR_DEFAULT, OptionsSet());
+    mActiveOptionsKey = STR_DEFAULT_NAME;
+    mOptionsMap.insert(STR_DEFAULT_NAME, OptionsSet());
     mActiveOptions = mOptionsMap.value(mActiveOptionsKey);
 }
 
@@ -163,16 +160,6 @@ bool OptionsManager::copyToClipboard() const
     return mActiveOptions.mCopyToClipboard;
 }
 
-void OptionsManager::setClipboardClearTime(int time)
-{
-    mActiveOptions.mClipboardClearTime = time;
-}
-
-int OptionsManager::clipboardClearTime() const
-{
-    return mActiveOptions.mClipboardClearTime;
-}
-
 void OptionsManager::writeToJSON(QJsonObject& jsonObject) const
 {
     // We may be using a filled object so we clear it.
@@ -264,7 +251,7 @@ void OptionsManager::setActive(const QString& name)
 void OptionsManager::saveOptions(const QString& newName)
 {
     // never overwrite "Default"
-    if (newName == STR_DEFAULT)
+    if (newName == STR_DEFAULT_NAME)
         return;
 
     // We want to copy the active opts buffer to the map.
@@ -278,7 +265,7 @@ void OptionsManager::saveOptions(const QString& newName)
 void OptionsManager::deleteOptions(const QString &name)
 {
     // never delete "Default"
-    if (name == STR_DEFAULT)
+    if (name == STR_DEFAULT_NAME)
         return;
 
     auto iter = mOptionsMap.find(name);
@@ -298,22 +285,22 @@ void OptionsManager::deleteOptions(const QString &name)
 
 OptionsManager::OptionsSet::OptionsSet()
 {
-    setToDefault();
+    setDefaultPwOptions();
+
+    mName = OptionsManager::STR_DEFAULT_NAME;
+    mCopyToClipboard = true;
 }
 
-void OptionsManager::OptionsSet::setToDefault()
+void OptionsManager::OptionsSet::setDefaultPwOptions()
 {
-    mName = OptionsManager::STR_DEFAULT;
     mUseExtendedAscii = false;
     mUsePunctuation = 2;
     mUseSymbols = 2;
     mUseDigits = 2;
     mUseUpperAlpha = 2;
     mUseLowerAlpha = 2;
-    mCharsToExclude = "";
+    mCharsToExclude = STR_DEF_CHARS_TO_EXCLUDE;
     mPasswordLength = 16;
-    mCopyToClipboard = true;
-    mClipboardClearTime = 0;
 }
 
 void OptionsManager::OptionsSet::writeToJSON(QJsonObject& jsonObj) const
@@ -328,7 +315,6 @@ void OptionsManager::OptionsSet::writeToJSON(QJsonObject& jsonObj) const
     jsonObj[STR_USE_LOWER_ALPHA] = mUseLowerAlpha;
     jsonObj[STR_PASSWORD_LENGTH] = mPasswordLength;
     jsonObj[STR_COPY_TO_CLIPBOARD] = mCopyToClipboard;
-    jsonObj[STR_CLIPBOARD_CLEAR_TIME] = mClipboardClearTime;
 }
 
 void OptionsManager::OptionsSet::readFromJSON(const QJsonObject& jsonObj)
@@ -343,7 +329,6 @@ void OptionsManager::OptionsSet::readFromJSON(const QJsonObject& jsonObj)
     mCharsToExclude = jsonObj[STR_CHARS_TO_EXCLUDE].toString();
     mPasswordLength = jsonObj[STR_PASSWORD_LENGTH].toInt();
     mCopyToClipboard = jsonObj[STR_COPY_TO_CLIPBOARD].toBool();
-    mClipboardClearTime = jsonObj[STR_CLIPBOARD_CLEAR_TIME].toInt();
 }
 
 bool OptionsManager::OptionsSet::comparePasswordOptions(const OptionsManager::OptionsSet& other) const
@@ -364,7 +349,6 @@ bool operator==(const OptionsManager::OptionsSet& lhs, const OptionsManager::Opt
     // Compare two @c OptionsSet instances completely.
     return ((lhs.mName == rhs.mName) &&
             (lhs.mCopyToClipboard == rhs.mCopyToClipboard) &&
-            (lhs.mClipboardClearTime == rhs.mClipboardClearTime) &&
             lhs.comparePasswordOptions(rhs));
 }
 
