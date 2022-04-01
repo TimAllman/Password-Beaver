@@ -73,6 +73,13 @@ private:
      */
     void updateGui();
 
+    void updateClipboard();
+
+    /**
+     * Calls PasswordGenerator::password() to make a password.
+     */
+    void makePassword();
+
 private slots:
     /**
      * Slot to show the About dialog.
@@ -189,9 +196,10 @@ private:
 
     HelpDialog* helpDlg;
 
-    /**
-     * The GUI.
-     */
+    QString mPassword;     ///< The generated password.
+    QString mEntropyStr;   ///< The entropy of the password.
+    bool mIsNewPassword; ///< Set to true when new password is made and to false when it's displayed.
+    /** The GUI. */
     Ui::MainWindow *ui;
 };
 

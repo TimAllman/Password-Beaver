@@ -168,7 +168,7 @@ public:
     /**
      * Fills up an instance with a standard set of options.
      */
-    void addDefault();
+    void setToDefault();
 
     /**
      * See if this instance contains an OptionSet keyed to @c name in @c mOptionsMap.

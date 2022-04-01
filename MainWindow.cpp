@@ -133,6 +133,7 @@ MainWindow::MainWindow(QWidget *parent) :
             this, SLOT(onDeleteOptionsPushButtonClicked(bool)));
 
     setPoolSizeLineEditText();
+    makePassword();
     updateGui();
 
     QSettings settings;
@@ -218,7 +219,15 @@ void MainWindow::displayCurrentOptions()
 
 void MainWindow::updateGui()
 {
-    // This just responds to text edits. If the current text:
+    // Set the text for the password and the entropy.
+    if (mIsNewPassword)
+    {
+        ui->passwordLineEdit->setText(mPassword);
+        ui->entropyLabel->setText(mEntropyStr);
+        mIsNewPassword = false;
+    }
+
+    // This responds to text edits. If the current text:
     //  - is empty, both buttons are disabled.
     //  - is not a key/name or is "Default", Delete button is disabled but Save is active.
     //  - is a key/name other than "Default", Delete and Save buttons are enabled.
@@ -258,20 +267,22 @@ void MainWindow::updateGui()
     }
 }
 
-void MainWindow::onAboutActionTriggered()
+void MainWindow::updateClipboard()
 {
-    AboutDialog dlg;
-    dlg.exec();
+    OptionsManager& optsMan = OptionsManager::instance();
+    QClipboard* clip = QGuiApplication::clipboard();
+    if (optsMan.copyToClipboard())
+        clip->setText(mPassword);
 }
 
-void MainWindow::onGeneratePushButtonClicked()
+void MainWindow::makePassword()
 {
     PasswordGenerator gen;
-    QString password;
 
     try
     {
-        password = gen.password();
+        mPassword = gen.password();
+        mEntropyStr = QString::number(gen.entropy(), 'f', 1) + " bits";
     }
 
     catch(ExclusionException& ex)
@@ -296,22 +307,33 @@ void MainWindow::onGeneratePushButtonClicked()
         msgBox.setIcon(QMessageBox::Critical);
         msgBox.setText(tr("Password Beaver Error"));
         msgBox.setInformativeText(ex.message());
-        msgBox.setDetailedText(tr("The character pool from which the password is derived is too small. "
-                                  "Add more character classes or remove some from the exclusion list."));
+        msgBox.setDetailedText(tr("The character pool from which the password is "
+                                  "derived is too small. Add more character classes "
+                                  "or remove some from the exclusion list."));
         msgBox.addButton(QMessageBox::Ok);
         msgBox.exec();
 
         return;
     }
 
-    OptionsManager& optsMan = OptionsManager::instance();
-    QClipboard* clip = QGuiApplication::clipboard();
-    if (optsMan.copyToClipboard())
-        clip->setText(password);
+    mIsNewPassword = true;
+    updateClipboard();
+}
 
-    ui->passwordLineEdit->setText(password);
-    QString entrStr = QString::number(gen.entropy(), 'f', 1) + " bits";
-    ui->entropyLabel->setText(entrStr);
+void MainWindow::onAboutActionTriggered()
+{
+    AboutDialog dlg;
+    dlg.exec();
+}
+
+void MainWindow::onGeneratePushButtonClicked()
+{
+    makePassword();
+    updateGui();
+
+
+    ui->passwordLineEdit->setText(mPassword);
+    ui->entropyLabel->setText(mEntropyStr);
 }
 
 void MainWindow::onHelpActionTriggered()

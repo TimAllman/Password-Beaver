@@ -23,7 +23,7 @@ const QString OptionsManager::STR_COPY_TO_CLIPBOARD = "CopyToClipboard";
 
 OptionsManager::OptionsManager()
 {
-    addDefault();
+    setToDefault();
 
     QSettings settings;
     if (settings.contains(STR_OPTIONS))
@@ -48,7 +48,7 @@ OptionsManager& OptionsManager::instance()
     return instance;
 }
 
-void OptionsManager::addDefault()
+void OptionsManager::setToDefault()
 {
     mActiveOptionsKey = STR_DEFAULT_NAME;
     mOptionsMap.insert(STR_DEFAULT_NAME, OptionsSet());
