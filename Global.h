@@ -27,6 +27,9 @@
 struct Global
 {
 ///@{
+/// Version tag. Be sure to set this for each release.
+    static QString const VERSION;
+
 /** Used by `QSettings` to create the configuration file and its path. */
     static QString const ORGANIZATION_NAME;
     static QString const ORGANIZATION_DOMAIN;

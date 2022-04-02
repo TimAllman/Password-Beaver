@@ -18,7 +18,6 @@
 
 #include <QApplication>
 #include <QTranslator>
-
 #include <QStyleFactory>
 #include <QDebug>
 

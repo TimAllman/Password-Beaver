@@ -17,7 +17,8 @@
 #include "Global.h"
 
 ///@{
-/** Used by `QSettings` to create the configuration file and its path. */
+QString const Global::VERSION = "v1.0.0-alpha";
+
 QString const Global::ORGANIZATION_NAME = "Brasscats";
 QString const Global::ORGANIZATION_DOMAIN = "brasscats.ca";
 QString const Global::APPLICATION_NAME = "Password Beaver";
