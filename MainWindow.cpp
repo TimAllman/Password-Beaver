@@ -57,7 +57,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // Make the initial settings to the UI controls before connecting the
     // signals and slots. Otherwise the values may change because of
-    // slots being called before we want them
+    // slots being called before we want them to change.
     ui->punctuationCheckBox->setCheckState(static_cast<Qt::CheckState>(optsMan.usePunctuation()));
     ui->symbolsCheckBox->setCheckState(static_cast<Qt::CheckState>(optsMan.useSymbols()));
     ui->digitsCheckBox->setCheckState(static_cast<Qt::CheckState>(optsMan.useDigits()));

@@ -5,7 +5,9 @@
 	<title>Password Beaver Manual</title>
 	<meta name="generator" content="LibreOffice 6.4.7.2 (Linux)"/>
 	<meta name="created" content="00:00:00"/>
-	<meta name="changed" content="2022-01-29T14:06:40.727697470"/>
+	<meta name="changedby" content="Tim Allman"/>
+	<meta name="changed" content="2022-04-02T12:37:23.704473236"/>
+	<meta name="created" content="00:00:00">
 	<meta name="created" content="00:00:00">
 	<meta name="created" content="00:00:00">
 	<meta name="created" content="00:00:00">
@@ -33,8 +35,8 @@
 		h3.western { font-family: "Liberation Sans", sans-serif; font-size: 14pt; font-weight: bold }
 		h3.cjk { font-family: "Noto Sans CJK SC"; font-size: 14pt; font-weight: bold }
 		h3.ctl { font-family: "Noto Sans Devanagari"; font-size: 14pt; font-weight: bold }
-		td p { background: transparent }
-		th p { font-weight: bold; text-align: center; background: transparent }
+		td p { background: transparent; background: transparent }
+		th p { background: transparent; font-weight: bold; text-align: center; background: transparent }
 		code.western { font-family: "Liberation Mono", monospace; font-size: 11pt }
 		code.cjk { font-family: "DejaVu Sans Mono", monospace }
 		code.ctl { font-family: "Liberation Mono", monospace }
@@ -217,9 +219,40 @@ have been changed. If you wish to save the new options, type in a new
 name and save the options with that.</p>
 <h2 class="western"><a name="__RefHeading___Toc82_140077794"></a><a name="password"></a><a name="About Passwords|outline"></a>
 About Passwords</h2>
-<p><br/>
+<p>Passwords provide excellent access security but are getting a bad
+reputation because many people are using them poorly. Often they are
+too short or too simple or a poor choice such as '<font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 11pt">123456</font></font>'
+or '<font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 11pt">password</font></font>'
+is made because the users don't realise how important it is to make a
+good choice. Lets go through some of the things you should think
+about when choosing a password.</p>
+<p>Although much of your password security is up to you, the places
+that you use them to enter have a responsibility too. A good site
+will create a cryptographically secure hash of your password and
+store that. When you log in, the password you provide will be hashed
+and compared to the stored hash. Your password is never stored
+explicitly so a bad guy who steals it from the site's server will not
+have a useful password. Trying to use the hashed version as the
+password will result in its being hashed and this hash will be
+completely different from the stored one, making it almost useless. 
+</p>
+<p>Some sites with lazy administrators do store passwords explicitly.
+If you have ever had a forgotten password emailed to you then you
+have dealt with such a site. If their list of passwords is released
+the passwords become immediately useful. Tom Scott on the YouTube
+channel <a href="https://www.youtube.com/user/Computerphile">Computerphile</a>
+gives much more on <a href="https://www.youtube.com/watch?v=8ZtInClXe1Q">storing
+passwords</a>.</p>
+<p>The big problem is that you, as a user, is that you generally
+can't tell how securely a site stores its passwords. In spite of
+this, you don't want to help the bad guys so always, always, always:</p>
+<p><img src="Manual_html_c1d62c3e7d037eaf.gif" name="Shape1" alt="Shape1" align="left"/>
+<br/>
 <br/>
 
+</p>
+<h3 class="western">How passwords are cracked</h3>
+<p>The 
 </p>
 <h3 class="western">A good password is hard to guess.</h3>
 <p>There’s more to ‘hard to guess’ than you might think. Not
@@ -228,124 +261,163 @@ guessing passwords by machine is very well developed. The excellent
 YouTube channel <a href="https://www.youtube.com/user/Computerphile">Computerphile</a>
 has videos on <a href="https://www.youtube.com/watch?v=3NjQ9b3pgIg">password
 choosing</a> and <a href="https://www.youtube.com/watch?v=7U-RbOKanYs">password
-cracking</a> which are well worth watching. What you have to do is to
-make a password which is hard to guess for both man and machine and
-this is not hard.</p>
-<p>UsuallEssentially you have to prevent <i>dictionary</i><span style="font-style: normal">
-and </span><i>brute force</i><span style="font-style: normal">
-attacks. </span>
+cracking</a> which are well worth watching. Randall Munroe has
+created <a href="https://xkcd.com/936/">one of his wonderful Web
+comics</a> about choosing a password.</p>
+<p>What you have to do is to make a password which is hard to guess
+for both man and machine and this is not hard. Essentially, you have
+to prevent what are referred to as <i>dictionary</i><span style="font-variant: normal">
+</span><span style="font-variant: normal"><span style="font-style: normal">and
+</span></span><i>brute force</i><span style="font-variant: normal">
+</span><span style="font-variant: normal"><span style="font-style: normal">attacks.</span></span></p>
+<p><span style="font-variant: normal"><span style="font-style: normal">Enough
+passwords have been released </span></span><span style="font-variant: normal"><span style="font-style: normal">to
+the Internet </span></span><span style="font-variant: normal"><span style="font-style: normal">as
+the result of </span></span><span style="font-variant: normal"><span style="font-style: normal">break-ins
+into insecure Web sites that dictionaries of common passwords exist
+that can be tested against your password </span></span><span style="font-variant: normal"><i>very</i></span><span style="font-variant: normal"><span style="font-style: normal">
+quickly</span></span><span style="font-variant: normal"><span style="font-style: normal">
+in a so-called </span></span><span style="font-variant: normal"><i>dictionary
+attack</i></span><span style="font-variant: normal"><span style="font-style: normal">.</span></span><span style="font-variant: normal"><span style="font-style: normal">
+Ordinary English words (or words in other languages) are</span></span><span style="font-variant: normal"><span style="font-style: normal">,</span></span><span style="font-variant: normal"><span style="font-style: normal">
+</span></span><span style="font-variant: normal"><span style="font-style: normal">of
+course, </span></span><span style="font-variant: normal"><span style="font-style: normal">also
+available as dictionaries</span></span><span style="font-variant: normal"><span style="font-style: normal">
+making them insecure as well.</span></span></p>
+<p><span style="font-variant: normal"><span style="font-style: normal">A</span></span><span style="font-variant: normal"><span style="font-style: normal">
+</span></span><span style="font-variant: normal"><i>brute force</i></span><span style="font-variant: normal"><span style="font-style: normal">
+attack </span></span><span style="font-variant: normal"><span style="font-style: normal">takes
+advantage of those using passwords which are too short</span></span><span style="font-variant: normal"><span style="font-style: normal">
+and are created from a small pool of characters</span></span><span style="font-variant: normal"><span style="font-style: normal">.
+</span></span><span style="font-variant: normal"><span style="font-style: normal">Imagine</span></span><span style="font-variant: normal"><span style="font-style: normal">
+creating</span></span><span style="font-variant: normal"><span style="font-style: normal">
+a password that is four characters long </span></span><span style="font-variant: normal"><span style="font-style: normal">and
+is created from the 26 lower case ASCII characters. </span></span><span style="font-variant: normal"><span style="font-style: normal">There
+are 14 950 ways of doing this and someone could easily </span></span>
 </p>
-<p><span style="font-style: normal">D</span><span style="font-style: normal">ictionary
-attacks rely upon the laziness of users when they </span><span style="font-style: normal">create
-pas</span><span style="font-style: normal">swords. </span><span style="font-style: normal">If
-we look at</span><span style="font-style: normal"> a bit of</span><span style="font-style: normal">
-the <a href="https://nordpass.com/most-common-passwords-list/">NordPass
-most common password list</a></span><span style="font-style: normal">
-for 2021</span><span style="font-style: normal">, we see our old
-favourites.</span><span style="font-style: normal"> </span>
+<p><span style="font-variant: normal"><span style="font-style: normal">Dictionary
+attacks rely upon the laziness of users when they create passwords.
+If we look at</span></span><span style="font-variant: normal"> </span><span style="font-variant: normal"><span style="font-style: normal">a
+bit of</span></span><span style="font-variant: normal"> </span><span style="font-variant: normal"><span style="font-style: normal">the
+<a href="https://nordpass.com/most-common-passwords-list/">NordPass
+most common password list</a></span></span><span style="font-variant: normal">
+</span><span style="font-variant: normal"><span style="font-style: normal">for
+2021, we see our old favourites.</span></span><span style="font-variant: normal">
+</span>
 </p>
-<p><br/>
-<br/>
+<p style="margin-top: 0.21cm; margin-bottom: 0.21cm; background: transparent; line-height: 100%; page-break-after: avoid">
+<font size="3" style="font-size: 12pt"><i>Table <span style="background: #c0c0c0">1</span>:
+Ten most popular bad passwords.</i></font></p>
+<table width="151" cellpadding="0" cellspacing="0" style="page-break-before: auto; page-break-after: auto; page-break-inside: auto">
+	<col width="52"/>
 
-</p>
-<table width="287" cellpadding="0" cellspacing="0" style="page-break-before: auto; page-break-inside: auto">
-	<col width="51"/>
-
-	<col width="236"/>
+	<col width="99"/>
 
 	<tbody>
 		<tr valign="top">
-			<th width="51" style="background: transparent" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: none; border-right: none; padding: 0cm" sdnum="4105;0;@"><p align="center" style="font-style: normal; font-weight: normal; text-decoration: none">
+			<th width="52" style="background: transparent" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: none; border-right: none; padding: 0cm" sdnum="4105;0;@"><p align="left" style="font-variant: normal; font-style: normal; font-weight: normal; text-decoration: none">
 				<font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="text-decoration: none">Rank</span></font></font></font></p>
 			</th>
-			<th width="236" style="background: transparent" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: none; border-right: none; padding: 0cm" sdnum="4105;0;@"><p align="center" style="font-style: normal; font-weight: normal; text-decoration: none">
+			<th width="99" style="background: transparent" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: none; border-right: none; padding: 0cm" sdnum="4105;0;@"><p align="left" style="font-variant: normal; font-style: normal; font-weight: normal; text-decoration: none">
 				<font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="text-decoration: none">Password</span></font></font></font></p>
 			</th>
 		</tr>
 	</tbody>
 	<tbody>
 		<tr valign="top">
-			<td width="51" style="background: transparent" style="border: none; padding: 0cm" sdnum="4105;0;@"><p align="center" style="font-style: normal; font-weight: normal; text-decoration: none">
-				<font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="text-decoration: none">1</span></font></font></font></p>
+			<td width="52" style="background: transparent" style="border: none; padding: 0cm" sdnum="4105;0;@"><p align="left" style="font-variant: normal; font-style: normal; font-weight: normal; text-decoration: none">
+				<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 10pt"><span style="text-decoration: none">1</span></font></font></font></p>
 			</td>
-			<td width="236" style="background: transparent" style="border: none; padding: 0cm" sdval="123456" sdnum="4105;4105;General"><p align="center" style="font-style: normal; font-weight: normal; text-decoration: none">
-				<font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="text-decoration: none">123456</span></font></font></font></p>
-			</td>
-		</tr>
-		<tr valign="top">
-			<td width="51" style="background: transparent" style="border: none; padding: 0cm" sdnum="4105;0;@"><p align="center" style="font-style: normal; font-weight: normal; text-decoration: none">
-				<font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="text-decoration: none">2</span></font></font></font></p>
-			</td>
-			<td width="236" style="background: transparent" style="border: none; padding: 0cm" sdval="123456789" sdnum="4105;4105;General"><p align="center" style="font-style: normal; font-weight: normal; text-decoration: none">
-				<font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="text-decoration: none">123456789</span></font></font></font></p>
+			<td width="99" style="background: transparent" style="border: none; padding: 0cm" sdval="123456" sdnum="4105;4105;General"><p align="left" style="font-variant: normal; font-style: normal; font-weight: normal; text-decoration: none">
+				<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 10pt"><span style="text-decoration: none">123456</span></font></font></font></p>
 			</td>
 		</tr>
 		<tr valign="top">
-			<td width="51" style="background: transparent" style="border: none; padding: 0cm" sdnum="4105;0;@"><p align="center" style="font-style: normal; font-weight: normal; text-decoration: none">
-				<font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="text-decoration: none">3</span></font></font></font></p>
+			<td width="52" style="background: transparent" style="border: none; padding: 0cm" sdnum="4105;0;@"><p align="left" style="font-variant: normal; font-style: normal; font-weight: normal; text-decoration: none">
+				<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 10pt"><span style="text-decoration: none">2</span></font></font></font></p>
 			</td>
-			<td width="236" style="background: transparent" style="border: none; padding: 0cm" sdval="12345" sdnum="4105;4105;General"><p align="center" style="font-style: normal; font-weight: normal; text-decoration: none">
-				<font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="text-decoration: none">12345</span></font></font></font></p>
-			</td>
-		</tr>
-		<tr valign="top">
-			<td width="51" style="background: transparent" style="border: none; padding: 0cm" sdnum="4105;0;@"><p align="center" style="font-style: normal; font-weight: normal; text-decoration: none">
-				<font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="text-decoration: none">4</span></font></font></font></p>
-			</td>
-			<td width="236" style="background: transparent" style="border: none; padding: 0cm" sdnum="4105;4105;General"><p align="center" style="font-style: normal; font-weight: normal; text-decoration: none">
-				<font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="text-decoration: none">qwerty</span></font></font></font></p>
+			<td width="99" style="background: transparent" style="border: none; padding: 0cm" sdval="123456789" sdnum="4105;4105;General"><p align="left" style="font-variant: normal; font-style: normal; font-weight: normal; text-decoration: none">
+				<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 10pt"><span style="text-decoration: none">123456789</span></font></font></font></p>
 			</td>
 		</tr>
 		<tr valign="top">
-			<td width="51" style="background: transparent" style="border: none; padding: 0cm" sdnum="4105;0;@"><p align="center" style="font-style: normal; font-weight: normal; text-decoration: none">
-				<font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="text-decoration: none">5</span></font></font></font></p>
+			<td width="52" style="background: transparent" style="border: none; padding: 0cm" sdnum="4105;0;@"><p align="left" style="font-variant: normal; font-style: normal; font-weight: normal; text-decoration: none">
+				<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 10pt"><span style="text-decoration: none">3</span></font></font></font></p>
 			</td>
-			<td width="236" style="background: transparent" style="border: none; padding: 0cm" sdnum="4105;4105;General"><p align="center" style="font-style: normal; font-weight: normal; text-decoration: none">
-				<font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="text-decoration: none">password</span></font></font></font></p>
-			</td>
-		</tr>
-		<tr valign="top">
-			<td width="51" style="background: transparent" style="border: none; padding: 0cm" sdnum="4105;0;@"><p align="center" style="font-style: normal; font-weight: normal; text-decoration: none">
-				<font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="text-decoration: none">6</span></font></font></font></p>
-			</td>
-			<td width="236" style="background: transparent" style="border: none; padding: 0cm" sdval="12345678" sdnum="4105;4105;General"><p align="center" style="font-style: normal; font-weight: normal; text-decoration: none">
-				<font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="text-decoration: none">12345678</span></font></font></font></p>
+			<td width="99" style="background: transparent" style="border: none; padding: 0cm" sdval="12345" sdnum="4105;4105;General"><p align="left" style="font-variant: normal; font-style: normal; font-weight: normal; text-decoration: none">
+				<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 10pt"><span style="text-decoration: none">12345</span></font></font></font></p>
 			</td>
 		</tr>
 		<tr valign="top">
-			<td width="51" style="background: transparent" style="border: none; padding: 0cm" sdnum="4105;0;@"><p align="center" style="font-style: normal; font-weight: normal; text-decoration: none">
-				<font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="text-decoration: none">7</span></font></font></font></p>
+			<td width="52" style="background: transparent" style="border: none; padding: 0cm" sdnum="4105;0;@"><p align="left" style="font-variant: normal; font-style: normal; font-weight: normal; text-decoration: none">
+				<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 10pt"><span style="text-decoration: none">4</span></font></font></font></p>
 			</td>
-			<td width="236" style="background: transparent" style="border: none; padding: 0cm" sdval="111111" sdnum="4105;4105;General"><p align="center" style="font-style: normal; font-weight: normal; text-decoration: none">
-				<font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="text-decoration: none">111111</span></font></font></font></p>
-			</td>
-		</tr>
-		<tr valign="top">
-			<td width="51" style="background: transparent" style="border: none; padding: 0cm" sdnum="4105;0;@"><p align="center" style="font-style: normal; font-weight: normal; text-decoration: none">
-				<font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="text-decoration: none">8</span></font></font></font></p>
-			</td>
-			<td width="236" style="background: transparent" style="border: none; padding: 0cm" sdval="123123" sdnum="4105;4105;General"><p align="center" style="font-style: normal; font-weight: normal; text-decoration: none">
-				<font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="text-decoration: none">123123</span></font></font></font></p>
+			<td width="99" style="background: transparent" style="border: none; padding: 0cm" sdnum="4105;4105;General"><p align="left" style="font-variant: normal; font-style: normal; font-weight: normal; text-decoration: none">
+				<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 10pt"><span style="text-decoration: none">qwerty</span></font></font></font></p>
 			</td>
 		</tr>
 		<tr valign="top">
-			<td width="51" style="background: transparent" style="border: none; padding: 0cm" sdnum="4105;0;@"><p align="center" style="font-style: normal; font-weight: normal; text-decoration: none">
-				<font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="text-decoration: none">9</span></font></font></font></p>
+			<td width="52" style="background: transparent" style="border: none; padding: 0cm" sdnum="4105;0;@"><p align="left" style="font-variant: normal; font-style: normal; font-weight: normal; text-decoration: none">
+				<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 10pt"><span style="text-decoration: none">5</span></font></font></font></p>
 			</td>
-			<td width="236" style="background: transparent" style="border: none; padding: 0cm" sdval="1234567890" sdnum="4105;4105;General"><p align="center" style="font-style: normal; font-weight: normal; text-decoration: none">
-				<font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="text-decoration: none">1234567890</span></font></font></font></p>
+			<td width="99" style="background: transparent" style="border: none; padding: 0cm" sdnum="4105;4105;General"><p align="left" style="font-variant: normal; font-style: normal; font-weight: normal; text-decoration: none">
+				<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 10pt"><span style="text-decoration: none">password</span></font></font></font></p>
 			</td>
 		</tr>
 		<tr valign="top">
-			<td width="51" style="background: transparent" style="border-top: none; border-bottom: 1px solid #000000; border-left: none; border-right: none; padding: 0cm" sdnum="4105;0;@"><p align="center" style="font-style: normal; font-weight: normal; text-decoration: none">
-				<font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="text-decoration: none">10</span></font></font></font></p>
+			<td width="52" style="background: transparent" style="border: none; padding: 0cm" sdnum="4105;0;@"><p align="left" style="font-variant: normal; font-style: normal; font-weight: normal; text-decoration: none">
+				<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 10pt"><span style="text-decoration: none">6</span></font></font></font></p>
 			</td>
-			<td width="236" style="background: transparent" style="border-top: none; border-bottom: 1px solid #000000; border-left: none; border-right: none; padding: 0cm" sdval="1234567" sdnum="4105;4105;General"><p align="center" style="font-style: normal; font-weight: normal; text-decoration: none">
-				<font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="text-decoration: none">1234567</span></font></font></font></p>
+			<td width="99" style="background: transparent" style="border: none; padding: 0cm" sdval="12345678" sdnum="4105;4105;General"><p align="left" style="font-variant: normal; font-style: normal; font-weight: normal; text-decoration: none">
+				<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 10pt"><span style="text-decoration: none">12345678</span></font></font></font></p>
+			</td>
+		</tr>
+		<tr valign="top">
+			<td width="52" style="background: transparent" style="border: none; padding: 0cm" sdnum="4105;0;@"><p align="left" style="font-variant: normal; font-style: normal; font-weight: normal; text-decoration: none">
+				<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 10pt"><span style="text-decoration: none">7</span></font></font></font></p>
+			</td>
+			<td width="99" style="background: transparent" style="border: none; padding: 0cm" sdval="111111" sdnum="4105;4105;General"><p align="left" style="font-variant: normal; font-style: normal; font-weight: normal; text-decoration: none">
+				<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 10pt"><span style="text-decoration: none">111111</span></font></font></font></p>
+			</td>
+		</tr>
+		<tr valign="top">
+			<td width="52" style="background: transparent" style="border: none; padding: 0cm" sdnum="4105;0;@"><p align="left" style="font-variant: normal; font-style: normal; font-weight: normal; text-decoration: none">
+				<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 10pt"><span style="text-decoration: none">8</span></font></font></font></p>
+			</td>
+			<td width="99" style="background: transparent" style="border: none; padding: 0cm" sdval="123123" sdnum="4105;4105;General"><p align="left" style="font-variant: normal; font-style: normal; font-weight: normal; text-decoration: none">
+				<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 10pt"><span style="text-decoration: none">123123</span></font></font></font></p>
+			</td>
+		</tr>
+		<tr valign="top">
+			<td width="52" style="background: transparent" style="border: none; padding: 0cm" sdnum="4105;0;@"><p align="left" style="font-variant: normal; font-style: normal; font-weight: normal; text-decoration: none">
+				<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 10pt"><span style="text-decoration: none">9</span></font></font></font></p>
+			</td>
+			<td width="99" style="background: transparent" style="border: none; padding: 0cm" sdval="1234567890" sdnum="4105;4105;General"><p align="left" style="font-variant: normal; font-style: normal; font-weight: normal; text-decoration: none">
+				<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 10pt"><span style="text-decoration: none">1234567890</span></font></font></font></p>
+			</td>
+		</tr>
+		<tr valign="top">
+			<td width="52" style="background: transparent" style="border-top: none; border-bottom: 1px solid #000000; border-left: none; border-right: none; padding: 0cm" sdnum="4105;0;@"><p align="left" style="font-variant: normal; font-style: normal; font-weight: normal; text-decoration: none">
+				<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 10pt"><span style="text-decoration: none">10</span></font></font></font></p>
+			</td>
+			<td width="99" style="background: transparent" style="border-top: none; border-bottom: 1px solid #000000; border-left: none; border-right: none; padding: 0cm" sdval="1234567" sdnum="4105;4105;General"><p align="left" style="font-variant: normal; font-style: normal; font-weight: normal; text-decoration: none">
+				<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 10pt"><span style="text-decoration: none">1234567</span></font></font></font></p>
 			</td>
 		</tr>
 	</tbody>
 </table>
+<p><br/>
+<br/>
+
+</p>
+<p><br/>
+<br/>
+
+</p>
+<p><br/>
+<br/>
+
+</p>
 <p><br/>
 <br/>
 
