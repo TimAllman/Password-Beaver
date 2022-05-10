@@ -35,14 +35,14 @@ void IndicatorWidget::paintEvent(QPaintEvent*)
     // rect() returns QRect(0, 0, width(), height())
     QRect r = rect();
 
-    // need to pull the bottom right corner in one point
+    // need to pull the bottom right corner in by one point
     r.adjust(0, 0, -1, -1);
 
     QBrush brush;
     brush.setStyle(Qt::SolidPattern);
 
     if (mIsActive)
-        brush.setColor(Qt::red);
+        brush.setColor(Qt::darkRed);
     else
         brush.setColor(Qt::green);
 

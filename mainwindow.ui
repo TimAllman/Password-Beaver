@@ -42,7 +42,7 @@
          <item>
           <widget class="QCheckBox" name="upperCaseCheckBox">
            <property name="toolTip">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select upper case letters - [&lt;span style=&quot; font-weight:600;&quot;&gt;A-Z&lt;/span&gt;]&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select upper case letters - &lt;span style=&quot; font-weight:600;&quot;&gt;A-Z&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
            <property name="text">
             <string>Upper case letters</string>
@@ -55,7 +55,7 @@
          <item>
           <widget class="QCheckBox" name="lowerCaseCheckBox">
            <property name="toolTip">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select lower case letters - [&lt;span style=&quot; font-weight:600;&quot;&gt;a-z&lt;/span&gt;]&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select lower case letters - &lt;span style=&quot; font-weight:600;&quot;&gt;a-z&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
            <property name="text">
             <string>Lower case letters</string>
@@ -68,7 +68,7 @@
          <item>
           <widget class="QCheckBox" name="digitsCheckBox">
            <property name="toolTip">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select digits - [&lt;span style=&quot; font-weight:600;&quot;&gt;0-9&lt;/span&gt;]&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select digits - &lt;span style=&quot; font-weight:600;&quot;&gt;0-9&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
            <property name="text">
             <string>Digits</string>
@@ -81,7 +81,7 @@
          <item>
           <widget class="QCheckBox" name="punctuationCheckBox">
            <property name="toolTip">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select punctuation characters - [&lt;span style=&quot; font-weight:600;&quot;&gt;!&amp;quot;#%&amp;amp;'()*,-./:;?@[\]_{}&lt;/span&gt;]&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select punctuation characters - &lt;span style=&quot; font-weight:600;&quot;&gt;!&amp;quot;#%&amp;amp;'()*,-./:;?@[\]_{}&lt;/span&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
            <property name="text">
             <string>Punctuation</string>
@@ -94,7 +94,7 @@
          <item>
           <widget class="QCheckBox" name="symbolsCheckBox">
            <property name="toolTip">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select symbol characters - [&lt;span style=&quot; font-weight:600;&quot;&gt;$+&amp;lt;=&amp;gt;^`|~&lt;/span&gt;]&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select symbol characters - &lt;span style=&quot; font-weight:600;&quot;&gt;$+&amp;lt;=&amp;gt;^`|~&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
            <property name="text">
             <string>Symbols</string>
@@ -165,7 +165,7 @@
               </size>
              </property>
              <property name="toolTip">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Set the length of the password - 8-99.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Set the length of the password from 8 to 99.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="stepType">
               <enum>QAbstractSpinBox::DefaultStepType</enum>
@@ -187,6 +187,9 @@
             <widget class="QLabel" name="poolSizeLabel">
              <property name="enabled">
               <bool>true</bool>
+             </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The length of the list of characters that are used to make the password. For information only.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="frameShape">
               <enum>QFrame::Panel</enum>
@@ -214,7 +217,7 @@
          <item>
           <widget class="QCheckBox" name="copyToClipboardCheckBox">
            <property name="toolTip">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Automatically copy password to clipboard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Automatically copy the password to clipboard.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
            <property name="text">
             <string>Copy to clipboard</string>
@@ -243,7 +246,7 @@
             </sizepolicy>
            </property>
            <property name="toolTip">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enter the name of the configuration to select, create or delete.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Choose or create the name of the configuration to select, create or delete.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
            <property name="editable">
             <bool>true</bool>
@@ -271,7 +274,7 @@
             <cursorShape>ArrowCursor</cursorShape>
            </property>
            <property name="toolTip">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Options are unsaved if active.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The configuration database indicator. It is bright green if the options have been saved, dark red if not.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
            <property name="frameShape">
             <enum>QFrame::StyledPanel</enum>
@@ -284,7 +287,7 @@
          <item>
           <widget class="QPushButton" name="saveOptionsPushButton">
            <property name="toolTip">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Save the current options to the database.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Save the current option set to the database.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
            <property name="text">
             <string>Save</string>
@@ -294,7 +297,7 @@
          <item>
           <widget class="QPushButton" name="deleteOptionsPushButton">
            <property name="toolTip">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Delete the current options from the database.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Delete the current option set from the database.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
            <property name="text">
             <string>Delete</string>
@@ -332,6 +335,9 @@
              </property>
              <property name="text">
               <string>Password</string>
+             </property>
+             <property name="buddy">
+              <cstring>passwordLineEdit</cstring>
              </property>
             </widget>
            </item>
@@ -391,7 +397,7 @@
               </font>
              </property>
              <property name="toolTip">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt; The entropy of the password. For information only.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The entropy of the password (&lt;span style=&quot; font-style:italic;&quot;&gt;password length&lt;/span&gt; * &lt;span style=&quot; font-style:italic;&quot;&gt;log2&lt;/span&gt;(&lt;span style=&quot; font-style:italic;&quot;&gt;character pool length&lt;/span&gt;)). For information only.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="frameShape">
               <enum>QFrame::Panel</enum>

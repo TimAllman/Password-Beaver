@@ -69,7 +69,8 @@ private:
     void displayCurrentOptions();
 
     /**
-     * Manage the GUI to reflect the state of the options. @see OptionsManager.
+     * Manage the GUI to reflect the state of the options and the current password.
+     * @see OptionsManager.
      */
     void updateGui();
 
