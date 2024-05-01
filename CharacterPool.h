@@ -1,5 +1,5 @@
 /*
- * Copyright © 2019 Tim Allman
+ * Copyright © 2023 Tim Allman
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,11 +22,11 @@
 #include <QString>
 
 /**
- * @brief Creates the character set from which passwords are made.
+ * @brief Creates the pool of characters from which passwords are made.
  *
  * This class manages the creation of the character set from which
- * passwords will be derived. It is constructed with information and options
- * selected by the user. @sa MainWindow
+ * passwords will be derived. Its construction is based upon information
+ * and options selected by the user. @sa MainWindow
  */
 class CharacterPool
 {

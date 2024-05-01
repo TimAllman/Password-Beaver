@@ -1,5 +1,5 @@
 /*
- * Copyright © 2019 Tim Allman
+ * Copyright © 2023 Tim Allman
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -74,7 +74,12 @@ private:
      */
     void updateGui();
 
-    void updateClipboard();
+    /**
+     * Copy password to the clipboard.
+     * @param password
+     */
+    //void copyToClipboard(const std::string& password);
+    void copyToClipboard(const QString& password);
 
     /**
      * Calls PasswordGenerator::password() to make a password.
@@ -96,6 +101,11 @@ private slots:
      * Slot to generate a password.
      */
     void onGeneratePushButtonClicked();
+
+    /**
+     * Slot to generate a password.
+     */
+    void onCopyPushButtonClicked();
 
     /**
      * Slot to respond to the punctuation checkbox.

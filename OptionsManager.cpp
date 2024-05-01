@@ -155,7 +155,7 @@ void OptionsManager::setCopyToClipboard(bool copy)
     mActiveOptions.mCopyToClipboard = copy;
 }
 
-bool OptionsManager::copyToClipboard() const
+bool OptionsManager::autoCopyToClipboard() const
 {
     return mActiveOptions.mCopyToClipboard;
 }
@@ -163,6 +163,8 @@ bool OptionsManager::copyToClipboard() const
 void OptionsManager::writeToJSON(QJsonObject& jsonObject) const
 {
     // We may be using a filled object so we clear it.
+    // The class QJsonObject may generate a warning about the trivial copy-constructor
+    // in the presence of a non-trivial copy-assignment operator. Blame Qt.
     for (auto iter = jsonObject.begin(); iter != jsonObject.end(); ++iter)
         jsonObject.erase(iter);
 

@@ -1,5 +1,5 @@
 /*
- * Copyright © 2019 Tim Allman
+ * Copyright © 2023 Tim Allman
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,7 +32,7 @@ PasswordGenerator::PasswordGenerator()
 {
     // We use the std::random_device to seed our local PRNG.
     // Each time this code is ported the quality of the supplied
-    // std::random_device should be checked as some may not have
+    // std::random_device should be checked as some versions may not have
     // access to hardware or may just be poorly implemented.
     // Note that std::random_device throws on construction or on calling
     // ::operator() if the system has no means to access a stochastic

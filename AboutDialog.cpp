@@ -1,5 +1,5 @@
 /*
- * Copyright © 2019 Tim Allman
+ * Copyright © 2023 Tim Allman
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,7 +16,6 @@
 
 #include "AboutDialog.h"
 #include "Global.h"
-#include "Exceptions.h"
 #include "ui_aboutdialog.h"
 
 #include <QUrl>

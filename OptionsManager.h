@@ -156,7 +156,7 @@ public:
     int passwordLength() const;
 
     void setCopyToClipboard(bool copy);
-    bool copyToClipboard() const;
+    bool autoCopyToClipboard() const;
 
     void writeToJSON(QJsonObject& jsonObject) const;
     void readFromJSON(const QJsonObject& jsonObject);

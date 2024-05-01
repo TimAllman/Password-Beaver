@@ -1,5 +1,5 @@
 /*
- * Copyright © 2019 Tim Allman
+ * Copyright © 2023 Tim Allman
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -118,7 +118,7 @@ public:
 
     /**
      * QException requires this function to be overridden in subclasses.
-     * See https://doc.qt.io/qt-5/qexception.html.
+     * See https://doc.qt.io/qt-6/qexception.html.
      * @return Pointer to a new copy of @c *this.
      */
     SmallCharacterPoolException* clone() const override

@@ -209,7 +209,7 @@
            </font>
           </property>
           <property name="text">
-           <string notr="true">Copyright © 2020 Tim Allman</string>
+           <string notr="true">Copyright © 2022 Tim Allman</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>

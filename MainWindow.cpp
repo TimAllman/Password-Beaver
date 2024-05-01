@@ -1,5 +1,5 @@
 /*
- * Copyright © 2019 Tim Allman
+ * Copyright © 2023 Tim Allman
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -63,7 +63,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->digitsCheckBox->setCheckState(static_cast<Qt::CheckState>(optsMan.useDigits()));
     ui->upperCaseCheckBox->setCheckState(static_cast<Qt::CheckState>(optsMan.useUpperAlpha()));
     ui->lowerCaseCheckBox->setCheckState(static_cast<Qt::CheckState>(optsMan.useLowerAlpha()));
-    ui->copyToClipboardCheckBox->setChecked(optsMan.copyToClipboard());
+    ui->copyToClipboardCheckBox->setChecked(optsMan.autoCopyToClipboard());
     ui->extendedAsciiCheckBox->setChecked(optsMan.useExtendedAscii());
 
     ui->passwordLengthSpinBox->setRange(Global::MIN_PW_LENGTH, Global::MAX_PW_LENGTH);
@@ -95,6 +95,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->quitPushButton, &QPushButton::clicked, this, &QWidget::close);
     connect(ui->generatePushButton, &QPushButton::clicked, this, &MainWindow::onGeneratePushButtonClicked);
+    connect(ui->copyToClipboardPushButton, &QPushButton::clicked, this, &MainWindow::onCopyPushButtonClicked);
 
     connect(ui->punctuationCheckBox, SIGNAL(stateChanged(int)),
             this, SLOT(onPunctuationCheckboxStateChanged(int)));
@@ -131,6 +132,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->deleteOptionsPushButton, SIGNAL(clicked(bool)),
             this, SLOT(onDeleteOptionsPushButtonClicked(bool)));
+
+    connect(ui->copyToClipboardPushButton, SIGNAL(clicked(bool)),
+            this, SLOT(onCopyPushButtonClicked()));
 
     setPoolSizeLineEditText();
     makePassword();
@@ -201,7 +205,7 @@ void MainWindow::displayCurrentOptions()
     ui->digitsCheckBox->setCheckState(static_cast<Qt::CheckState>(optsMan.useDigits()));
     ui->upperCaseCheckBox->setCheckState(static_cast<Qt::CheckState>(optsMan.useUpperAlpha()));
     ui->lowerCaseCheckBox->setCheckState(static_cast<Qt::CheckState>(optsMan.useLowerAlpha()));
-    ui->copyToClipboardCheckBox->setChecked(optsMan.copyToClipboard());
+    ui->copyToClipboardCheckBox->setChecked(optsMan.autoCopyToClipboard());
     ui->extendedAsciiCheckBox->setChecked(optsMan.useExtendedAscii());
 
     ui->passwordLengthSpinBox->setRange(Global::MIN_PW_LENGTH, Global::MAX_PW_LENGTH);
@@ -267,12 +271,10 @@ void MainWindow::updateGui()
     }
 }
 
-void MainWindow::updateClipboard()
+void MainWindow::copyToClipboard(const QString& password)
 {
-    OptionsManager& optsMan = OptionsManager::instance();
     QClipboard* clip = QGuiApplication::clipboard();
-    if (optsMan.copyToClipboard())
-        clip->setText(mPassword);
+    clip->setText(password);
 }
 
 void MainWindow::makePassword()
@@ -317,7 +319,8 @@ void MainWindow::makePassword()
     }
 
     mIsNewPassword = true;
-    updateClipboard();
+    if (OptionsManager::instance().autoCopyToClipboard())
+        copyToClipboard(mPassword);
 }
 
 void MainWindow::onAboutActionTriggered()
@@ -334,6 +337,11 @@ void MainWindow::onGeneratePushButtonClicked()
 
     ui->passwordLineEdit->setText(mPassword);
     ui->entropyLabel->setText(mEntropyStr);
+}
+
+void MainWindow::onCopyPushButtonClicked()
+{
+    copyToClipboard(mPassword);
 }
 
 void MainWindow::onHelpActionTriggered()

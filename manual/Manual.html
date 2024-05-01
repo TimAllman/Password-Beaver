@@ -1,12 +1,17 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!DOCTYPE html>
 <html>
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
 	<title>Password Beaver Manual</title>
-	<meta name="generator" content="LibreOffice 6.4.7.2 (Linux)"/>
+	<meta name="generator" content="LibreOffice 7.3.7.2 (Linux)"/>
 	<meta name="created" content="00:00:00"/>
-	<meta name="changedby" content="Tim Allman"/>
-	<meta name="changed" content="2022-04-19T12:22:08.784026144"/>
+	<meta name="changed" content="2023-09-06T11:51:41.540490548"/>
+	<meta name="created" content="00:00:00">
+	<meta name="created" content="00:00:00">
+	<meta name="created" content="00:00:00">
+	<meta name="created" content="00:00:00">
+	<meta name="created" content="00:00:00">
+	<meta name="created" content="00:00:00">
 	<meta name="created" content="00:00:00">
 	<meta name="created" content="00:00:00">
 	<meta name="created" content="00:00:00">
@@ -23,25 +28,25 @@
 	<meta name="created" content="00:00:00">
 	<style type="text/css">
 		@page { size: 21.59cm 27.94cm; margin-left: 2cm; margin-right: 1cm; margin-top: 1cm; margin-bottom: 1cm }
-		p { margin-bottom: 0.25cm; line-height: 115%; background: transparent }
-		h2 { margin-top: 0.35cm; margin-bottom: 0.21cm; background: transparent; page-break-after: avoid }
+		p { line-height: 115%; orphans: 2; widows: 2; margin-bottom: 0.25cm; background: transparent; background: transparent; page-break-before: auto; page-break-after: auto }
+		h2 { orphans: 2; widows: 2; margin-top: 0.35cm; margin-bottom: 0.21cm; background: transparent; background: transparent; page-break-before: auto; page-break-after: avoid }
 		h2.western { font-family: "Liberation Serif", serif; font-size: 18pt; font-weight: bold }
 		h2.cjk { font-family: "Noto Sans CJK SC"; font-size: 18pt; font-weight: bold }
 		h2.ctl { font-family: "Lohit Devanagari"; font-size: 18pt; font-weight: bold }
-		h1 { margin-bottom: 0.21cm; background: transparent; page-break-after: avoid }
+		h1 { orphans: 2; widows: 2; margin-bottom: 0.21cm; background: transparent; background: transparent; page-break-before: auto; page-break-after: avoid }
 		h1.western { font-family: "Liberation Serif", serif; font-size: 24pt; font-weight: bold }
 		h1.cjk { font-family: "Noto Serif CJK SC"; font-size: 24pt; font-weight: bold }
 		h1.ctl { font-family: "Noto Sans Devanagari"; font-size: 24pt; font-weight: bold }
-		h3 { margin-top: 0.25cm; margin-bottom: 0.21cm; background: transparent; page-break-after: avoid }
+		h3 { orphans: 2; widows: 2; margin-top: 0.25cm; margin-bottom: 0.21cm; background: transparent; background: transparent; page-break-before: auto; page-break-after: avoid }
 		h3.western { font-family: "Liberation Sans", sans-serif; font-size: 14pt; font-weight: bold }
 		h3.cjk { font-family: "Noto Sans CJK SC"; font-size: 14pt; font-weight: bold }
 		h3.ctl { font-family: "Noto Sans Devanagari"; font-size: 14pt; font-weight: bold }
-		td p { background: transparent }
-		th p { font-weight: bold; text-align: center; background: transparent }
-		h4 { margin-top: 0.21cm; margin-bottom: 0.21cm; background: transparent; page-break-after: avoid }
+		h4 { orphans: 2; widows: 2; margin-top: 0.21cm; margin-bottom: 0.21cm; background: transparent; background: transparent; page-break-before: auto; page-break-after: avoid }
 		h4.western { font-family: "Liberation Sans", sans-serif; font-size: 13pt; font-style: italic; font-weight: bold }
 		h4.cjk { font-family: "Noto Sans CJK SC"; font-size: 13pt; font-style: italic; font-weight: bold }
 		h4.ctl { font-family: "Noto Sans Devanagari"; font-size: 13pt; font-style: italic; font-weight: bold }
+		td p { orphans: 2; widows: 2; background: transparent; background: transparent; page-break-before: auto; page-break-after: auto }
+		th p { font-weight: bold; text-align: center; orphans: 2; widows: 2; background: transparent; background: transparent; page-break-before: auto; page-break-after: auto }
 		code.western { font-family: "Liberation Mono", monospace; font-size: 11pt }
 		code.cjk { font-family: "DejaVu Sans Mono", monospace }
 		code.ctl { font-family: "Liberation Mono", monospace }
@@ -53,50 +58,62 @@
 </head>
 <body lang="en-CA" link="#000080" vlink="#800000" dir="ltr"><h1 class="western" align="center">
 Password Beaver</h1>
-<p align="center" style="margin-bottom: 0cm; line-height: 100%"><img src="Manual_html_c93738e248409b61.png" name="Beaver" align="bottom" width="200" height="200" border="0"/>
+<p align="center" style="line-height: 100%; margin-bottom: 0cm"><img src="Manual_html_c93738e248409b61.png" name="Beaver" align="bottom" width="200" height="200" border="0"/>
 
 </p>
 <h2 class="western"><a name="about"></a>About the Beaver</h2>
-<p><i>Password Beaver</i> is a lightweight, easy to use and secure
-password generator. It creates passwords that are hard to guess based
-upon random selection from the printable characters of the <a href="https://en.wikipedia.org/wiki/US-ASCII">ASCII</a>
-character set. This can be expanded to use the full <a href="https://en.wikipedia.org/wiki/ISO/IEC_8859-1">ISO-8859-1</a>
-character set, sometimes known also as <a href="https://en.wikipedia.org/wiki/Extended_ASCII">Extended
-ASCII</a> or Latin 1. A list of characters can be arbitrarily
-excluded if desired and the generated password can be automatically
-copied to the clipboard.</p>
+<p><i>Password Beaver</i> is a lightweight, easy to use program that
+generates secure passwords. Because some programs or Web sites have
+unusual requirements for passwords, <i>Password Beaver</i><span style="font-variant: normal">
+</span><span style="font-variant: normal"><span style="font-style: normal">is
+very configurable. Here’s what you can do:</span></span></p>
+<ul>
+	<li><p style="font-variant: normal; font-style: normal">Set the
+	password length from 8 to 99 characters</p>
+	<li><p style="font-variant: normal; font-style: normal">Select the
+	characters used to create the password</p>
+	<li><p style="font-variant: normal; font-style: normal">Set whether
+	the new password should be copied to the clipboard.</p>
+	<li><p style="font-variant: normal; font-style: normal">Exclude
+	arbitrary characters to improve readability or to satisfy a cranky
+	Web site.</p>
+	<li><p style="font-variant: normal; font-style: normal">Save
+	configurations between sessions.</p>
+</ul>
+<p>By default it creates passwords using a random selection of
+printable characters, creating passwords that are very hard to break.</p>
 <h2 class="western">Password Generation</h2>
-<p><em>Password Beaver</em> starts with a character pool to select
-characters from based upon the selected options. By default the pool
-starts as the printable characters from either the <a href="https://en.wikipedia.org/wiki/US-ASCII">ASCII</a>
-character set or the <a href="https://en.wikipedia.org/wiki/ISO/IEC_8859-1">ISO-8859-1</a>
-character set, the most common <a href="https://en.wikipedia.org/wiki/Extended_ASCII">Extended
-ASCII</a> character set. The characters are divided into several
-groups, <a href="#upper">upper case letters</a>, <a href="#lower">lower
-case letters</a>, <a href="#digits">digits</a>, <a href="#symbols">symbols</a>,
-and everything else to which we refer somewhat inaccurately as
-<a href="#punctuation">punctuation</a>.
+<p><em>Password Beaver</em> selects characters from a pool or group
+of characters based upon the options. By default the pool starts as
+the printable characters from the <a href="https://en.wikipedia.org/wiki/US-ASCII">ASCII</a>
+character set. Optionally, the pool can be expanded to include the
+most common <a href="https://en.wikipedia.org/wiki/Extended_ASCII">Extended
+ASCII</a> character set, <a href="https://en.wikipedia.org/wiki/ISO/IEC_8859-1">ISO-8859-1</a>.</p>
+<p>Characters are divided into several groups, <b>upper case letters</b>,
+<b>lower case letters</b>, <b>digits</b>, <b>symbols</b>, and
+everything else to which we refer to as <b>punctuation</b>. 
 </p>
-<p>It can be modified to <b>omit</b>, <b>request</b> or <b>require</b>
-characters from one or more of these groups. Further, an arbitrary
-set of characters can be excluded. You may want to do this to improve
-readability in case the password needs to be manually typed or
-perhaps to satisfy a Web site which doesn't accept some characters in
-its passwords. The <b>length of the password</b> can be set to
-minimum length of 8 characters and a maximum of 99. After a password
-is created it is copied to the clipboard but this can be turned off
-if desired.</p>
-<p>The generated passwords are not easy for most people to remember
-so <i>Password Beaver</i> is best used with a password manager. This
-makes them harder to crack because a dictionary attack is very
-unlikely to succeed and a brute force attack will likely take a very
-long time. Generally the best choice is to pick a long password from
-a large pool of characters. The entropy is a good but not infallible
+<p><i>Password Beaver</i> can be set to <b>omit</b>, <b>request</b>
+or <b>require</b> characters from one or more of these groups. You
+can also select an arbitrary set of characters to be excluded. You
+may want to do this to improve readability in case the password needs
+to be manually typed or perhaps to satisfy a Web site which doesn't
+accept some characters in its passwords. The <b>length of the
+password</b> can be set to minimum length of 8 characters and a
+maximum of 99. After a password is created it is copied to the
+clipboard but this feature can be turned off if desired.</p>
+<p>The generated passwords are not easy to remember so <i>Password
+Beaver</i> is best used with a password manager. The passwords (ones
+with symbols, punctuation, etc.) are hard to crack because a
+dictionary attack is very unlikely to succeed and a brute force
+attack will likely take a very long time. That said, a long password,
+even if it contains only alphabetic characters, will still offer a
+lot of security. The <b>entropy</b> is a good but not infallible
 indication of the strength of a password. See the section <a href="#About Passwords|outline"><b>About
 Passwords</b></a> <span style="font-weight: normal">below.</span></p>
 <h2 class="western"><a name="customising"></a>Customizing the
 password</h2>
-<p>Generally the best choice is to pick a long password from a large
+<p>Generally the best choice is to make a long password from a large
 pool of characters. If the ASCII character set is chosen (i.e.
 Extended ASCII is <span style="font-variant: normal"><i>not</i></span><span style="font-variant: normal">
 </span><span style="font-variant: normal"><span style="font-style: normal">chosen)
@@ -109,841 +126,13 @@ accept all possible characters or it may set some requirements such
 as requiring or forbidding certain groups or characters. Using the
 check boxes, you can <b>exclude</b>, <b>require</b> or merely <b>request</b>
 characters from the groups.</p>
-<p><span id="Frame1" dir="ltr" style="float: left; width: 14.25cm; height: 15.86cm; border: none; padding: 0cm; background: #ffffff"><p style="margin-top: 0.21cm; margin-bottom: 0.21cm; line-height: 100%; background: transparent">
-	<img src="data:image/png;base64,
-    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"
-    name="Screenshot" align="left" width="344" height="466">
+<p><span id="Frame1" dir="ltr" style="float: left; width: 14.25cm; border: none; padding: 0cm; background: #ffffff"><p style="line-height: 100%; margin-top: 0.21cm; margin-bottom: 0.21cm; background: transparent">
+	<img src="Manual_html_fcd0ed16a0ac154a.png" name="Screenshot" align="left" width="344" height="466">
   <br clear="left"/>
 </img>
 <font size="3" style="font-size: 12pt"><i>A
 	screenshot of Password Beaver.</i></font></p>
-	<p style="margin-top: 0.21cm; margin-bottom: 0.21cm; line-height: 100%; background: transparent">
+	<p style="line-height: 100%; margin-top: 0.21cm; margin-bottom: 0.21cm; background: transparent">
 	<font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 10pt"><span style="font-variant: normal"><span style="font-style: normal">In
 	this case, </span></span><span style="font-variant: normal"><i>Upper
 	case letters</i></span><span style="font-variant: normal"><span style="font-style: normal">,
@@ -958,12 +147,14 @@ characters from the groups.</p>
 	are </span></span><span style="font-variant: normal"><span style="font-style: normal"><b>requested</b></span></span><span style="font-variant: normal"><span style="font-style: normal">.
 	</span></span><span style="font-variant: normal"><i>Extended ASCII</i></span><span style="font-variant: normal">
 	</span><span style="font-variant: normal"><span style="font-style: normal">characters
-	are not used. The potentially confusing characters O (upper O), 0
+	are excluded. The potentially confusing characters O (upper O), 0
 	(zero), I (upper I), l (lower L) and 1 (digit) are excluded. The
 	password has a length of 16 characters. The green ellipse indicates
 	that this configuration has been saved as Config-1. The new password
-	is taken from a character pool of 89 characters and the Entropy is
-	103.6 bits.</span></span></font></font></p>
+	is taken from a character pool of 88</span></span><span style="font-variant: normal">
+	</span><span style="font-variant: normal"><span style="font-style: normal">characters
+	and the Entropy is 129.2</span></span><span style="font-variant: normal">
+	</span><span style="font-variant: normal"><span style="font-style: normal">bits.</span></span></font></font></p>
 </span><br clear="left"><br/>
 <br/>
 
@@ -975,12 +166,12 @@ passwords with characters from all of the classes but there may be
 reasons that you want to require or exclude some classes or
 characters. This is usually because a particular Web site has its own
 requirements.</p>
-<p>The character class check boxes have three states.
+<p>The character class check boxes have three states. 
 </p>
 <ul>
 	<li><p style="margin-bottom: 0cm">If the checkbox is <i>unchecked</i>,
 	that group of characters will be <strong>excluded</strong> from the
-	character pool.
+	character pool. 
 	</p>
 	<li><p style="margin-bottom: 0cm">If it is <i>fully checked</i> at
 	least one character from the group will be <b>required</b>.</p>
@@ -991,44 +182,48 @@ requirements.</p>
 <p>You may want to exclude certain characters arbitrarily from the
 character pool. It may be that a Web site does not accept some
 characters or you may wish to avoid characters that are easily
-confused such as I (upper I) and l (lower L). Enter the characters in
-the <font face="Liberation Sans, sans-serif"><b>Exclude</b></font>
+confused such as 1 (one), I (upper I) and l (lower L). Enter the
+characters in the <font face="Liberation Sans, sans-serif"><b>Exclude</b></font>
 <span style="font-weight: normal">text</span> editor.</p>
 <p>The length of the password can be changed in the <font face="Liberation Sans, sans-serif"><b>Length</b></font>
 <span style="font-weight: normal">spin box</span>. The allowed range
 is 8 to 99 characters. The default length of 16 is a good choice for
-most uses.</p>
-<p>This is the current size of the character pool from which
-passwords are taken is shown underneath the <font face="Liberation Sans, sans-serif"><b>Length</b></font>
+most uses although if the character pool is small, just the upper
+case characters for instance, longer passwords should be used.</p>
+<p>The character <font face="Liberation Sans, sans-serif"><b>Pool
+size</b></font> from which passwords are made is shown underneath the
+<font face="Liberation Sans, sans-serif"><b>Length</b></font>
 <span style="font-weight: normal">control. This field is for
 information only and reflects the choices made with the check boxes</span>
-<span style="font-weight: normal">and the </span><font face="Liberation Sans, sans-serif"><span style="font-weight: normal">Exclude</span></font>
+<span style="font-weight: normal">and the </span><font face="Liberation Sans, sans-serif"><b>Exclude</b></font>
 <span style="font-weight: normal">editor.</span></p>
 <p>The default behaviour of <i>Password </i><span style="font-variant: normal"><span style="font-style: normal">Beaver
 is</span></span> to copy the password to the system clipboard as soon
-as it is generated. Turn this off if you do not want to do this but
-prefer to copy the password by hand.</p>
+as it is generated. Turn this off if you do not want the password to
+appear in the clipboard. In this case you will have to press the <font face="Liberation Sans, sans-serif"><b>Copy</b></font>
+button or copy the password by hand.</p>
 <h2 class="western">Configurations</h2>
 <p>Password Beaver maintains a database of configurations to simplify
 creating passwords for sites with particular requirements. In the
 <font face="Liberation Sans, sans-serif"><b>Configurations</b></font>
 section there is a combo-box that allows you to select sets of
-options by name and to enter names for new sets of options, a small
-indicator to remind you when the options have been modified but not
-saved and two push buttons labelled <font face="Liberation Sans, sans-serif"><b>Save</b></font>
+options by name and to enter names for new sets of options. There is
+also a small indicator to remind you when the options have been
+modified but not saved and two push buttons labelled <font face="Liberation Sans, sans-serif"><b>Save</b></font>
 and <font face="Liberation Sans, sans-serif"><b>Delete</b></font>.</p>
 <p>When Password Beaver is first started it loads a default
-configuration named “Default”. This configuration can be modified
-but you cannot save or delete it. However, the name can be changed
-and the configuration saved under this new name. In the screenshot
-the default configuration has been modified and saved as “<font face="Liberation Sans, sans-serif">Config-1</font>”.</p>
+configuration named <font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 11pt">Default</font></font>.
+This configuration can be modified but you cannot save or delete it
+under this name. However, the name can be changed and the
+configuration saved under this new name. In the screenshot the
+default configuration has been modified and saved as “<font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 11pt">Config-1</font></font>”.</p>
 <p>To the right of the combo box there is a small round widget. If it
 is <font color="#00a933">green</font> it indicates that the current
 configuration is stored in the database under the current name. If it
-is <font color="#ff0000">red</font> it indicates that either</p>
+is <font color="#8b0000">dark red</font> it indicates that either</p>
 <ol type="a">
 	<li><p>there is no set of options with the name shown in the editor
-	or
+	or 
 	</p>
 	<li><p>that there is an entry in the database with that name but the
 	stored options are different from those shown.</p>
@@ -1044,97 +239,113 @@ and <font face="Liberation Sans, sans-serif"><b>Delete</b></font>
 buttons can be <span style="font-weight: normal">enabled</span> or
 <span style="font-weight: normal">disabled</span> depending upon
 whether either operation is permitted. In particular, they enforce
-the read only status of the ‘<font face="Liberation Sans, sans-serif">Default</font>’
-entry. If ‘<font face="Liberation Sans, sans-serif">Default</font>’
-is the current item, both push buttons are disabled, even if the
-widget is <font color="#c9211e">red</font> showing that the options
-have been changed. If you wish to save the new options, type in a new
-name and save the options with that.</p>
+the read only status of the <font face="Liberation Sans, sans-serif">Default</font>
+entry. If <font face="Liberation Sans, sans-serif">Default</font> is
+the current item, both push buttons are disabled, even if the widget
+is <font color="#c9211e">red</font> showing that the options have
+been changed. If you wish to save the new options, type in a new name
+then save the options.</p>
 <h2 class="western"><a name="__RefHeading___Toc82_140077794"></a><a name="password"></a><a name="About Passwords|outline"></a>
 About Passwords</h2>
 <p>Passwords provide excellent access security but are getting a bad
-reputation because many people are using them poorly. Often they are
-too short or too simple or a poor choice such as '<font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 11pt">123456</font></font>'
-or '<font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 11pt">password</font></font>'
-is made because the users don't realise how important it is to make a
-good choice. Lets go through some of the things you should think
-about when choosing a password.</p>
+reputation because many people are using them poorly. Often password
+are too short, are too simple or are a poor choice such as '<font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 11pt">123456</font></font>'
+or '<font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 11pt">password</font></font>'.
+Many people don't realise how important it is to make and use good
+passwords. Lets go through some of the things you should think about
+when making a password.</p>
 <p>Although much of your password security is up to you, the places
-that you use them to enter have a responsibility too. A good site
-will create a cryptographically secure hash of your password and
-store that. When you log in, the password you provide will be hashed
-and compared to the stored hash. Your password is never stored
-explicitly so a bad guy who steals it from the site's server will not
-have a useful password. Trying to use the hashed version as the
-password will result in its being hashed and this hash will be
-completely different from the stored one, making it almost useless.
-</p>
-<p>Some sites with lazy administrators do store passwords explicitly.
-If you have ever had a forgotten password emailed to you then you
-have dealt with such a site. If their list of passwords is released
-the passwords become immediately useful. Tom Scott on the YouTube
+where you use them have responsibilities too. A good site will create
+a cryptographically secure hash of your password and store that. When
+you log in, the password you provide will be hashed and compared to
+the stored hash. Your password is never stored explicitly so a bad
+guy who steals it from the site's server will not have a useful
+password.</p>
+<p>However, some sites with lazy administrators do store passwords
+explicitly. If you have ever had a forgotten password emailed to you
+then you have used such a site. If their list of passwords is hacked,
+the passwords become immediately useful. Tom Scott on the <i>YouTube</i>
 channel <a href="https://www.youtube.com/user/Computerphile">Computerphile</a>
-gives much more on <a href="https://www.youtube.com/watch?v=8ZtInClXe1Q">storing
-passwords</a>.</p>
-<p>The big problem is that you, as a user, is that you generally
-can't tell how securely a site stores its passwords so it's possible
-that in spite of your best efforts your password may be vulnerable.
-Because many people use the same password for everything, the release
-of a reused password from an insecure site gives the bad guys a big
-clue to what a password might be on another site. So, if you reuse
-your password, even if the second site is secure, your password is
-secure and has been kept secret, all of the sites where you have
-reused the password are now completely insecure. You don't want to
-help the bad guys so always, always, always:</p>
+gives much more information on this.</p>
+<p>The big problem is that you, as a user, can't easily tell how
+securely a site stores its passwords so it's possible that in spite
+of your best efforts your password will be be vulnerable. Because
+many people use the same password for everything, the release of a
+reused password from an insecure site gives the bad guys a big clue
+about what a password might be on another site. So, if you reuse your
+password, even if you have a great password that you have kept secret
+and the second Web site is secure, all of the sites where you have
+reused the password are now much less secure because knowing the
+password on one site means that it is known on them all. You don't
+want to help the bad guys so always, always, always:</p>
 <p align="center"><b>Generate a fresh high-security password for each
-site. <span style="font-style: normal"><u>Never</u></span> reuse
-passwords.</b></p>
+site. <span style="font-variant: normal"><span style="font-style: normal"><u>Never</u></span></span>
+reuse passwords.</b></p>
 <h4 class="western">A note on user names</h4>
 <p>It's worth noting that while we often think about password
 security there is another credential that affects computer security,
-the user name or user ID. Most often, user namess are selected for
+the user name or user ID. Most often, user names are selected for
 convenience. If you have a login at work your user name may conform
-to some template such as <i>firstname</i>, <i>lastname</i>,
-<i>firstname.lastname</i><span style="font-style: normal"> or it may
-simply be your email address.</span><span style="font-style: normal">
-These are all easy to find and use if one person is being targeted.
-If a large organization is targeted then </span><span style="font-style: normal">they
-can be guessed —</span><span style="font-style: normal"> </span><span style="font-style: normal">it's
-possible, maybe even likely, that users </span><i>tom.smith</i><span style="font-style: normal">
-or </span><i>mary.jones</i><span style="font-style: normal"> exist. </span><span style="font-style: normal">A
-bad guy can </span><span style="font-style: normal">then </span><span style="font-style: normal">break
-in by finding a user with a common name and a bad password. </span><span style="font-style: normal">If
-unintuitive user names that are not part of the user’s email
-address are used </span><span style="font-style: normal">the bad
-guy’s job is just a bit harder.</span></p>
+to some template such as <i>firstname.lastname</i>,
+<i>firstname-lastname</i><span style="font-variant: normal"> </span><span style="font-variant: normal"><span style="font-style: normal">or
+it may simply be your email address.</span></span><span style="font-variant: normal">
+</span><span style="font-variant: normal"><span style="font-style: normal">These
+are all easy to find and use if one person is being targeted. If a
+large organization is targeted then userIDs can be guessed —</span></span><span style="font-variant: normal">
+</span><span style="font-variant: normal"><span style="font-style: normal">it's
+possible, maybe even likely, that users </span></span><i>tom.smith</i><span style="font-variant: normal">
+</span><span style="font-variant: normal"><span style="font-style: normal">or
+</span></span><i>mary.jones</i><span style="font-variant: normal">
+</span><span style="font-variant: normal"><span style="font-style: normal">exist.
+A bad guy can then break in by finding a user with a common name and
+a bad password. If unintuitive user names that are not part of the
+user’s email address are used the bad guy’s job is just a bit
+harder.</span></span></p>
 <h3 class="western">A good password is hard to guess.</h3>
 <p>There’s more to ‘hard to guess’ than you might think. Not
 only should it be hard for a human to guess but the technology of
-guessing passwords by machine is very well developed. The excellent
-YouTube channel <a href="https://www.youtube.com/user/Computerphile">Computerphile</a>
+guessing or cracking passwords by machine is very well developed. The
+excellent YouTube channel <a href="https://www.youtube.com/user/Computerphile">Computerphile</a>
 has videos on <a href="https://www.youtube.com/watch?v=3NjQ9b3pgIg">password
 choosing</a> and <a href="https://www.youtube.com/watch?v=7U-RbOKanYs">password
 cracking</a> which are well worth watching. Randall Munroe has
-created <a href="https://xkcd.com/936/">one of his wonderful Web
+created <a href="https://xkcd.com/936/">one of his wonderful XKCD
 comics</a> about choosing a password.</p>
-<p>What you have to do is to make a password which is hard to guess
-for both man and machine and this is not hard. Essentially, you have
-to prevent what are referred to as <i>dictionary</i><span style="font-variant: normal">
+<p>The good news is that making a password which is hard to guess for
+both man and machine is not hard. Essentially, you have to prevent
+what are referred to as <i>dictionary</i><span style="font-variant: normal">
 </span><span style="font-variant: normal"><span style="font-style: normal">and
 </span></span><i>brute force</i><span style="font-variant: normal">
 </span><span style="font-variant: normal"><span style="font-style: normal">attacks.</span></span></p>
+<h4 class="western">Brute force attacks</h4>
 <p><span style="font-variant: normal"><span style="font-style: normal">A</span></span><span style="font-variant: normal">
 </span><span style="font-variant: normal"><i>brute force</i></span><span style="font-variant: normal">
 </span><span style="font-variant: normal"><span style="font-style: normal">attack
 takes advantage of those using passwords which are too short</span></span><span style="font-variant: normal">
 </span><span style="font-variant: normal"><span style="font-style: normal">and
-are created from a small pool of characters. Imagine</span></span><span style="font-variant: normal">
+are created from a small pool of characters.</span></span></p>
+<p><span style="font-variant: normal"><span style="font-style: normal">Imagine</span></span><span style="font-variant: normal">
 </span><span style="font-variant: normal"><span style="font-style: normal">creating</span></span><span style="font-variant: normal">
 </span><span style="font-variant: normal"><span style="font-style: normal">a
 password that is four characters long and is created from the 26
-lower case ASCII characters. There are 14 950 ways of doing this
-and someone could easily </span></span>
-</p>
+lower case ASCII characters. If repetitions are allowed, there are
+23,751 ways of doing this and someone could easily write ordinary
+software to test all of them in much less than one second. If we
+double the length of the password we can create 13,884,156 distinct
+passwords. This is better but such a password is still easy to crack,
+especially if the bad guy knows how impoverished the character pool
+is.</span></span></p>
+<p><span style="font-variant: normal"><span style="font-style: normal">If
+we decide to use both upper and lower case characters we now have a
+pool 52 characters giving 341,055 four character passwords and
+2,217,471,399 eight character passwords. Creating a 16 character
+password</span></span><span style="font-variant: normal"> </span><span style="font-variant: normal"><span style="font-style: normal">from
+the full 94 character ASCII set allows us to choose from
+5,965,645,022,526,086,144 (about 6×10</span></span><span style="font-variant: normal"><sup><span style="font-style: normal">18</span></sup></span><span style="font-variant: normal"><span style="font-style: normal">)
+passwords. Currently, in 2022, one of these passwords is still
+uncrackable in any reasonable time.</span></span></p>
+<h4 class="western" style="font-variant: normal"><i>Dictionary
+attacks</i></h4>
 <p><span style="font-variant: normal"><span style="font-style: normal">Enough
 passwords have been released to the Internet as the result of
 break-ins into insecure Web sites that dictionaries of common
@@ -1156,133 +367,178 @@ bit of</span></span><span style="font-variant: normal"> </span><span style="font
 <a href="https://nordpass.com/most-common-passwords-list/">NordPass
 most common password list</a></span></span><span style="font-variant: normal">
 </span><span style="font-variant: normal"><span style="font-style: normal">for
-2021, we see our old favourites.</span></span><span style="font-variant: normal">
-</span>
-</p>
-<table width="208" cellpadding="4" cellspacing="0" style="page-break-inside: avoid">
-	<col width="68"/>
+2021 or at <a href="https://nordpass.com/business-executive-passwords/?aff_free=">a
+list separated by management level</a></span></span><span style="font-variant: normal">
+</span><span style="font-variant: normal"><span style="font-style: normal">from
+2022 we see our old favourites. Clearly the CEOs aren’t any better
+at taking security seriously than are their workers.</span></span></p>
+<table width="280" cellpadding="2" cellspacing="0" style="page-break-before: auto; page-break-after: auto; page-break-inside: avoid">
+	<col width="72"/>
 
-	<col width="124"/>
+	<col width="110"/>
 
-	<tbody>
-		<tr valign="top">
-			<th width="68" style="background: transparent" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: none; border-right: none; padding-top: 0.1cm; padding-bottom: 0cm; padding-left: 0cm; padding-right: 0cm"><p align="center">
-				Rank</p>
-			</th>
-			<th width="124" style="background: transparent" style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: none; border-right: none; padding-top: 0.1cm; padding-bottom: 0cm; padding-left: 0cm; padding-right: 0cm"><p align="center">
-				Password</p>
-			</th>
-		</tr>
-	</tbody>
-	<tbody>
-		<tr valign="top">
-			<td width="68" style="background: transparent" style="border: none; padding: 0cm"><p align="center" style="font-style: normal; font-weight: normal; text-decoration: none">
-				<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 10pt"><span style="text-decoration: none">1</span></font></font></font></p>
-			</td>
-			<td width="124" style="background: transparent" style="border: none; padding: 0cm" sdval="123456" sdnum="4105;4105;General"><p align="center" style="font-style: normal; font-weight: normal; text-decoration: none">
-				<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 10pt"><span style="text-decoration: none">123456</span></font></font></font></p>
-			</td>
-		</tr>
-		<tr valign="top">
-			<td width="68" style="background: transparent" style="border: none; padding: 0cm"><p align="center" style="font-style: normal; font-weight: normal; text-decoration: none">
-				<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 10pt"><span style="text-decoration: none">2</span></font></font></font></p>
-			</td>
-			<td width="124" style="background: transparent" style="border: none; padding: 0cm" sdval="123456789" sdnum="4105;4105;General"><p align="center" style="font-style: normal; font-weight: normal; text-decoration: none">
-				<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 10pt"><span style="text-decoration: none">123456789</span></font></font></font></p>
-			</td>
-		</tr>
-		<tr valign="top">
-			<td width="68" style="background: transparent" style="border: none; padding: 0cm"><p align="center" style="font-style: normal; font-weight: normal; text-decoration: none">
-				<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 10pt"><span style="text-decoration: none">3</span></font></font></font></p>
-			</td>
-			<td width="124" style="background: transparent" style="border: none; padding: 0cm"><p align="center" style="font-style: normal; font-weight: normal; text-decoration: none">
-				<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 10pt"><span style="text-decoration: none">12345</span></font></font></font></p>
-			</td>
-		</tr>
-		<tr valign="top">
-			<td width="68" style="background: transparent" style="border: none; padding: 0cm"><p align="center" style="font-style: normal; font-weight: normal; text-decoration: none">
-				<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 10pt"><span style="text-decoration: none">4</span></font></font></font></p>
-			</td>
-			<td width="124" style="background: transparent" style="border: none; padding: 0cm"><p align="center" style="font-style: normal; font-weight: normal; text-decoration: none">
-				<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 10pt"><span style="text-decoration: none">qwerty</span></font></font></font></p>
-			</td>
-		</tr>
-		<tr valign="top">
-			<td width="68" style="background: transparent" style="border: none; padding: 0cm"><p align="center" style="font-style: normal; font-weight: normal; text-decoration: none">
-				<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 10pt"><span style="text-decoration: none">5</span></font></font></font></p>
-			</td>
-			<td width="124" style="background: transparent" style="border: none; padding: 0cm"><p align="center" style="font-style: normal; font-weight: normal; text-decoration: none">
-				<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 10pt"><span style="text-decoration: none">password</span></font></font></font></p>
-			</td>
-		</tr>
-		<tr valign="top">
-			<td width="68" style="background: transparent" style="border: none; padding: 0cm"><p align="center" style="font-style: normal; font-weight: normal; text-decoration: none">
-				<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 10pt"><span style="text-decoration: none">6</span></font></font></font></p>
-			</td>
-			<td width="124" style="background: transparent" style="border: none; padding: 0cm" sdval="12345678" sdnum="4105;4105;General"><p align="center" style="font-style: normal; font-weight: normal; text-decoration: none">
-				<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 10pt"><span style="text-decoration: none">12345678</span></font></font></font></p>
-			</td>
-		</tr>
-		<tr valign="top">
-			<td width="68" style="background: transparent" style="border: none; padding: 0cm"><p align="center" style="font-style: normal; font-weight: normal; text-decoration: none">
-				<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 10pt"><span style="text-decoration: none">7</span></font></font></font></p>
-			</td>
-			<td width="124" style="background: transparent" style="border: none; padding: 0cm" sdval="111111" sdnum="4105;4105;General"><p align="center" style="font-style: normal; font-weight: normal; text-decoration: none">
-				<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 10pt"><span style="text-decoration: none">111111</span></font></font></font></p>
-			</td>
-		</tr>
-		<tr valign="top">
-			<td width="68" style="background: transparent" style="border: none; padding: 0cm"><p align="center" style="font-style: normal; font-weight: normal; text-decoration: none">
-				<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 10pt"><span style="text-decoration: none">8</span></font></font></font></p>
-			</td>
-			<td width="124" style="background: transparent" style="border: none; padding: 0cm" sdval="123123" sdnum="4105;4105;General"><p align="center" style="font-style: normal; font-weight: normal; text-decoration: none">
-				<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 10pt"><span style="text-decoration: none">123123</span></font></font></font></p>
-			</td>
-		</tr>
-		<tr valign="top">
-			<td width="68" style="background: transparent" style="border: none; padding: 0cm"><p align="center" style="font-style: normal; font-weight: normal; text-decoration: none">
-				<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 10pt"><span style="text-decoration: none">9</span></font></font></font></p>
-			</td>
-			<td width="124" style="background: transparent" style="border: none; padding: 0cm" sdval="1234567890" sdnum="4105;4105;General"><p align="center" style="font-style: normal; font-weight: normal; text-decoration: none">
-				<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 10pt"><span style="text-decoration: none">1234567890</span></font></font></font></p>
-			</td>
-		</tr>
-		<tr valign="top">
-			<td width="68" style="background: transparent" style="border-top: none; border-bottom: 1px solid #000000; border-left: none; border-right: none; padding: 0cm"><p align="center" style="font-style: normal; font-weight: normal; text-decoration: none">
-				<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 10pt"><span style="text-decoration: none">10</span></font></font></font></p>
-			</td>
-			<td width="124" style="background: transparent" style="border-top: none; border-bottom: 1px solid #000000; border-left: none; border-right: none; padding: 0cm" sdval="1234567" sdnum="4105;4105;General"><p align="center" style="font-style: normal; font-weight: normal; text-decoration: none">
-				<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 10pt"><span style="text-decoration: none">1234567</span></font></font></font></p>
-			</td>
-		</tr>
-	</tbody>
+	<col width="86"/>
+
+	<tr valign="top">
+		<th width="72" height="25" style="background: transparent; border: none; padding: 0cm"><p align="center" style="font-variant: normal; font-style: normal; margin-top: 0.1cm; text-decoration: none">
+			<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="3" style="font-size: 12pt"><b>Rank</b></font></font></font></p>
+		</th>
+		<th colspan="2" width="200" style="background: transparent; border: none; padding: 0cm"><p align="center" style="font-variant: normal; font-style: normal; margin-top: 0.1cm; text-decoration: none">
+			<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="3" style="font-size: 12pt"><b>Password</b></font></font></font></p>
+		</th>
+	</tr>
+	<tr valign="top">
+		<td width="72" height="15" style="background: transparent; border: none; padding: 0cm" sdnum="4105;0;@"><p align="left" style="margin-top: 0.1cm">
+			<br/>
+
+			</p>
+		</td>
+		<td width="110" style="background: transparent; border: none; padding: 0cm"><p align="center" style="font-variant: normal; font-style: normal; font-weight: normal; margin-top: 0.1cm; text-decoration: none">
+			<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="3" style="font-size: 12pt"><b>Workers</b><br/>
+<font size="2" style="font-size: 10pt">(2021)</font></font></font></font></p>
+		</td>
+		<td width="86" style="background: transparent; border: none; padding: 0cm"><p align="center" style="font-variant: normal; font-style: normal; font-weight: normal; margin-top: 0.1cm; text-decoration: none">
+			<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="3" style="font-size: 12pt"><b>CEOs</b><br/>
+<font size="2" style="font-size: 10pt">(2022)</font></font></font></font></p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="72" height="15" style="background: transparent; border: none; padding: 0cm"><p align="center" style="font-variant: normal; font-style: normal; font-weight: normal; margin-top: 0.1cm; text-decoration: none">
+			<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 11pt">1</font></font></font></p>
+		</td>
+		<td width="110" style="background: transparent; border: none; padding: 0cm" sdval="123456" sdnum="4105;4105;General"><p align="center" style="font-variant: normal; font-style: normal; font-weight: normal; margin-top: 0.1cm; text-decoration: none">
+			<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 11pt">123456</font></font></font></p>
+		</td>
+		<td width="86" style="background: transparent; border: none; padding: 0cm" sdval="123456" sdnum="4105;4105;General"><p align="center" style="font-variant: normal; font-style: normal; font-weight: normal; margin-top: 0.1cm; text-decoration: none">
+			<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 11pt">123456</font></font></font></p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="72" height="15" style="background: transparent; border: none; padding: 0cm"><p align="center" style="font-variant: normal; font-style: normal; font-weight: normal; margin-top: 0.1cm; text-decoration: none">
+			<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 11pt">2</font></font></font></p>
+		</td>
+		<td width="110" style="background: transparent; border: none; padding: 0cm" sdval="123456789" sdnum="4105;4105;General"><p align="center" style="font-variant: normal; font-style: normal; font-weight: normal; margin-top: 0.1cm; text-decoration: none">
+			<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 11pt">123456789</font></font></font></p>
+		</td>
+		<td width="86" style="background: transparent; border: none; padding: 0cm"><p align="center" style="font-variant: normal; font-style: normal; font-weight: normal; margin-top: 0.1cm; text-decoration: none">
+			<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 11pt">password</font></font></font></p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="72" height="15" style="background: transparent; border: none; padding: 0cm"><p align="center" style="font-variant: normal; font-style: normal; font-weight: normal; margin-top: 0.1cm; text-decoration: none">
+			<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 11pt">3</font></font></font></p>
+		</td>
+		<td width="110" style="background: transparent; border: none; padding: 0cm" sdval="12345" sdnum="4105;4105;General"><p align="center" style="font-variant: normal; font-style: normal; font-weight: normal; margin-top: 0.1cm; text-decoration: none">
+			<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 11pt">12345</font></font></font></p>
+		</td>
+		<td width="86" style="background: transparent; border: none; padding: 0cm" sdval="12345" sdnum="4105;4105;General"><p align="center" style="font-variant: normal; font-style: normal; font-weight: normal; margin-top: 0.1cm; text-decoration: none">
+			<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 11pt">12345</font></font></font></p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="72" height="15" style="background: transparent; border: none; padding: 0cm"><p align="center" style="font-variant: normal; font-style: normal; font-weight: normal; margin-top: 0.1cm; text-decoration: none">
+			<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 11pt">4</font></font></font></p>
+		</td>
+		<td width="110" style="background: transparent; border: none; padding: 0cm"><p align="center" style="font-variant: normal; font-style: normal; font-weight: normal; margin-top: 0.1cm; text-decoration: none">
+			<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 11pt">qwerty</font></font></font></p>
+		</td>
+		<td width="86" style="background: transparent; border: none; padding: 0cm" sdval="123456789" sdnum="4105;4105;General"><p align="center" style="font-variant: normal; font-style: normal; font-weight: normal; margin-top: 0.1cm; text-decoration: none">
+			<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 11pt">123456789</font></font></font></p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="72" height="15" style="background: transparent; border: none; padding: 0cm"><p align="center" style="font-variant: normal; font-style: normal; font-weight: normal; margin-top: 0.1cm; text-decoration: none">
+			<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 11pt">5</font></font></font></p>
+		</td>
+		<td width="110" style="background: transparent; border: none; padding: 0cm"><p align="center" style="font-variant: normal; font-style: normal; font-weight: normal; margin-top: 0.1cm; text-decoration: none">
+			<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 11pt">password</font></font></font></p>
+		</td>
+		<td width="86" style="background: transparent; border: none; padding: 0cm"><p align="center" style="font-variant: normal; font-style: normal; font-weight: normal; margin-top: 0.1cm; text-decoration: none">
+			<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 11pt">qwerty</font></font></font></p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="72" height="15" style="background: transparent; border: none; padding: 0cm"><p align="center" style="font-variant: normal; font-style: normal; font-weight: normal; margin-top: 0.1cm; text-decoration: none">
+			<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 11pt">6</font></font></font></p>
+		</td>
+		<td width="110" style="background: transparent; border: none; padding: 0cm" sdval="12345678" sdnum="4105;4105;General"><p align="center" style="font-variant: normal; font-style: normal; font-weight: normal; margin-top: 0.1cm; text-decoration: none">
+			<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 11pt">12345678</font></font></font></p>
+		</td>
+		<td width="86" style="background: transparent; border: none; padding: 0cm" sdval="1234" sdnum="4105;4105;General"><p align="center" style="font-variant: normal; font-style: normal; font-weight: normal; margin-top: 0.1cm; text-decoration: none">
+			<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 11pt">1234</font></font></font></p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="72" height="15" style="background: transparent; border: none; padding: 0cm"><p align="center" style="font-variant: normal; font-style: normal; font-weight: normal; margin-top: 0.1cm; text-decoration: none">
+			<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 11pt">7</font></font></font></p>
+		</td>
+		<td width="110" style="background: transparent; border: none; padding: 0cm" sdval="111111" sdnum="4105;4105;General"><p align="center" style="font-variant: normal; font-style: normal; font-weight: normal; margin-top: 0.1cm; text-decoration: none">
+			<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 11pt">111111</font></font></font></p>
+		</td>
+		<td width="86" style="background: transparent; border: none; padding: 0cm"><p align="center" style="font-variant: normal; font-style: normal; font-weight: normal; margin-top: 0.1cm; text-decoration: none">
+			<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 11pt">qwerty123</font></font></font></p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="72" height="15" style="background: transparent; border: none; padding: 0cm"><p align="center" style="font-variant: normal; font-style: normal; font-weight: normal; margin-top: 0.1cm; text-decoration: none">
+			<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 11pt">8</font></font></font></p>
+		</td>
+		<td width="110" style="background: transparent; border: none; padding: 0cm" sdval="123123" sdnum="4105;4105;General"><p align="center" style="font-variant: normal; font-style: normal; font-weight: normal; margin-top: 0.1cm; text-decoration: none">
+			<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 11pt">123123</font></font></font></p>
+		</td>
+		<td width="86" style="background: transparent; border: none; padding: 0cm"><p align="center" style="font-variant: normal; font-style: normal; font-weight: normal; margin-top: 0.1cm; text-decoration: none">
+			<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 11pt">1q2w3e</font></font></font></p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="72" height="15" style="background: transparent; border: none; padding: 0cm"><p align="center" style="font-variant: normal; font-style: normal; font-weight: normal; margin-top: 0.1cm; text-decoration: none">
+			<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 11pt">9</font></font></font></p>
+		</td>
+		<td width="110" style="background: transparent; border: none; padding: 0cm" sdval="1234567890" sdnum="4105;4105;General"><p align="center" style="font-variant: normal; font-style: normal; font-weight: normal; margin-top: 0.1cm; text-decoration: none">
+			<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 11pt">1234567890</font></font></font></p>
+		</td>
+		<td width="86" style="background: transparent; border: none; padding: 0cm" sdval="111111" sdnum="4105;4105;General"><p align="center" style="font-variant: normal; font-style: normal; font-weight: normal; margin-top: 0.1cm; text-decoration: none">
+			<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 11pt">111111</font></font></font></p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="72" height="18" style="background: transparent; border: none; padding: 0cm"><p align="center" style="font-variant: normal; font-style: normal; font-weight: normal; margin-top: 0.1cm; text-decoration: none">
+			<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 11pt">10</font></font></font></p>
+		</td>
+		<td width="110" style="background: transparent; border: none; padding: 0cm" sdval="1234567" sdnum="4105;4105;General"><p align="center" style="font-variant: normal; font-style: normal; font-weight: normal; margin-top: 0.1cm; text-decoration: none">
+			<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 11pt">1234567</font></font></font></p>
+		</td>
+		<td width="86" style="background: transparent; border: none; padding: 0cm" sdval="12345678" sdnum="4105;4105;General"><p align="center" style="font-variant: normal; font-style: normal; font-weight: normal; margin-top: 0.1cm; text-decoration: none">
+			<font color="#000000"><font face="Liberation Sans, sans-serif"><font size="2" style="font-size: 11pt">12345678</font></font></font></p>
+		</td>
+	</tr>
 </table>
+<h4 class="western"><br/>
+<br/>
+
+</h4>
+<h4 class="western">Informed guessing</h4>
+<p>On a modern computer, trying to log in with a series of guesses is
+less likely to work because a good system will make you wait a bit
+after a failed login. Often a delay of about five seconds is placed
+after the first two failed logins with a much longer one after the
+third failed attempt and the system may even require the
+administrator to intervene at this point. This greatly reduces the
+effect of password guessing programs.</p>
 <h3 class="western">How passwords are cracked.</h3>
 <p>A full description of password cracking would be much too long to
 include here. If you want to learn more see the <a href="https://en.wikipedia.org/wiki/Password_cracking" target="_blank">Wikipedia
 article</a> or the <a href="https://www.youtube.com/user/Computerphile" target="_blank">Computerphile</a>
-YouTube video on <a href="https://www.youtube.com/watch?v=7U-RbOKanYs">password
-cracking</a>.</p>
-<p>On a modern computer, trying to log in with a series of guesses is
-unlikely to work because of delays introduced by the system after a
-failed login. Often a delay of about five seconds is placed after the
-first two failed logins with a much longer one after the third failed
-attempt. The system may even require the administrator to intervene
-at this point. However, there are better ways to find a password.</p>
-<p><br/>
-<br/>
-
-</p>
-<p><br/>
-<br/>
-
-</p>
+<i>YouTube</i> video on <a href="https://www.youtube.com/watch?v=7U-RbOKanYs">password
+cracking</a>. We’ll look at a few ways that the bad guys use when
+they want into your system.</p>
 <h2 class="western"><a name="entropy"></a>Entropy</h2>
 <p>The entropy of the password is a measure of how many guesses would
-be necessary to guess it. Specifically, it is <code class="western">log</code><code class="western"><sub>2</sub></code><code class="western">(n)
-</code>where <code class="western">n </code>is the number of possible
-passwords given the password length and the character pool size. This
-is described in a <a href="https://en.wikipedia.org/wiki/Random_password_generator#Type_and_strength_of_password_generated" target="_blank">Wikipedia
+be necessary to guess it. Specifically, it <font face="Liberation Serif, serif">is
+</font><code class="western"><font face="Liberation Serif, serif">log</font></code><code class="western"><sub><font face="Liberation Serif, serif">2</font></sub></code><code class="western"><font face="Liberation Serif, serif">(n)
+</font></code><font face="Liberation Serif, serif">w</font>here <code class="western">n
+</code>is the number of possible passwords given the password length
+and the character pool size. This is described in a <a href="https://en.wikipedia.org/wiki/Random_password_generator#Type_and_strength_of_password_generated" target="_blank">Wikipedia
 article</a>.</p>
 <h3 class="western">Keeping your password secret</h3>
 <p><br/>

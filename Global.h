@@ -1,5 +1,5 @@
 /*
- * Copyright © 2019 Tim Allman
+ * Copyright © 2023 Tim Allman
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -41,7 +41,7 @@ struct Global
 
 /// Minimum character pool length.
     static int const MIN_POOL_LENGTH;
-    static int const MIN_PW_LENGTH;    ///< Minimum password length.
+    static int const MIN_PW_LENGTH;   ///< Minimum password length.
     static int const MAX_PW_LENGTH;   ///< Maximum password length.
 
 /// Default password length.
