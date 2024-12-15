@@ -38,8 +38,8 @@ public:
      * @param other The other exception that we wish to copy.
      */
     ExclusionException(const ExclusionException& other)
+        : mMessage(other.mMessage)
     {
-        mMessage = other.mMessage;
     }
 
     /**
@@ -106,8 +106,8 @@ public:
      * @param other The other exception that we wish to copy.
      */
     SmallCharacterPoolException(const SmallCharacterPoolException& other)
+        : mMessage(other.mMessage)
     {
-        mMessage = other.mMessage;
     }
 
     /**

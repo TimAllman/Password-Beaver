@@ -29,6 +29,7 @@
 #include <algorithm>
 
 PasswordGenerator::PasswordGenerator()
+    : mEntropy(0.0)
 {
     // We use the std::random_device to seed our local PRNG.
     // Each time this code is ported the quality of the supplied
@@ -79,7 +80,7 @@ unsigned PasswordGenerator::contains(const QString& string, const QString& chars
 
 QString PasswordGenerator::password()
 {
-    OptionsManager& optsMan = OptionsManager::instance();
+    const OptionsManager& optsMan = OptionsManager::instance() const;
     CharacterPool charSet(optsMan.useExtendedAscii(), optsMan.charsToExclude(),
                           optsMan.usePunctuation(), optsMan.useDigits(),
                           optsMan.useUpperAlpha(), optsMan.useLowerAlpha(),
@@ -190,7 +191,7 @@ QString PasswordGenerator::shufflePassword(const QString& password)
 
 bool PasswordGenerator::isValidPassword(const QString& password, const CharacterPool& charSet) const
 {
-    OptionsManager& optsMan = OptionsManager::instance();
+    const OptionsManager& optsMan = OptionsManager::instance() const;
     QRegularExpression re;
     QRegularExpressionMatch match;
 

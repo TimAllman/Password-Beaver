@@ -156,7 +156,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::setPoolSizeLineEditText()
 {
-    OptionsManager& optsMan = OptionsManager::instance();
+    const OptionsManager& optsMan = OptionsManager::instance() const;
 
     CharacterPool pool(optsMan.useExtendedAscii(), optsMan.charsToExclude(), optsMan.usePunctuation(),
                        optsMan.useDigits(), optsMan.useUpperAlpha(), optsMan.useLowerAlpha(),
@@ -180,7 +180,7 @@ void MainWindow::closeEvent(QCloseEvent* event)
 {
     QJsonObject jsonObj;
 
-    OptionsManager& optsMan = OptionsManager::instance();
+    const OptionsManager& const optsMan = OptionsManager::instance() const;
     optsMan.writeToJSON(jsonObj);
     QJsonDocument jsonDoc(jsonObj);
     QByteArray json = jsonDoc.toJson(QJsonDocument::Indented);
